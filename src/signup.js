@@ -1,6 +1,6 @@
 import { t } from './i18n.js';
 // Sign up flow after the account form (All Flows prototype 433-6960 → 795-7377 plans →
-// 823-4760 / 984-9879 payment → 2677-10278 role → dashboard). Steps are routed by #hash.
+// 823-4760 / 984-9879 payment → 2677-10278 role → dashboard, which opens the Welcome and Terms of Service dialogs, 15569-16469). Steps are routed by #hash.
 // Front end only: no card data is stored or sent anywhere, and nothing is charged.
 const $ = (s) => document.querySelector(s);
 const steps = [...document.querySelectorAll('[data-step]')];
@@ -133,6 +133,8 @@ $('#role-form').addEventListener('submit', (e) => {
   const st = state.get();
   try {
     localStorage.setItem('exd-plan', st.plan || 'basic');
+    // the dashboard greets a new member with Welcome, then asks them to accept the Terms of Service
+    localStorage.setItem('exd-onboard', '1');
     sessionStorage.removeItem('exd-signup');
   } catch {}
   location.href = '/dashboard.html';

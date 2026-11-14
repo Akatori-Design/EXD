@@ -13,6 +13,7 @@ try {
 export const LANG = lang;
 
 const KO = {
+  Next: '다음',
   // ── head
   'EXD — Empowering Artists & Labels': 'EXD — 아티스트와 레이블의 성장 파트너',
   'Release unlimited music globally and keep 100% of your royalties.': '전 세계에 무제한으로 음원을 발매하고, 로열티는 100% 그대로 가져가세요.',

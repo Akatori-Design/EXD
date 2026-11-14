@@ -62,7 +62,7 @@ const hero = (() => {
   });
 
   if (!REDUCED) {
-    gsap.to('.hero__media', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.hero__media', { yPercent: 50, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.hero__content', { y: -70, opacity: 0.1, ease: 'none', scrollTrigger: { trigger: el, start: '25% top', end: 'bottom top', scrub: true } });
   }
 
@@ -390,10 +390,12 @@ const hero = (() => {
     if (startX === null || busy) return;
     gsap.to(imgs[index], { xPercent: clamp((e.clientX - startX) / 8, -8, 8), duration: 0.3, overwrite: 'auto' });
   });
+  let swiped = false;
   const release = (e) => {
     if (startX === null) return;
     const dx = e.clientX - startX;
     startX = null;
+    swiped = Math.abs(dx) > 6;
     if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
     else gsap.to(imgs[index], { xPercent: 0, duration: 0.6, ease: 'power3.out' });
   };
@@ -401,6 +403,16 @@ const hero = (() => {
   photo.addEventListener('pointercancel', release);
 
   const stage = $('.artists__stage');
+  // clicking anywhere on the card is the same as the next arrow (a swipe isn't a click)
+  stage.dataset.cursor = t('Next');
+  stage.addEventListener('click', (e) => {
+    if (swiped) {
+      swiped = false;
+      return;
+    }
+    if (e.target.closest('a, button') || String(getSelection()).length) return;
+    go(1);
+  });
   stage.addEventListener('pointerenter', () => {
     hovered = true;
     auto?.pause();
@@ -427,8 +439,8 @@ const hero = (() => {
     gsap.set([name, role], { yPercent: 115 });
     gsap.set(words, { yPercent: 110, opacity: 0 });
     gsap.set(wipe, { scaleX: 1, transformOrigin: 'right' });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 78%' } });
-    tl.to(wipe, { scaleX: 0, duration: 1.1, ease: 'power4.inOut' })
+    const tl = gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 95%' } });
+    tl.to(wipe, { scaleX: 0, duration: 0.6, ease: 'power3.out' })
       .from(imgs[0], { scale: 1.3, duration: 1.6, ease: 'power3.out' }, 0.1)
       .from(ghost, { xPercent: 25, opacity: 0, duration: 1.4, ease: 'power4.out' }, 0.2)
       .to([name, role], { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.1 }, 0.35)

@@ -235,6 +235,25 @@ export function query({ metric = 'Streams', group = 'DSP', range = 'Last 12 mont
   };
 }
 
+/** Streams over time for one release: 'wk' / 'mo' = daily points, 'all' = monthly since release. */
+export function streamSeries(albumId, key) {
+  const arr = albumDaily[albumId];
+  if (!arr) return null;
+  let bs;
+  if (key === 'all') {
+    const first = arr.findIndex((v) => v > 0);
+    const d = dateAt(Math.max(0, first));
+    bs = [];
+    const m = new Date(d.getFullYear(), d.getMonth(), 1);
+    while (m <= END) {
+      const e = new Date(m.getFullYear(), m.getMonth() + 1, 0);
+      bs.push({ label: monthLabel(m), from: Math.max(0, dayIndex(m)), to: Math.min(D - 1, dayIndex(e)) });
+      m.setMonth(m.getMonth() + 1);
+    }
+  } else bs = buckets(key === 'mo' ? 'Last 30 days' : 'Last 7 days');
+  return { labels: bs.map((b) => b.label), values: bs.map((b) => Math.round(sumRange(arr, b.from, b.to))) };
+}
+
 /** Streams for one release over the last n days (for album pages / Home). */
 export function recentStreams(albumId, days) {
   const arr = albumId ? albumDaily[albumId] : baseDaily({});

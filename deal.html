@@ -77,11 +77,32 @@
     <script type="module">
       import { ALBUMS } from '/src/releases.js';
 
-      // Deal content per Exclusive card. The live-streams deal reuses the ESPN copy, as the Figma frame does.
+      // Deal content per Exclusive card (the live-streams deal reuses the ESPN copy, as the Figma frame does).
       const DEALS = {
         espn: { title: 'Get your Music on ESPN', img: '/assets/dashboard/ex-espn.png', alt: 'ESPN' },
-        // Figma (984-11302) shows the ESPN banner here too; the Apple image also carries the old wordmark.
-        streams: { title: 'Submit your music to have it featured on live streams around the world', img: '/assets/dashboard/ex-espn.png', alt: 'ESPN' },
+        // same artwork as its Exclusives card, with the EXD logo over the old partner wordmark
+        streams: {
+          title: 'Submit your music to have it featured on live streams around the world',
+          img: '/assets/dashboard/ex-apple.png',
+          alt: 'Apple Music and EXD',
+          swap: true,
+          about: `
+            <p>EXD has partnered with Apple Music to bring independent artists to Apple Music Live, the concert series streamed to Apple Music subscribers around the world. Submit your track for the chance to be featured during the broadcasts and on the official companion playlist.</p>
+            <h2>Selected artists will receive:</h2>
+            <ul>
+              <li>Placement in Apple Music Live streams, including pre-show, intermission, and post-show segments</li>
+              <li>A spot on the official “EXD × Apple Music: Live Discoveries” playlist, refreshed every week</li>
+              <li>Consideration for Apple Music editorial genre playlists</li>
+              <li>Potential features on EXD and Apple Music social media</li>
+            </ul>
+            <h2>Requirements:</h2>
+            <p>Songs selected by EXD must be distributed by EXD and live on Apple Music. Submit the final master, not a demo, with complete metadata and cover art. Songs can only be submitted for this opportunity once. If your track is marked Explicit, a clean version must also be available. You must follow the below Brand Integrity guidelines.</p>
+            <h2>Brand integrity &amp; compliance:</h2>
+            <p>Please avoid explicit reference to the following subject matter: guns, violence, hate, discrimination, drugs/alcohol, etc. Tracks must not contain uncleared samples or mention other brands.</p>`,
+          thirdParty: 'THIRD PARTY OPPORTUNITIES<br />From time to time, before or during the Distribution Term, Company may enter into one or more agreements with third parties, including Apple Music (each, a “Third Party”), pursuant to which Company shall deliver certain master sound recordings for possible use in live-stream broadcasts, playlists, and related promotional content (each, a “Third Party Opportunity”).',
+          subs: [['Chronos', '03/14/2024']],
+          note: 'Submitted tracks must be distributed by EXD and available on Apple Music. If you have not distributed any tracks yet, please do so first.',
+        },
       };
       const id = new URLSearchParams(location.search).get('id');
       const deal = DEALS[id] || DEALS.espn;
@@ -90,6 +111,30 @@
       const img = document.querySelector('#hero-img');
       img.src = deal.img;
       img.alt = deal.alt;
+      // per-deal copy (the ESPN copy in the page is the default)
+      if (deal.about) document.querySelector('#p-about').innerHTML = deal.about;
+      if (deal.thirdParty) document.querySelector('#p-terms p:last-child').innerHTML = deal.thirdParty;
+      if (deal.subs) {
+        const tbody = document.querySelector('#subs');
+        tbody.innerHTML = '';
+        deal.subs.forEach(([t, d]) => {
+          const tr = tbody.insertRow();
+          tr.insertCell().textContent = t;
+          tr.insertCell().textContent = d;
+        });
+      }
+      if (deal.note) document.querySelector('.dealside p').textContent = deal.note;
+      if (deal.swap) {
+        // show the card artwork whole (it's small and square-ish), over a blurred copy that fills the banner
+        const hero = document.querySelector('#hero');
+        hero.classList.add('dealhero--art');
+        hero.style.setProperty('--art', `url("${deal.img}")`);
+        const art = document.createElement('div');
+        art.className = 'deal__img deal__img--swap dealhero__art';
+        art.innerHTML = '<svg viewBox="0 0 88 26" aria-hidden="true"><use href="#exd-logo" /></svg>';
+        art.prepend(img);
+        hero.append(art);
+      }
 
       // Submit Your Track: pick one of your released tracks; it joins Submissions.
       const released = Object.values(ALBUMS).filter((a) => a.status === 'released').flatMap((a) => a.tracks.map(([t]) => t));

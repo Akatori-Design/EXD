@@ -4721,3 +4721,364 @@ html.lang-ko .su--dark,
 html.lang-ko .su--pay {
   font-family: 'Inter', 'Noto Sans KR', system-ui, sans-serif;
 }
+
+/* Auth pages: the art panel gives way (narrows) before it can cover the form */
+@media (min-width: 821px) {
+  .auth {
+    grid-template-columns: minmax(460px, 48.6fr) minmax(0, 51.4fr);
+  }
+  .auth__form {
+    /* only indent as far as the column has spare room for */
+    margin-left: clamp(0px, calc(100% - 362px), 132px);
+  }
+}
+
+/* ───────── Page-to-page loader: blur + minimal spinner (replaces the curtain wipe) ───────── */
+.pageload {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: grid;
+  place-items: center;
+  background: rgba(12, 13, 16, 0.3);
+  -webkit-backdrop-filter: blur(16px) saturate(0.9);
+  backdrop-filter: blur(16px) saturate(0.9);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0.35s;
+}
+.pageload.is-on,
+.nav-quick .pageload:not(.is-off) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+.pageload__bar {
+  position: relative;
+  width: 140px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.pageload__bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(228, 75, 107, 0.2), #ff5f86 50%, rgba(228, 75, 107, 0.2));
+  box-shadow: 0 0 10px rgba(255, 95, 134, 0.6);
+  animation: pageload-slide 0.9s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}
+@keyframes pageload-slide {
+  from {
+    transform: translateX(-10%);
+  }
+  to {
+    transform: translateX(160%);
+  }
+}
+/* arriving from another page: no full preloader, the blur loader covers the load instead */
+.nav-quick .preloader {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pageload__bar i {
+    animation-duration: 2.4s;
+  }
+}
+
+/* Hero parallax: the image drifts up at half speed (yPercent 50 in the page scripts)
+   while the next section slides over it, casting a soft edge */
+main > .hero + * {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 -24px 48px rgba(0, 0, 0, 0.35);
+}
+
+/* Partner logos: per-logo heights so each mark reads the same visual size (sized from the
+   logo's visible ink, not its padded file), with the files' side padding pulled in */
+.marquee__track img {
+  max-width: none;
+}
+.marquee__track img[alt="TIDAL"] { height: 57px; }
+.marquee__track img[alt="SoundCloud"] { height: 45px; }
+.marquee__track img[alt="Apple Music"] { height: 74px; margin: 0 -5px 0 -5px; }
+.marquee__track img[alt="Spotify"] { height: 35px; margin: 0 -1px 0 -1px; }
+.marquee__track img[alt="YouTube Music"] { height: 33px; margin: 0 -1px 0 0px; }
+.marquee__track img[alt="AWA"] { height: 42px; margin: 0 -1px 0 0px; }
+.marquee__track img[alt="genie"] { height: 82px; margin: 0 -27px 0 -27px; }
+.marquee__track img[alt="Pandora"] { height: 54px; }
+.marquee__track img[alt="JOOX"] { height: 34px; }
+.marquee__track img[alt="KKBOX"] { height: 70px; margin: 0 -3px 0 -2px; }
+.marquee__track img[alt="LINE MUSIC"] { height: 113px; margin: 0 -74px 0 -74px; }
+.marquee__track img[alt="Melon"] { height: 89px; margin: 0 -10px 0 -12px; }
+.marquee__track img[alt="Amazon Music"] { height: 58px; margin: 0 -14px 0 -14px; }
+.marquee__track img[alt="Qobuz"] { height: 39px; }
+.marquee__track img[alt="Rakuten Music"] { height: 42px; margin: 0 -6px 0 -5px; }
+.marquee__track img[alt="Tencent Music Entertainment"] { height: 47px; }
+
+/* Staggered feature card: keep the offset, but don't let the next section ride over its text */
+.feature--offset {
+  margin-bottom: 0;
+}
+
+/* the artists card advances on click (src/home.js) */
+.artists__stage {
+  cursor: pointer;
+}
+
+/* Sign-up plans: the trial note sits above the button, so all three buttons line up at the bottom */
+.su-plan__foot {
+  margin: auto 0 12px;
+}
+.su-plan__foot + .su-plan__btn {
+  margin-top: 0;
+}
+
+/* A service card whose page isn't built yet: a quiet "Coming soon" instead of Learn More */
+.more--soon {
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.more--soon::after,
+.card:hover .more--soon::after {
+  content: none;
+}
+.card--soon {
+  cursor: default;
+}
+
+/* What is EXD?: a shorter image, so the text panel isn't left with a gap above its button */
+@media (min-width: 861px) {
+  .what__img {
+    aspect-ratio: 976 / 470;
+    min-height: 470px;
+  }
+  .what__panel p {
+    margin-bottom: 28px;
+  }
+}
+
+/* Less empty space between the service cards and "What is EXD?" (was 96 + 120px) */
+@media (min-width: 861px) {
+  .services {
+    padding-bottom: 40px;
+  }
+  .what {
+    padding-top: 88px;
+  }
+}
+
+/* Reveals driven by CSS classes: quick enough to be done well before mid-screen */
+.feature h3::before {
+  transition-duration: 0.55s;
+}
+.feature h3 span {
+  transition:
+    transform 0.6s var(--ease) 0.1s,
+    opacity 0.4s 0.1s;
+}
+.lesson h3::before,
+.lesson h3::after {
+  transition-duration: 0.6s;
+  transition-delay: 0.05s;
+}
+.lesson h3::after {
+  transition-delay: 0.35s;
+}
+
+/* Big buttons for pages that aren't built yet: "Coming soon", visibly off */
+.btn--soon {
+  cursor: not-allowed;
+}
+/* dim the inside: the button itself fades in on scroll, which would override its opacity */
+.btn--soon .btn__face {
+  opacity: 0.5;
+}
+.btn--soon .btn__frame {
+  display: none;
+}
+.btn--soon:hover .btn__face,
+.btn--soon:active .btn__face {
+  transform: none !important;
+  filter: none !important;
+}
+.btn--soon .btn__face::before,
+.btn--soon:hover .btn__face::before {
+  display: none;
+}
+
+/* ───────── For Artist › How it works: steps 2 and 4 built live (sharp at any size) ───────── */
+.steps__stage {
+  container-type: inline-size;
+}
+.shot--html img {
+  width: auto;
+  height: auto;
+  object-fit: initial;
+}
+.sh-card {
+  position: absolute;
+  padding: 2.6cqw;
+  border-radius: 2.2cqw;
+  background: linear-gradient(160deg, rgba(118, 132, 152, 0.62), rgba(78, 90, 108, 0.62));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2cqw 5cqw rgba(8, 12, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+/* step 2: albums card over a photo */
+.shot--albums .sh-photo {
+  position: absolute;
+  left: 23%;
+  right: 4.6%;
+  top: 20%;
+  bottom: 4.7%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  object-position: 40% 30%;
+  border-radius: 2cqw;
+  box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, 0.45);
+}
+.sh-albums {
+  left: 4.2%;
+  top: 4.8%;
+  width: 48%;
+  z-index: 1;
+}
+.sh-albums__t {
+  font-size: 2.3cqw;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+.sh-albums__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4cqw;
+  margin-top: 1.8cqw;
+}
+.sh-albums figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0.8cqw;
+  background: #11151b;
+}
+.sh-albums figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.sh-albums figcaption {
+  padding: 1.2cqw 1.2cqw 1.4cqw;
+}
+.sh-albums figcaption b {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.45cqw;
+  font-weight: 500;
+}
+.sh-albums figcaption span {
+  display: block;
+  margin-top: 0.5cqw;
+  font-size: 1.1cqw;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sh-albums .is-ok {
+  color: #7ad9a6;
+}
+.sh-albums .is-wait {
+  color: #e8b64a;
+}
+.sh-btn {
+  display: grid;
+  place-items: center;
+  height: 6cqw;
+  margin-top: 2.6cqw;
+  border-radius: 0.6cqw;
+  background: #d93658;
+  font-size: 1.9cqw;
+  font-weight: 700;
+}
+/* step 4: three promotion cards */
+.sh-promo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 274 / 187;
+  object-fit: cover;
+  border-radius: 1.2cqw;
+}
+.sh-promo b {
+  display: block;
+  margin-top: 1.8cqw;
+  font-size: 2.5cqw;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.sh-promo span {
+  display: block;
+  margin-top: 1cqw;
+  font-size: 1.75cqw;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+.sh-promo em {
+  display: block;
+  margin-top: 0.8cqw;
+  font-style: normal;
+  font-size: 1.7cqw;
+  font-weight: 600;
+  color: #b39bff;
+}
+.sh-promo--yt {
+  left: 4.3%;
+  top: 16%;
+  width: 52%;
+  z-index: 2;
+}
+.sh-promo--yt img {
+  aspect-ratio: 16 / 9;
+}
+.sh-promo--ver {
+  left: 51%;
+  top: 4.8%;
+  width: 39%;
+  z-index: 3;
+}
+.sh-promo--ver img {
+  aspect-ratio: 16 / 8;
+}
+.sh-promo--ver b {
+  font-size: 2cqw;
+}
+.sh-promo--ver span,
+.sh-promo--ver em {
+  font-size: 1.45cqw;
+}
+.sh-promo--col {
+  left: 48.5%;
+  top: 50%;
+  width: 45%;
+  z-index: 1;
+}
+.sh-promo--col img {
+  aspect-ratio: 16 / 9;
+}
+.sh-promo--col b {
+  font-size: 2.2cqw;
+}

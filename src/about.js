@@ -71,7 +71,7 @@ pixelField($('.hero__pixels'), heroEl);
         yTo((e.clientY / innerHeight - 0.5) * -3);
       });
     }
-    gsap.to('.hero__media', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.hero__media', { yPercent: 50, ease: 'none', scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.hero__content', { y: -70, opacity: 0.1, ease: 'none', scrollTrigger: { trigger: heroEl, start: '25% top', end: 'bottom top', scrub: true } });
   }
 }
@@ -79,7 +79,7 @@ pixelField($('.hero__pixels'), heroEl);
 /* ───────────────────────── Family ───────────────────────── */
 if (!REDUCED) {
   const media = $('.family__media');
-  gsap.fromTo(media, { clipPath: 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0%)', duration: 1.6, ease: 'power4.inOut', scrollTrigger: { trigger: '.family', start: 'top 75%' } });
+  gsap.fromTo(media, { clipPath: 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0%)', duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: '.family', start: 'top 95%' } });
   gsap.fromTo($('img', media), { scale: 1.3 }, { scale: 1.08, duration: 2.2, ease: 'power3.out', scrollTrigger: { trigger: '.family', start: 'top 75%' } });
   gsap.fromTo($('img', media), { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.family', start: 'top bottom', end: 'bottom top', scrub: true } });
 }
@@ -130,11 +130,12 @@ if (!REDUCED) {
 
 /* ───────────────────────── Partners ───────────────────────── */
 if (!REDUCED) {
-  const tl = gsap.timeline({ scrollTrigger: { trigger: '.partners__mark', start: 'top 85%' } });
-  tl.from('.partners__mark .l', { strokeDashoffset: 120, strokeDasharray: 120, duration: 1.3, ease: 'power3.inOut', stagger: 0.12 })
-    .from('.partners__stem', { scaleY: 0, duration: 0.9, ease: 'power3.inOut' }, 0.5)
-    .fromTo('.partners__band', { clipPath: 'inset(0% 50% 0% 50%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power4.inOut' }, 0.9)
-    .fromTo('.partner', { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 0.92, duration: 1, ease: 'power3.out', stagger: 0.14, clearProps: 'all' }, 1.3);
+  // starts as the section comes into view; the band and logos land within about a second
+  const tl = gsap.timeline({ scrollTrigger: { trigger: '.partners__mark', start: 'top 98%' } });
+  tl.from('.partners__mark .l', { strokeDashoffset: 120, strokeDasharray: 120, duration: 0.9, ease: 'power3.inOut', stagger: 0.08 })
+    .from('.partners__stem', { scaleY: 0, duration: 0.6, ease: 'power3.out' }, 0.15)
+    .fromTo('.partners__band', { clipPath: 'inset(0% 50% 0% 50%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'power3.out' }, 0.2)
+    .fromTo('.partner', { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 0.92, duration: 0.6, ease: 'power3.out', stagger: 0.08, clearProps: 'all' }, 0.35);
 }
 
 /* ───────────────────────── Intro ───────────────────────── */

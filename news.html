@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="home">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main main--article main--news">
+        <a class="ghost backbtn" href="/dashboard.html"><span aria-hidden="true">←</span> Back</a>
+        <header class="article__head news__head">
+          <p class="news__date" id="news-date"></p>
+          <h1 id="news-title"></h1>
+          <p id="news-sub"></p>
+        </header>
+        <img class="article__hero news__hero" id="news-hero" alt="" />
+        <i class="article__rule" aria-hidden="true"></i>
+
+        <article class="article" id="news-body"></article>
+
+        <section class="article newscta" aria-labelledby="news-cta-title">
+          <h2 class="newscta__title" id="news-cta-title"></h2>
+          <p id="news-cta-text"></p>
+          <div class="newscta__actions">
+            <a class="solid" id="news-cta"></a>
+            <a class="ghost" id="news-cta-2"></a>
+          </div>
+        </section>
+
+        <nav class="article newsmore" aria-labelledby="news-more-title">
+          <h2 id="news-more-title">More from EXD</h2>
+          <ul id="news-more"></ul>
+        </nav>
+      </main>
+    </div>
+    <script type="module" src="/src/news.js"></script>
+  </body>
+</html>

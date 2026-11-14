@@ -74,7 +74,18 @@
 
             <div class="steps__stage">
               <div class="shot is-active"><img src="/assets/artist/step-1.png" alt="Artist profile and news cards in the dashboard" /></div>
-              <div class="shot"><img src="/assets/artist/step-2.png" alt="Album upload cards in the dashboard" /></div>
+              <!-- built live (not a screenshot) so it stays sharp at any size -->
+              <div class="shot shot--html shot--albums" role="img" aria-label="Album upload cards in the dashboard">
+                <img class="sh-photo" src="/assets/promote/yt-laptop.jpg" alt="" />
+                <div class="sh-card sh-albums">
+                  <p class="sh-albums__t">Your albums</p>
+                  <div class="sh-albums__grid">
+                    <figure><img src="/assets/dashboard/covers/dont-waste-a-minute.svg" alt="" /><figcaption><b>Don't Waste A Minute</b><span class="is-ok">Released</span></figcaption></figure>
+                    <figure><img src="/assets/dashboard/covers/vivid-reflection.svg" alt="" /><figcaption><b>Vivid Reflection</b><span class="is-wait">Pending</span></figcaption></figure>
+                  </div>
+                  <span class="sh-btn">Release Music</span>
+                </div>
+              </div>
               <div class="shot shot--chart" aria-label="Streams chart for Apple Music and Spotify">
                 <div class="chart">
                   <div class="chart__top">
@@ -103,7 +114,26 @@
                   </div>
                 </div>
               </div>
-              <div class="shot"><img src="/assets/artist/step-4.png" alt="Promotion cards for YouTube earnings and profile verification" /></div>
+              <div class="shot shot--html shot--promo" role="img" aria-label="Promotion cards for YouTube earnings and profile verification">
+                <div class="sh-card sh-promo sh-promo--col">
+                  <img src="/assets/dashboard/promo-collections.png" alt="" />
+                  <b>Secure Your Earnings with World Collections</b>
+                  <span>Get paid what you are rightfully owed.</span>
+                  <em>Learn more...</em>
+                </div>
+                <div class="sh-card sh-promo sh-promo--yt">
+                  <img src="/assets/dashboard/promo-youtube.png" alt="" />
+                  <b>Maximize Your Youtube Earnings</b>
+                  <span>Turn your YouTube views into revenue with our seamless monetization service.</span>
+                  <em>Learn more...</em>
+                </div>
+                <div class="sh-card sh-promo sh-promo--ver">
+                  <img src="/assets/dashboard/promo-verified.png" alt="" />
+                  <b>Get Your Profile Verified</b>
+                  <span>Get verified on Spotify and other platforms, fast and hassle-free!</span>
+                  <em>Learn more...</em>
+                </div>
+              </div>
             </div>
 
             <div class="steps__dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i><i></i></div>
@@ -163,9 +193,9 @@
             Financial planning and career strategy that keep you on track.
           </p>
           <span class="rule rule--red" data-rule></span>
-          <a class="btn" href="#business" data-page="Business" data-magnetic data-reveal>
+          <a class="btn btn--soon" href="#business" data-page="Business" data-cursor="Coming soon" data-reveal>
             <span class="btn__frame" aria-hidden="true"></span>
-            <span class="btn__face"><span class="btn__label">Learn more</span></span>
+            <span class="btn__face"><span class="btn__label">Coming soon</span></span>
           </a>
         </div>
       </section>
@@ -200,9 +230,9 @@
               </p>
             </article>
           </div>
-          <a class="btn" href="#blog" data-page="Blog" data-magnetic data-reveal>
+          <a class="btn btn--soon" href="#blog" data-page="Blog" data-cursor="Coming soon" data-reveal>
             <span class="btn__frame" aria-hidden="true"></span>
-            <span class="btn__face"><span class="btn__label">Learn more</span></span>
+            <span class="btn__face"><span class="btn__label">Coming soon</span></span>
           </a>
         </div>
       </section>

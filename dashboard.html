@@ -50,19 +50,19 @@
           <div class="feed">
             <article class="post">
               <p class="post__date">Sep 23, 2023</p>
-              <h2 class="post__title">Welcome to the New Wave of Independence</h2>
-              <img class="post__img" src="/assets/dashboard/news-sign.jpg" alt="Sign to yourself" />
+              <h2 class="post__title"><a class="post__link" href="/news.html?a=independence">Welcome to the New Wave of Independence</a></h2>
+              <a class="post__imglink" href="/news.html?a=independence" tabindex="-1" aria-hidden="true"><img class="post__img" src="/assets/dashboard/news-sign.jpg" alt="Sign to yourself" /></a>
               <p class="post__text">
                 As a new industry alternative for independent artists, EXD Premier provides premium music distribution services
                 and facilitates unique partnerships between artists and the world's biggest brands.
               </p>
-              <a class="outline" href="/release-flow.html">Upload a Track to Get Started</a>
+              <a class="outline" href="/news.html?a=independence">Upload a Track to Get Started</a>
             </article>
 
             <article class="post">
               <p class="post__date">Sep 05, 2023</p>
-              <h2 class="post__title post__title--caps">Get your music heard</h2>
-              <img class="post__img" src="/assets/dashboard/news-heard.jpg" alt="Get your music heard. You deserve to know who and where your biggest fans are." />
+              <h2 class="post__title post__title--caps"><a class="post__link" href="/news.html?a=heard">Get your music heard</a></h2>
+              <a class="post__imglink" href="/news.html?a=heard" tabindex="-1" aria-hidden="true"><img class="post__img" src="/assets/dashboard/news-heard.jpg" alt="Get your music heard. You deserve to know who and where your biggest fans are." /></a>
               <div class="post__text">
                 <p>Make the most of your music. With EXD, you can distribute your music to major streaming platforms without giving up ownership of your masters.</p>
                 <p>Here's how to get started:</p>
@@ -76,23 +76,117 @@
                 <p>Add album artwork, featured artist details, and select your release date. We'll add the rest for you. Once everything looks good, hit submit.</p>
                 <p>Once your release is approved, you can promote your music even more through Masterlinks.</p>
               </div>
-              <a class="outline" href="/release-flow.html">Upload a Track</a>
+              <a class="outline" href="/news.html?a=heard">Upload a Track</a>
             </article>
 
             <article class="post">
               <p class="post__date">Aug 12, 2023</p>
-              <h2 class="post__title post__title--caps post__title--tall">Get to know your fans:<br />where they are, what they love about you,<br />and how to better connect with them</h2>
-              <img class="post__img" src="/assets/dashboard/news-fans.jpg" alt="Get to know your fans" />
+              <h2 class="post__title post__title--caps post__title--tall"><a class="post__link" href="/news.html?a=fans">Get to know your fans:<br />where they are, what they love about you,<br />and how to better connect with them</a></h2>
+              <a class="post__imglink" href="/news.html?a=fans" tabindex="-1" aria-hidden="true"><img class="post__img" src="/assets/dashboard/news-fans.jpg" alt="Get to know your fans" /></a>
               <div class="post__text">
                 <p>Connect your socials to learn who your fans are, what they like about you, and how to grow your audience - at every turn of your career.</p>
                 <p>Fueled by your data, we're here to give you the facts and turn your social numbers into real fans' love.</p>
               </div>
-              <a class="outline" href="#connect">Connect My Account</a>
+              <a class="outline" href="/news.html?a=fans">Connect My Account</a>
             </article>
           </div>
         </div>
       </main>
     </div>
+
+    <!-- After sign up: Welcome, then Terms of Service (Figma 15569-16469) -->
+    <dialog class="onb onb--welcome" id="onb-welcome" aria-labelledby="onb-welcome-t">
+      <h2 class="onb__title" id="onb-welcome-t">Welcome to EXD</h2>
+      <p class="onb__lead">Congratulations on taking the first step toward music greatness! With our EXD Plan, you're not just making music – you're crafting a journey of triumph.</p>
+      <ul class="onb__list">
+        <li>
+          <i aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.6" /></svg></i>
+          <div><b id="onb-royalty-t">100% Royalties, Your Way</b><span id="onb-royalty-d">Keep every cent you earn. It's your art, your hustle, and your complete reward.</span></div>
+        </li>
+        <li>
+          <i aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.6" /></svg></i>
+          <div><b>Elevate Your Reach</b><span>Explore tailored resources to grow your career. Access analytics for streaming mastery and optimize platform releases.</span></div>
+        </li>
+      </ul>
+      <button class="onb__go" type="button" data-onb-next>Continue</button>
+    </dialog>
+
+    <dialog class="onb onb--premier" id="onb-premier" aria-labelledby="onb-premier-t">
+      <h2 class="onb__title" id="onb-premier-t">Welcome to the Premier Power,<br />Elevate Your Artistry</h2>
+      <ul class="onb__perks">
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" /></svg>Includes all benefits from EXD</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" /></svg>Unlimited DSP Release</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" /></svg>Youtube Monetization</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" /></svg>Exclusive Brand/Sync Deals</li>
+      </ul>
+      <p class="onb__lead">Welcome to Premier! You've just unlocked a new horizon of possibilities. Let's forge ahead, turning dreams into reality and setting new standards in the music world. Your journey to greatness starts now!</p>
+      <button class="onb__go" type="button" data-onb-next>Continue</button>
+    </dialog>
+
+    <dialog class="onb onb--terms" id="onb-terms" aria-labelledby="onb-terms-t" tabindex="-1">
+      <h2 class="onb__head" id="onb-terms-t">Terms of Service</h2>
+      <div class="onb__doc" role="region" aria-label="Terms of Service" tabindex="0">
+        <p>Effective Date: January 31, 2023</p>
+        <p>Welcome to the EXD Terms of Service! This document governs your use of our services. For your convenience, we have included short summaries of each provision of the Terms of Service at the beginning of each section. However, these summaries do not replace the full legal text, and you agree to read the full Terms of Service to access or use our services.</p>
+        <h3>Introduction</h3>
+        <p>By using our Services, you agree to all the provisions in this document, so it is important that you read them carefully. These Terms apply to all users of our Services, and also include a “mandatory arbitration clause and class action waiver.” This means that you agree to resolve any dispute with us through arbitration with a neutral arbitrator, and not in court. You also agree to bring any claims individually, and not as part of a class.</p>
+        <p>Welcome to the Terms of Service (the “Terms”) of EXD, Inc., along with its subsidiaries and affiliates worldwide that link to these Terms (“EXD,” “we,” “our,” or “us”). We provide premium music distribution services for independent artists, facilitate partnerships between artists and brands, maintain a marketplace to buy and sell beats, and offer related services through our mobile applications, websites, and social media pages (collectively referred to by us as the “Services”).</p>
+        <h3>Your music, your rights</h3>
+        <p>You keep full ownership of your master recordings and compositions. By uploading, you give EXD a non-exclusive licence to deliver, reproduce and promote your releases on the platforms you choose, for as long as they are distributed through EXD. You confirm that you own or have cleared every right in what you upload, including samples, featured artists, lyrics and artwork.</p>
+        <h3>Royalties and payments</h3>
+        <p>We collect the revenue your music earns and pay you your share for your plan: 100% on Plus and Premier, and 90% on Basic. Statements are published monthly, and you can withdraw from your Wallet once your balance reaches $10. You are responsible for any taxes on your earnings.</p>
+        <h3>Subscriptions</h3>
+        <p>Paid plans are billed once a year and renew automatically. You can cancel at any time in Settings; your plan stays active until the end of the period you've paid for.</p>
+        <h3>Content rules</h3>
+        <p>Don't upload content that infringes someone else's rights, promotes hate or violence, or uses artificial streams. We may remove content that breaks these rules and withhold royalties earned from artificial activity.</p>
+        <h3>Changes to these Terms</h3>
+        <p>If we make important changes, we'll email you at least 30 days before they take effect.</p>
+      </div>
+      <div class="onb__actions">
+        <button class="ghost" type="button" data-onb-cancel>Cancel</button>
+        <button class="onb__go" type="button" data-onb-agree>Agree</button>
+      </div>
+    </dialog>
+
+    <script type="module">
+      // After sign up (src/signup.js sets exd-onboard): Welcome — the Premier one for Premier members —
+      // then Terms of Service. Agreeing finishes onboarding; Cancel closes it, and it asks again next visit.
+      (() => {
+        let pending = false;
+        try {
+          pending = localStorage.getItem('exd-onboard') === '1';
+        } catch {}
+        if (!pending) return;
+        let plan = 'basic';
+        try {
+          plan = localStorage.getItem('exd-plan') || 'basic';
+        } catch {}
+        const welcome = document.getElementById(plan === 'pro' ? 'onb-premier' : 'onb-welcome');
+        const terms = document.getElementById('onb-terms');
+        if (plan === 'basic') {
+          document.getElementById('onb-royalty-t').textContent = '90% Royalties, Your Way';
+          document.getElementById('onb-royalty-d').textContent = "Keep 90% of what you earn. It's your art, your hustle, and your reward.";
+        }
+        // these two must be answered with a button, not dismissed with Escape
+        [welcome, terms].forEach((d) => d.addEventListener('cancel', (e) => e.preventDefault()));
+        welcome.querySelector('[data-onb-next]').addEventListener('click', () => {
+          welcome.close();
+          terms.showModal();
+          terms.querySelector('.onb__doc').scrollTop = 0;
+          // start on the dialog itself, so the text box isn't shown as focused until someone tabs to it
+          terms.focus();
+        });
+        terms.querySelector('[data-onb-cancel]').addEventListener('click', () => terms.close());
+        terms.querySelector('[data-onb-agree]').addEventListener('click', () => {
+          try {
+            localStorage.setItem('exd-terms', JSON.stringify({ accepted: new Date().toISOString() }));
+            localStorage.removeItem('exd-onboard');
+          } catch {}
+          terms.close();
+        });
+        welcome.showModal();
+      })();
+    </script>
 
     <script type="module">
       // "Set up Artist Name" moves the card to its named state, as in the prototype.

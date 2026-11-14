@@ -1,6 +1,7 @@
 // Album page: fills the Figma album layout from the album id in the URL (?id=dont-waste|vivid|new).
 import { albumById } from './releases.js';
-import { recentStreams } from './analytics-data.js';
+import { recentStreams, streamSeries } from './analytics-data.js';
+import { renderChart, fmtK, fmtNum } from './charts.js';
 
 const id = new URLSearchParams(location.search).get('id') || 'dont-waste';
 const album = albumById(id) || albumById('dont-waste');
@@ -96,7 +97,27 @@ document.addEventListener('keydown', (e) => {
 const statNum = document.querySelector('.astats__num');
 const statNote = document.querySelector('.astats__note');
 const streams = album.streams?.all ? { wk: recentStreams(id, 7), mo: recentStreams(id, 30), all: album.streams.all } : { wk: 0, mo: 0, all: 0 };
-const showStat = (k) => (statNum.textContent = (streams[k] || 0).toLocaleString('en-US'));
+// streams over the chosen range, under the total
+const chartEl = document.querySelector('#astats-chart');
+const showChart = (k) => {
+  const s = streamSeries(id, k);
+  chartEl.hidden = !s;
+  if (!s) return;
+  renderChart(chartEl, {
+    labels: s.labels,
+    series: [{ name: 'Streams', color: '#d93658', values: s.values }],
+    area: true,
+    ticks: 3,
+    format: fmtNum,
+    axisFormat: fmtK,
+    xEvery: k === 'mo' ? 5 : s.labels.length > 12 ? 3 : 0,
+    label: `Streams, ${k === 'wk' ? 'last 7 days' : k === 'mo' ? 'last 30 days' : 'monthly since release'}`,
+  });
+};
+const showStat = (k) => {
+  statNum.textContent = (streams[k] || 0).toLocaleString('en-US');
+  showChart(k);
+};
 statNote.textContent = album.status === 'released' ? 'Streams across all platforms' : 'Stats start about 48 hours after release';
 showStat('wk');
 document.querySelector('.rangetabs').addEventListener('change', (e) => showStat(e.detail));

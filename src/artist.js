@@ -13,7 +13,7 @@ if (!REDUCED) {
       yTo((e.clientY / innerHeight - 0.5) * -2.5);
     });
   }
-  gsap.to('.hero__media', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero__media', { yPercent: 50, ease: 'none', scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true } });
   gsap.to('.hero__content', { y: -70, opacity: 0.1, ease: 'none', scrollTrigger: { trigger: heroEl, start: '25% top', end: 'bottom top', scrub: true } });
 }
 
@@ -194,6 +194,13 @@ if (!REDUCED) {
   }
 
   tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+  // clicking anywhere on the plan card moves to the next plan (wrapping around)
+  root.dataset.cursor = t('Next');
+  root.style.cursor = 'pointer';
+  root.addEventListener('click', (e) => {
+    if (e.target.closest('a, button') || String(getSelection()).length) return;
+    go((index + 1) % plans.length);
+  });
   $('.plans__tabs').addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') go((index + 1) % plans.length);
     if (e.key === 'ArrowLeft') go((index + plans.length - 1) % plans.length);
@@ -202,8 +209,8 @@ if (!REDUCED) {
   if (!REDUCED) {
     gsap.set([name, tag], { yPercent: 115 });
     gsap.set(wipe, { scaleX: 1, transformOrigin: 'right', background: plans[0].color });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 78%' } });
-    tl.to(wipe, { scaleX: 0, duration: 1.1, ease: 'power4.inOut' })
+    const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 95%' } });
+    tl.to(wipe, { scaleX: 0, duration: 0.6, ease: 'power3.out' })
       .from(imgs[0], { scale: 1.3, duration: 1.6, ease: 'power3.out' }, 0.1)
       .to([name, tag], { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.1 }, 0.25)
       .from($$('li', list), { x: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.06 }, 0.45)

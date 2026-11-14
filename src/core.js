@@ -235,27 +235,27 @@ splits.forEach((words, el) => {
     trigger: el,
     start: 'top 88%',
     once: true,
-    onEnter: () => gsap.to(words, { yPercent: 0, duration: 1.2, ease: 'power4.out', stagger: 0.045 }),
+    onEnter: () => gsap.to(words, { yPercent: 0, duration: 0.75, ease: 'power4.out', stagger: 0.03 }),
   });
 });
 
 ScrollTrigger.batch('[data-reveal]', {
   start: 'top 90%',
   once: true,
-  onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.09, overwrite: true }),
+  onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: 0.05, overwrite: true }),
 });
 
 $$('[data-media]').forEach((media) => {
   const img = $('img', media);
   ScrollTrigger.create({
     trigger: media,
-    start: 'top 84%',
+    start: 'top 98%', // as soon as it comes into view, so it's never sitting blank
     once: true,
     onEnter: () => {
       media.closest('.feature')?.classList.add('is-in');
       if (REDUCED) return;
-      gsap.to(media, { clipPath: 'inset(0 0% 0 0)', duration: 1.5, ease: 'power4.inOut' });
-      gsap.to(img, { scale: 1, duration: 2, ease: 'power3.out' });
+      gsap.to(media, { clipPath: 'inset(0 0% 0 0)', duration: 0.75, ease: 'power3.out' });
+      gsap.to(img, { scale: 1, duration: 1.1, ease: 'power3.out' });
     },
   });
   if (!REDUCED) {
@@ -274,7 +274,7 @@ $$('[data-counter]').forEach((el) => {
     trigger: el,
     start: 'top 92%',
     once: true,
-    onEnter: () => gsap.to(state, { v: end, duration: 2.2, ease: 'power3.out', onUpdate: () => (el.textContent = Math.round(state.v)) }),
+    onEnter: () => gsap.to(state, { v: end, duration: 1.4, ease: 'power3.out', onUpdate: () => (el.textContent = Math.round(state.v)) }),
   });
 });
 
@@ -349,7 +349,9 @@ $$('[data-counter]').forEach((el) => {
     leave(url.href);
   });
 
-  // Page-to-page transition: the curtains rise here, then the next page's loader lifts.
+  // Page-to-page transition: blur this page behind a small spinner, then go.
+  // The next page starts under the same blur (html.nav-quick) and clears it once it's ready.
+  const pageload = $('.pageload');
   let leaving = false;
   function leave(href) {
     if (leaving) return;
@@ -360,23 +362,21 @@ $$('[data-counter]').forEach((el) => {
     } catch {
       /* private mode: the next page just shows its full loader */
     }
-    if (REDUCED) {
+    if (!pageload) {
       location.href = href;
       return;
     }
-    tl?.kill();
-    gsap.set(content, { opacity: 0 });
-    gsap
-      .timeline({ onComplete: () => (location.href = href) })
-      .set(route, { visibility: 'visible' })
-      .set(curtains, { transformOrigin: 'bottom', scaleY: 0 })
-      .to(curtains, { scaleY: 1, duration: 0.7, ease: 'power4.inOut', stagger: 0.1 });
+    pageload.classList.remove('is-off');
+    pageload.classList.add('is-on');
+    setTimeout(() => (location.href = href), REDUCED ? 60 : 320);
   }
-  // Returning through the browser's back/forward cache: clear the curtains.
+  // Returning through the browser's back/forward cache: clear the blur.
   window.addEventListener('pageshow', (e) => {
     if (!e.persisted) return;
     leaving = false;
     open = false;
+    pageload?.classList.remove('is-on');
+    pageload?.classList.add('is-off');
     gsap.set(route, { visibility: 'hidden' });
     gsap.set(curtains, { scaleY: 0 });
     route.classList.remove('is-open');
@@ -466,7 +466,24 @@ export function pixelField(canvas, el) {
 /* ───────────────────────── Loader → intro ───────────────────────── */
 // Each page calls start() once its own modules are set up. `pageIntro` receives the
 // shared intro timeline so the page's hero can join it.
+// Scroll reveals should be finished by the time their content reaches the middle of the
+// screen: every play-once reveal fires as its content enters the bottom of the window and
+// plays faster. Scrubbed (scroll-linked) effects and in-view toggles keep their settings.
+function tuneReveals() {
+  ScrollTrigger.getAll().forEach((st) => {
+    const v = st.vars;
+    if (v.scrub || v.onToggle || v.end) return;
+    const m = typeof v.start === 'string' && /^top (\d+)%$/.exec(v.start);
+    if (m && +m[1] < 97) v.start = 'top 97%';
+    if (st.animation && !st.animation._tuned) {
+      st.animation.timeScale(1.6);
+      st.animation._tuned = true;
+    }
+  });
+}
+
 export function start(pageIntro) {
+  tuneReveals();
   const pre = $('.preloader');
   const count = $('[data-count]', pre);
   const bar = $('.preloader__bar span', pre);
@@ -503,27 +520,29 @@ export function start(pageIntro) {
     pageIntro?.(tl);
   };
 
+  // the blur loader a page arrives under (see leave())
+  const clearBlur = () => {
+    $('.pageload')?.classList.add('is-off');
+    document.documentElement.classList.remove('nav-quick');
+  };
+
   if (REDUCED) {
     Promise.race([ready, timeout]).then(() => {
       pre.style.display = 'none';
       splits.forEach((w) => gsap.set(w, { yPercent: 0 }));
+      clearBlur();
       finish();
     });
     return;
   }
 
   if (quick) {
-    // Arriving from another page: no counter, just lift the curtain.
-    gsap.set('.preloader__inner', { opacity: 0 });
+    // Arriving from another page: no counter; the blur fades off as the page comes in.
+    pre.style.display = 'none';
     Promise.all([Promise.race([ready, timeout]), wait(150)]).then(() => {
-      gsap
-        .timeline()
-        .to(pre, { clipPath: 'inset(0 0 100% 0)', duration: 0.9, ease: 'power4.inOut' })
-        .add(() => {
-          finish();
-          intro();
-        }, 0.2)
-        .set(pre, { display: 'none' });
+      clearBlur();
+      finish();
+      intro();
     });
     return;
   }

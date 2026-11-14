@@ -44,6 +44,7 @@ export default defineConfig({
         promote: resolve(__dirname, 'promote.html'),
         exclusives: resolve(__dirname, 'exclusives.html'),
         settings: resolve(__dirname, 'settings.html'),
+        news: resolve(__dirname, 'news.html'),
       },
     },
   },

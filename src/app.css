@@ -9024,3 +9024,502 @@ body[data-view='exclusives'] .main {
     grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
   }
 }
+
+/* ═════════ Dashboard: brand-colour glow drifting across the top of the window ═════════ */
+.app::before,
+.app::after {
+  content: '';
+  position: fixed; /* stays put while the page scrolls over it */
+  z-index: -1;
+  top: -10vh;
+  left: -25vw; /* wider than the window so the drift never shows an edge */
+  right: -25vw;
+  height: 80vh;
+  min-height: 520px;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+  will-change: transform, opacity;
+}
+.app::before {
+  background:
+    radial-gradient(27% 51% at 37% 34%, rgba(217, 54, 88, 0.2), transparent 70%),
+    radial-gradient(21% 47% at 69% 25%, rgba(124, 77, 240, 0.17), transparent 70%);
+  animation: home-glow-a 24s ease-in-out infinite alternate;
+}
+.app::after {
+  background:
+    radial-gradient(24% 47% at 58% 55%, rgba(169, 139, 245, 0.12), transparent 70%),
+    radial-gradient(19% 42% at 27% 63%, rgba(228, 75, 107, 0.1), transparent 70%);
+  animation: home-glow-b 31s ease-in-out infinite alternate;
+}
+/* Exclusives: same drift in cool tones that go with the Premier mint */
+body[data-view='exclusives'] .app::before {
+  background:
+    radial-gradient(27% 51% at 37% 34%, rgba(var(--mint-rgb), 0.16), transparent 70%),
+    radial-gradient(21% 47% at 69% 25%, rgba(70, 130, 240, 0.17), transparent 70%);
+}
+body[data-view='exclusives'] .app::after {
+  background:
+    radial-gradient(24% 47% at 58% 55%, rgba(56, 189, 220, 0.12), transparent 70%),
+    radial-gradient(19% 42% at 27% 63%, rgba(110, 120, 245, 0.1), transparent 70%);
+}
+@keyframes home-glow-a {
+  0% {
+    transform: translate3d(-8%, -1%, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(4%, 4%, 0) scale(1.07) rotate(2deg);
+  }
+  100% {
+    transform: translate3d(9%, -2%, 0) scale(0.98) rotate(-2deg);
+  }
+}
+@keyframes home-glow-b {
+  0% {
+    transform: translate3d(8%, 3%, 0) scale(1.05);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(-5%, -3%, 0) scale(0.98);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-9%, 2%, 0) scale(1.08);
+    opacity: 0.95;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app::before,
+  .app::after {
+    animation: none;
+  }
+}
+
+/* Music toolbar filter: same fill as every other dropdown */
+.select select {
+  background: #1f242c;
+}
+.select select:hover {
+  background: #262c35;
+  border-color: rgba(255, 255, 255, 0.36);
+}
+.select select:active {
+  background: #1a1e25;
+}
+
+/* ═════════ News article (from the Home feed cards) ═════════ */
+.news__head .news__date {
+  margin: 0 0 var(--sp-3);
+  font-family: var(--f-wide);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.news__head p:last-child {
+  max-width: 620px;
+  margin-inline: auto;
+}
+/* the header images carry their own lettering, so show them whole instead of cropping */
+.article__hero.news__hero {
+  max-width: 860px;
+  height: auto;
+  aspect-ratio: 1400 / 808;
+  margin-inline: auto;
+  object-fit: cover;
+}
+.newscta {
+  margin-top: var(--sp-10);
+  padding: var(--sp-8);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(217, 54, 88, 0.14), transparent 60%),
+    radial-gradient(120% 140% at 100% 100%, rgba(124, 77, 240, 0.12), transparent 60%),
+    var(--surface);
+  text-align: center;
+}
+.article h2.newscta__title {
+  margin-top: 0;
+}
+.article h2.newscta__title::before {
+  content: none;
+}
+.newscta p {
+  margin-top: var(--sp-2) !important;
+}
+.newscta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+.newscta__actions a {
+  display: inline-grid;
+  place-items: center;
+  min-width: 200px;
+  height: var(--h-ctl);
+  padding: 0 var(--sp-5);
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+.newsmore {
+  margin-top: var(--sp-10);
+}
+.newsmore h2 {
+  margin-top: 0 !important;
+}
+.newsmore ul {
+  list-style: none;
+  padding: 0 !important;
+  margin-top: var(--sp-4) !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-4);
+}
+.newsmore__item {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  transition: background var(--fast), border-color var(--fast);
+}
+.newsmore__item:hover {
+  background: var(--surface-hover);
+  border-color: var(--line-3);
+}
+.newsmore__item img {
+  width: 112px;
+  aspect-ratio: 1400 / 808;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+}
+.newsmore__item small {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.newsmore__item b {
+  display: block;
+  margin-top: 4px;
+  font-weight: 500;
+  font-size: var(--fs-base);
+  line-height: 1.35;
+  color: var(--text-1);
+}
+
+/* Home feed: the card image and title open the article */
+.post__link {
+  color: inherit;
+}
+.post__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+a.post__imglink {
+  display: block;
+  border-radius: inherit;
+}
+a.post__imglink .post__img {
+  transition: filter var(--fast);
+}
+a.post__imglink:hover .post__img {
+  filter: brightness(1.08);
+}
+@media (min-width: 1101px) {
+  a.post__imglink {
+    grid-area: img;
+    align-self: start;
+  }
+}
+
+/* Buttons for features that aren't built yet: "Coming soon", visibly off */
+.is-soon:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.ghost.is-soon:disabled:hover {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+.solid.is-soon:disabled:hover {
+  filter: none;
+}
+
+/* Album page: "Streams across all platforms" sits top-left like the other card headings */
+.astats {
+  padding-top: var(--sp-6);
+}
+.astats__note {
+  text-align: left;
+}
+
+/* Album page: streams chart under the total */
+.astats__chart {
+  margin-top: var(--sp-5);
+}
+.astats__chart[hidden] {
+  display: none;
+}
+.astats__chart .chart__plot {
+  height: 180px;
+}
+
+/* Deal page: artwork-style banner (live streams deal) matching its Exclusives card */
+.dealhero--art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.dealhero--art::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  z-index: -1;
+  background: var(--art) center / cover;
+  filter: blur(28px) brightness(0.55) saturate(1.2);
+}
+.dealhero__art {
+  height: calc(100% - 32px);
+  width: auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Dialog scrim: one lighter tint everywhere (the video player keeps its dark one) */
+dialog:not(.ytmodal)::backdrop {
+  background: rgba(8, 9, 12, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Dialogs ease in: a short fade and lift, with the scrim fading in behind */
+dialog[open] {
+  animation: dlg-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+dialog[open]::backdrop {
+  animation: dlg-fade 240ms ease-out both;
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes dlg-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog[open] {
+    animation-name: dlg-fade;
+  }
+}
+
+/* Wallet balance card: the blue-violet gradient flows slowly, with a soft light drifting across it */
+.balance {
+  background:
+    radial-gradient(45% 140% at 20% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+    radial-gradient(40% 120% at 80% 100%, rgba(255, 125, 151, 0.18), transparent 60%),
+    linear-gradient(100deg, #3f4fc6 0%, #5a50c0 25%, #7d52b5 50%, #5a50c0 75%, #3f4fc6 100%);
+  background-size: 180% 180%, 200% 200%, 300% 100%;
+  animation: balance-flow 16s ease-in-out infinite alternate;
+}
+@keyframes balance-flow {
+  0% {
+    background-position: 0% 0%, 100% 100%, 0% 50%;
+  }
+  50% {
+    background-position: 70% 40%, 30% 60%, 50% 50%;
+  }
+  100% {
+    background-position: 100% 100%, 0% 0%, 100% 50%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .balance {
+    animation: none;
+  }
+}
+
+/* ═════════ Onboarding dialogs after sign up (Figma 15569-16469) ═════════ */
+.onb {
+  width: min(400px, calc(100vw - 32px));
+  padding: var(--sp-8) var(--sp-6) var(--sp-6);
+  border: 1px solid var(--line-3);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #2a313b 0%, #1d2128 100%);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.onb__title {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.3;
+  background: linear-gradient(90deg, #8b6cf6, #b39bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.onb--premier .onb__title {
+  font-size: 22px;
+  background-image: linear-gradient(90deg, #5fe0c8, #a3f0e2);
+}
+.onb__lead {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+.onb__list {
+  display: grid;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+.onb__list li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--sp-3);
+}
+.onb__list i {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(139, 108, 246, 0.25);
+}
+.onb__list i svg,
+.onb__perks svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: #c4b3ff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.onb__list b {
+  display: block;
+  font-weight: 600;
+  font-size: var(--fs-md);
+}
+.onb__list span {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.onb__perks {
+  display: grid;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin: var(--sp-5) 0 0;
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.06);
+  list-style: none;
+  text-align: left;
+  font-size: var(--fs-base);
+}
+.onb__perks li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.onb__perks svg {
+  stroke: #5fe0c8;
+}
+.onb--premier .onb__lead {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+.onb__go {
+  width: 100%;
+  height: 40px;
+  margin-top: var(--sp-6);
+  border-radius: var(--r-sm);
+  background: var(--crimson);
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--fs-base);
+  cursor: pointer;
+  transition: background var(--fast);
+}
+.onb__go:hover {
+  background: var(--crimson-hi);
+}
+.onb__go:active {
+  transform: scale(0.98);
+}
+/* Terms of Service */
+.onb--terms {
+  width: min(440px, calc(100vw - 32px));
+  padding: var(--sp-5);
+  text-align: left;
+}
+.onb__head {
+  font-weight: 600;
+  font-size: var(--fs-md);
+}
+.onb__doc {
+  height: min(52vh, 320px);
+  margin-top: var(--sp-4);
+  padding: var(--sp-4);
+  overflow-y: auto;
+  border: 1px solid var(--line-3);
+  border-radius: var(--r-sm);
+  background: rgba(0, 0, 0, 0.2);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  outline: none;
+}
+.onb__doc:focus-visible {
+  box-shadow: 0 0 0 2px #a98bf5;
+}
+.onb__doc h3 {
+  margin-top: var(--sp-4);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: #fff;
+}
+.onb__doc p + p {
+  margin-top: var(--sp-2);
+}
+.onb__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.onb__actions .ghost {
+  height: 40px;
+  border-radius: var(--r-sm);
+}
+.onb__actions .onb__go {
+  margin-top: 0;
+}
+.onb:focus {
+  outline: none;
+}

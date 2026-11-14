@@ -19,13 +19,13 @@
         <h1 class="pagetitle">Money</h1>
 
         <div class="subtabs" role="tablist" aria-label="Money">
-          <button type="button" role="tab" id="t-roy" aria-controls="p-roy" data-hash="royalties">Royalties</button>
           <button type="button" role="tab" id="t-wal" aria-controls="p-wal" data-hash="wallet">Wallet</button>
+          <button type="button" role="tab" id="t-roy" aria-controls="p-roy" data-hash="royalties">Royalties</button>
           <button type="button" role="tab" id="t-st" aria-controls="p-st" data-hash="statements">Statements</button>
         </div>
 
         <!-- Royalties -->
-        <section id="p-roy" role="tabpanel" aria-labelledby="t-roy">
+        <section id="p-roy" role="tabpanel" aria-labelledby="t-roy" hidden>
           <div class="mfilters">
             <span class="dd"><select aria-label="DSP"><option>DSP</option></select></span>
             <span class="dd"><select aria-label="Territory"><option>Territory</option></select></span>
@@ -57,7 +57,7 @@
         </section>
 
         <!-- Wallet -->
-        <section id="p-wal" role="tabpanel" aria-labelledby="t-wal" hidden>
+        <section id="p-wal" role="tabpanel" aria-labelledby="t-wal">
           <div class="wallet">
             <div class="wallet__left">
               <div class="balance">
