@@ -44,14 +44,15 @@
 
         <!-- 2 · Uploaded -->
         <section class="step" data-step="uploaded" hidden>
-          <h1 class="step__title">Uploaded</h1>
-          <p class="step__sub">Add more files or continue</p>
+          <h1 class="step__title" data-up-title>Uploaded</h1>
+          <p class="step__sub" data-up-sub>Add more files or continue</p>
+          <p class="sr" id="upload-live" aria-live="polite"></p>
           <div class="panel files">
             <ol class="files__list" id="file-list"></ol>
             <label class="violet files__more">+ Add more<input class="sr" type="file" accept="audio/*,.wav,.m4a,.mp3,.flac,.aiff" multiple data-input="audio" /></label>
           </div>
           <div class="step__actions step__actions--one">
-            <button class="solid" type="button" data-go="cover">Continue</button>
+            <button class="solid" type="button" data-go="cover" data-need="uploads">Continue</button>
           </div>
         </section>
 
@@ -98,14 +99,14 @@
               <div class="fset__fields">
                 <div class="f"><label for="r-title">Release title <i>*</i></label><input class="inp" id="r-title" name="title" placeholder="Enter release title" required /></div>
                 <div class="f"><label for="r-artist">Artist name</label><input class="inp" id="r-artist" name="artist" value="Rion Hale" readonly /></div>
-                <div class="f"><label for="r-dist">Distribute as <i>*</i></label><span class="dd"><select id="r-dist" name="distribute"><option>New Release</option><option>Re-release</option></select></span></div>
+                <div class="f"><label for="r-dist">Distribute as <i>*</i></label><span class="dd"><select id="r-dist" name="distribute" required><option>New Release</option><option>Re-release</option></select></span></div>
               </div>
             </section>
 
             <section class="panel fset" id="rs-format" aria-labelledby="rs-format-h">
               <h2 class="fset__title" id="rs-format-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-format" /></svg>Format details</h2>
               <div class="fset__fields">
-                <div class="f"><label for="r-format">Format <i>*</i></label><span class="dd"><select id="r-format" name="format"><option>Album</option><option>EP</option><option>Single</option></select></span></div>
+                <div class="f"><label for="r-format">Format <i>*</i></label><span class="dd"><select id="r-format" name="format" required><option value="" selected>Select</option><option>Album</option><option>EP</option><option>Single</option></select></span></div>
                 <div class="adv" hidden>
                   <div class="f f--pair">
                     <div><label for="r-vol">Total volumes</label><input class="inp" id="r-vol" name="volumes" type="number" min="1" value="1" /></div>
@@ -154,7 +155,7 @@
             <section class="panel fset" id="rs-genre" aria-labelledby="rs-genre-h">
               <h2 class="fset__title" id="rs-genre-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-genre" /></svg>Genre</h2>
               <div class="fset__fields">
-                <div class="f"><label for="r-genre">Genre <i>*</i></label><span class="dd"><select id="r-genre" name="genre"><option>R&amp;B</option><option>Pop</option><option>Electronic</option><option>Hip-hop</option><option>Alternative</option><option>Rock</option></select></span></div>
+                <div class="f"><label for="r-genre">Genre <i>*</i></label><span class="dd"><select id="r-genre" name="genre" required><option value="" selected>Select</option><option>R&amp;B</option><option>Pop</option><option>Electronic</option><option>Hip-hop</option><option>Alternative</option><option>Rock</option></select></span></div>
                 <div class="adv" hidden>
                   <div class="f"><label for="r-subgenre">Subgenre</label><span class="dd"><select id="r-subgenre" name="subgenre"><option value="">Select</option></select></span></div>
                   <div class="f"><label for="r-altgenre">Alternate Genre</label><span class="dd"><select id="r-altgenre" name="altgenre"><option value="">Select</option></select></span></div>

@@ -26,6 +26,7 @@ function reachable(step) {
   const i = ORDER.indexOf(step);
   if (i < 0) return 'upload';
   if (i >= 1 && !state.tracks.length) return 'upload';
+  if (i >= 2 && uploading()) return 'uploaded';
   if (i >= 3 && !state.cover) return 'cover';
   if (i >= 4 && !detailsValid()) return 'details';
   if (i >= 5 && !tracksDone()) return 'tracks';
@@ -40,7 +41,7 @@ function show(step, push = true) {
   if (step === 'royalty') renderRoyalty();
   if (step === 'review') renderReview();
   if (step === 'tracks') renderTracks();
-  if (push && location.hash !== `#${step}`) history.pushState(null, '', `#${step}`);
+  if (location.hash !== `#${step}`) history[push ? 'pushState' : 'replaceState'](null, '', `#${step}`);
   window.scrollTo(0, 0);
   $('.step__title', steps[step]).focus({ preventScroll: true });
   refresh();
@@ -77,6 +78,7 @@ function addAudio(files) {
       explicit: 'Not explicit',
     };
     state.tracks.push(t);
+    startUpload(t);
     state.splits[t.id] = [{ name: `${ARTIST} (You)`, pct: 100, you: true }];
     // read the duration from the file's metadata
     const url = URL.createObjectURL(f);
@@ -148,12 +150,64 @@ $$('[data-drop]').forEach((zone) => {
   });
 });
 
+const uploading = () => state.tracks.some((t) => t.progress < 1);
+
 function renderFiles() {
   $('#file-list').innerHTML = state.tracks
-    .map(
-      (t, i) => `<li><span>${i + 1}. ${esc(t.file)}</span><span>${esc(t.duration)}</span><button class="violet" type="button" data-remove="${t.id}">Remove</button></li>`,
+    .map((t, i) =>
+      t.progress < 1
+        ? `<li class="is-up">
+            <span class="files__name">${esc(t.file)}</span>
+            <button class="violet" type="button" data-remove="${t.id}" aria-label="Cancel upload of ${esc(t.file)}">Cancel</button>
+            <span class="upbar" role="progressbar" aria-label="Uploading ${esc(t.file)}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(t.progress * 100)}" data-bar="${t.id}"><i style="--p:${t.progress}"></i></span>
+          </li>`
+        : `<li><span>${i + 1}. ${esc(t.file)}</span><span>${esc(t.duration)}</span><button class="violet" type="button" data-remove="${t.id}">Remove</button></li>`,
     )
     .join('');
+  const up = uploading();
+  $('[data-up-title]').textContent = up ? 'Uploading...' : 'Uploaded';
+  $('[data-up-sub]').textContent = up ? 'Please wait while we upload.' : 'Add more files or continue';
+  $('.files__more').hidden = up;
+  $('.files').classList.toggle('is-uploading', up);
+}
+
+/* Simulated upload (nothing leaves the browser): each file fills its bar over a time
+   scaled to its size, with a few uneven bursts so it reads like a real transfer. */
+let upTimer = 0;
+function startUpload(t) {
+  const mb = (t.blob?.size || 0) / 1e6;
+  t.progress = 0;
+  t.upStart = performance.now() + Math.random() * 120;
+  t.upDur = Math.min(1500, 700 + mb * 12) * (0.85 + Math.random() * 0.3);
+  t.upJitter = Math.random() * Math.PI * 2;
+  if (!upTimer) upTimer = setInterval(tickUpload, 40);
+}
+function tickUpload() {
+  const now = performance.now();
+  let finished = false;
+  for (const t of state.tracks) {
+    if (t.progress >= 1) continue;
+    const x = Math.max(0, Math.min(1, (now - t.upStart) / t.upDur));
+    // ease out, plus a small wobble in speed; never goes backwards
+    const p = x >= 1 ? 1 : Math.max(t.progress, 1 - Math.pow(1 - x, 1.7) + Math.sin(x * 9 + t.upJitter) * 0.015 * (1 - x));
+    t.progress = Math.min(1, p);
+    const bar = $(`[data-bar="${t.id}"]`);
+    if (bar) {
+      bar.firstElementChild.style.setProperty('--p', t.progress);
+      bar.setAttribute('aria-valuenow', Math.round(t.progress * 100));
+    }
+    if (t.progress >= 1) finished = true;
+  }
+  if (finished) {
+    renderFiles();
+    renderTracks();
+    refresh();
+    if (!uploading()) $('#upload-live').textContent = `Upload complete. ${state.tracks.length} ${state.tracks.length === 1 ? 'file' : 'files'} ready.`;
+  }
+  if (!uploading()) {
+    clearInterval(upTimer);
+    upTimer = 0;
+  }
 }
 document.addEventListener('click', (e) => {
   const rm = e.target.closest('[data-remove]');
@@ -228,6 +282,23 @@ $$('.switch').forEach((sw) => sw.addEventListener('click', () => sw.setAttribute
   addEventListener('scroll', () => raf || (raf = requestAnimationFrame(spy)), { passive: true });
   addEventListener('resize', spy);
   mark(0);
+
+  // a green check on each shortcut whose section has all its required fields filled
+  const reqs = secs.map((s) => $$('[required]', s));
+  links.forEach((a, i) => {
+    if (!reqs[i].length) return;
+    a.insertAdjacentHTML('beforeend', '<svg class="rnav__ok" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-check" /></svg><span class="sr" data-ok-sr></span>');
+  });
+  const checkDone = () =>
+    links.forEach((a, i) => {
+      if (!reqs[i].length) return;
+      const ok = reqs[i].every((el) => el.value.trim());
+      a.classList.toggle('is-complete', ok);
+      $('[data-ok-sr]', a).textContent = ok ? ', complete' : '';
+    });
+  details.addEventListener('input', checkDone);
+  details.addEventListener('change', checkDone);
+  checkDone();
 }
 
 /* Genre advanced fields: subgenres follow the chosen genre; the alternate genre is any other genre. */
@@ -246,7 +317,7 @@ $$('.switch').forEach((sw) => sw.addEventListener('click', () => sw.setAttribute
     const sub = details.subgenre.value;
     const alt = details.altgenre.value;
     details.subgenre.innerHTML = opts(SUB[g] || []);
-    details.altgenre.innerHTML = opts([...details.genre.options].map((o) => o.value).filter((x) => x !== g));
+    details.altgenre.innerHTML = opts([...details.genre.options].map((o) => o.value).filter((x) => x && x !== g));
     if ((SUB[g] || []).includes(sub)) details.subgenre.value = sub;
     if (alt && alt !== g) details.altgenre.value = alt;
   };
@@ -676,6 +747,7 @@ $('[data-submit]').addEventListener('click', () => {
 /* ───────── enable / disable the primary buttons ───────── */
 function refresh() {
   const need = {
+    uploads: !uploading(),
     cover: !!state.cover,
     details: detailsValid(),
     tracks: tracksDone(),
