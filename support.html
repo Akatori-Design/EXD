@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body class="sp">
+    <!--@include symbols-->
+    <header class="sp-top">
+      <a class="sp-logo" href="/" aria-label="EXD home"><svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg></a>
+      <div class="sp-top__right">
+        <button class="sp-icon" type="button" aria-label="Language: English" title="English"><svg viewBox="0 0 24 24"><use href="#globe" /></svg></button>
+        <a class="sp-link" href="/login.html">Log Out</a>
+        <a class="sp-dash" href="/dashboard.html">Dashboard</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="sp-hero">
+        <h1>How can we help?</h1>
+        <label class="sp-search">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M13 13l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+          <span class="sr">Search help topics</span>
+          <input id="sp-q" type="search" placeholder="Search keywords" autocomplete="off" />
+        </label>
+      </section>
+
+      <section class="sp-topics" aria-label="Help topics">
+        <ul class="sp-grid" id="sp-grid">
+          <li class="sp-card"><h2>Getting Started</h2><ul><li><a href="/settings.html#artist">Account Setup</a></li><li><a href="/dashboard.html">Dashboard Overview</a></li><li><a href="/release-flow.html">First Upload</a></li></ul></li>
+          <li class="sp-card"><h2>Account Management</h2><ul><li><a href="/settings.html#account">Profile Updates</a></li><li><a href="/settings.html#account">Billing &amp; Subscription</a></li><li><a href="/settings.html#security">Security</a></li></ul></li>
+          <li class="sp-card"><h2>Music Distribution</h2><ul><li><a href="/release-flow.html">Release Music</a></li><li><a href="/release-flow.html">Territory &amp; Rights</a></li><li><a href="/money.html">Royalties</a></li></ul></li>
+          <li class="sp-card"><h2>Analytics &amp; Reporting</h2><ul><li><a href="/analytics.html">Understanding Analytics</a></li><li><a href="/money.html#statements">Reports Download</a></li><li><a href="/analytics.html">Performance Tips</a></li></ul></li>
+          <li class="sp-card"><h2>Promotional Tools</h2><ul><li><a href="/promote.html">Pre-save Links</a></li><li><a href="/promote.html">Social Media Integration</a></li><li><a href="/promote.html">Email Campaign</a></li></ul></li>
+          <li class="sp-card"><h2>Technical Issues</h2><ul><li><a href="#request">Troubleshooting</a></li><li><a href="#request">Bug Reporting</a></li><li><a href="#request">Contact Support</a></li></ul></li>
+          <li class="sp-card"><h2>FAQ</h2><ul><li><a href="/settings.html#artist">Account Setup</a></li><li><a href="/dashboard.html">Dashboard Overview</a></li><li><a href="/release-flow.html">First Upload</a></li></ul></li>
+          <li class="sp-card"><h2>Contact Us</h2><ul><li><a href="/settings.html#account">Profile Updates</a></li><li><a href="/settings.html#account">Billing &amp; Subscription</a></li><li><a href="/settings.html#security">Security</a></li></ul></li>
+          <li class="sp-card"><h2>Community Forum</h2><ul><li><a href="/release-flow.html">Distribute Music</a></li><li><a href="/release-flow.html">Territory &amp; Rights</a></li><li><a href="/money.html">Royalties</a></li></ul></li>
+        </ul>
+        <p class="sp-empty" id="sp-empty" hidden>No topics match “<span></span>”.</p>
+      </section>
+
+      <section class="sp-cta" id="request">
+        <h2>Can’t find what you’re looking for?</h2>
+        <button class="sp-btn" type="button" id="sp-open">Submit a request</button>
+      </section>
+    </main>
+
+    <footer class="sp-foot">
+      <p class="sp-foot__links"><a href="#privacy">Privacy Policy</a><span aria-hidden="true">|</span><a href="#terms">Terms of Services</a></p>
+      <div class="sp-foot__row">
+        <svg class="sp-foot__logo" viewBox="0 0 88 26" role="img" aria-label="EXD"><use href="#exd-logo" /></svg>
+        <a class="sp-social" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><use href="#instagram" /></svg></a>
+        <a class="sp-social" href="https://x.com/" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><use href="#x-social" /></svg></a>
+        <a class="sp-social" href="https://discord.com/" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><use href="#discord" /></svg></a>
+        <p class="sp-copy">©2024 EXD All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <dialog class="modal sp-modal" id="sp-req" aria-labelledby="sp-req-title">
+      <form method="dialog" class="modal__form" id="sp-form" novalidate>
+        <header class="modal__head">
+          <h2 id="sp-req-title">Submit a request</h2>
+          <button class="modal__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+        </header>
+        <div class="modal__body sp-modal__body">
+          <div class="f"><label for="sp-topic">Topic</label><span class="dd"><select id="sp-topic" name="topic"><option>Technical issue</option><option>Account &amp; billing</option><option>Music distribution</option><option>Royalties</option><option>Other</option></select></span></div>
+          <div class="f"><label for="sp-email">Email <i>*</i></label><input class="inp" id="sp-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="f"><label for="sp-msg">How can we help? <i>*</i></label><textarea class="inp inp--area" id="sp-msg" name="msg" rows="5" required></textarea></div>
+          <p class="sp-modal__msg" role="status" hidden></p>
+        </div>
+        <footer class="modal__foot">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="solid" type="submit" id="sp-send" disabled>Send</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <script type="module">
+      // Keyword search: filters topic links and hides cards with no match.
+      const q = document.querySelector('#sp-q');
+      const cards = [...document.querySelectorAll('.sp-card')];
+      const empty = document.querySelector('#sp-empty');
+      q.addEventListener('input', () => {
+        const term = q.value.trim().toLowerCase();
+        let shown = 0;
+        for (const card of cards) {
+          const titleHit = card.querySelector('h2').textContent.toLowerCase().includes(term);
+          let any = false;
+          for (const li of card.querySelectorAll('li')) {
+            const hit = !term || titleHit || li.textContent.toLowerCase().includes(term);
+            li.hidden = !hit;
+            any ||= hit;
+          }
+          card.hidden = !any;
+          if (any) shown++;
+        }
+        empty.hidden = shown > 0;
+        empty.querySelector('span').textContent = q.value.trim();
+      });
+
+      // Submit a request: front-end only, nothing is sent.
+      const dlg = document.querySelector('#sp-req');
+      const form = document.querySelector('#sp-form');
+      const send = document.querySelector('#sp-send');
+      const msg = form.querySelector('.sp-modal__msg');
+      const valid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value) && form.msg.value.trim();
+      form.addEventListener('input', () => (send.disabled = !valid()));
+      document.querySelectorAll('#sp-open, a[href="#request"]').forEach((b) =>
+        b.addEventListener('click', (e) => {
+          e.preventDefault();
+          msg.hidden = true;
+          send.disabled = !valid();
+          dlg.showModal();
+        }),
+      );
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+      });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!valid()) return;
+        msg.textContent = 'Thanks — your request is ready to send.';
+        msg.hidden = false;
+        send.disabled = true;
+        form.reset();
+      });
+    </script>
+  </body>
+</html>

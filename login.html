@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in — EXD</title>
+    <meta name="description" content="Log in to your EXD account." />
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="is-loading" data-view="login">
+    <!--@include symbols-->
+    <!--@include chrome-->
+
+    <main class="auth">
+      <section class="auth__panel">
+        <a class="auth__logo" href="/" aria-label="EXD home">
+          <svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg>
+        </a>
+
+        <form class="auth__form" novalidate>
+          <h1 class="auth__title" data-split>Welcome back</h1>
+          <p class="auth__sub">Please enter your contact details to connect.</p>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="field__box">
+              <input id="email" name="email" type="email" placeholder="abc@gmail.com" value="user3551_test@gmail.com" autocomplete="email" required />
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <p class="field__error" id="email-error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="field__box">
+              <input id="password" name="password" type="password" placeholder="************" value="240n@ni0!x*(" autocomplete="current-password" required />
+              <button class="field__eye" type="button" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path class="eye__lid" d="M2.500 9c2.200 2.600 4.700 3.900 7.500 3.900S15.300 11.600 17.500 9" />
+                  <path class="eye__lash" d="M5 12.200l-1 1.800M8.300 13.500l-.4 2M11.700 13.500l.4 2M15 12.200l1 1.800" />
+                  <circle class="eye__ball" cx="10" cy="9.500" r="2.400" />
+                </svg>
+              </button>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <p class="field__error" id="password-error" role="alert"></p>
+          </div>
+
+          <div class="auth__row">
+            <label class="check">
+              <input type="checkbox" name="remember" />
+              <span class="check__box" aria-hidden="true"></span>
+              Remember me
+            </label>
+            <a class="auth__link" href="/forgot.html">Forgot password</a>
+          </div>
+
+          <button class="auth__submit" type="submit"><span>Log In</span></button>
+
+          <p class="auth__alt">Don't have an account ? <a class="auth__link" href="/signup.html">Sign up here</a></p>
+        </form>
+      </section>
+
+      <section class="auth__art" aria-hidden="true">
+        <canvas class="auth__canvas"></canvas>
+        <div class="auth__grain"></div>
+        <svg class="auth__mark" viewBox="0 0 88 26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+          <path class="l" d="M2 3h20M2 13h13M2 23h20" />
+          <path class="l" d="M34 3l20 20M54 3L34 23" />
+          <path class="l" d="M66 3v8M66 3h20v13c0 4-3 7-7 7H73" />
+        </svg>
+      </section>
+    </main>
+
+    <!--@include route-->
+
+    <script type="module" src="/src/login.js"></script>
+  </body>
+</html>

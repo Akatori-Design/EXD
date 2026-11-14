@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Music — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="music">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-vinyl" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="12" y="12" width="76" height="76" rx="3" fill="#353b46" stroke="none" />
+        <circle cx="46" cy="52" r="27" /><circle cx="46" cy="52" r="23" /><circle cx="46" cy="52" r="19" /><circle cx="46" cy="52" r="15" /><circle cx="46" cy="52" r="11" />
+        <circle cx="46" cy="52" r="6" fill="currentColor" stroke="none" opacity=".55" />
+        <path d="M76 22v30l-9 11" stroke-width="2.500" stroke-linecap="round" />
+        <circle cx="76" cy="22" r="3" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></symbol>
+      <symbol id="i-okcircle" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M35 17.5V20a15 15 0 1 1-8.9-13.7" /><path d="M35 7.5L20 22.5l-4.5-4.5" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linecap="round" stroke-linejoin="round"><path d="M2.500 4.500L6 8l3.500-3.500" /></symbol>
+    </svg>
+
+    <div class="app">
+      <!--@include app-side-->
+
+      <main class="main">
+        <h1 class="pagetitle">My Music</h1>
+
+        <div class="toolbar">
+          <label class="select">
+            <span class="sr">Filter releases</span>
+            <select id="filter">
+              <option value="all">All release</option>
+              <option value="released">Released</option>
+              <option value="pending">Pending</option>
+              <option value="draft">Draft</option>
+            </select>
+            <svg viewBox="0 0 12 12" aria-hidden="true"><use href="#i-caret" /></svg>
+          </label>
+          <a class="release" href="/release-flow.html">+ Release Music</a>
+        </div>
+
+        <section class="shelf" aria-labelledby="shelf-title">
+          <h2 class="shelf__label" id="shelf-title">Album</h2>
+          <ul class="albums">
+            <li class="album" data-status="released">
+              <a class="album__cover" href="/album.html?id=dont-waste" aria-label="Open Don't Waste A Minute"><img src="/assets/dashboard/covers/dont-waste-a-minute.svg" alt="" /></a>
+              <div class="album__body">
+                <div class="album__row"><span class="album__kind">Album</span><button class="album__more" type="button" aria-label="More options for Don't Waste A Minute"><i></i><i></i><i></i></button></div>
+                <h3>Don't Waste A Minute</h3>
+                <p class="album__date">Release Date : August 31, 2023</p>
+                <p class="album__status is-released">Released</p>
+              </div>
+            </li>
+            <li class="album" data-status="pending">
+              <a class="album__cover" href="/album.html?id=vivid" aria-label="Open Vivid Reflection"><img src="/assets/dashboard/covers/vivid-reflection.svg" alt="" /></a>
+              <div class="album__body">
+                <div class="album__row"><span class="album__kind">Album</span><button class="album__more" type="button" aria-label="More options for Vivid Reflection"><i></i><i></i><i></i></button></div>
+                <h3>Vivid Reflection</h3>
+                <p class="album__date">Release Date : November 21, 2023</p>
+                <p class="album__status is-pending">Pending</p>
+              </div>
+            </li>
+            <li class="album" data-status="draft">
+              <a class="album__cover album__cover--empty" href="/release-flow.html" aria-label="Continue Untitled draft"><svg viewBox="0 0 100 100"><use href="#i-vinyl" /></svg></a>
+              <div class="album__body">
+                <div class="album__row"><span class="album__kind">Album</span><button class="album__more" type="button" aria-label="More options for Untitled"><i></i><i></i><i></i></button></div>
+                <h3>Untitled</h3>
+                <p class="album__status is-draft">Draft</p>
+              </div>
+            </li>
+          </ul>
+          <p class="shelf__empty" hidden>No releases match this filter.</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Submitted (Figma 710-29093): shown after the Release Music flow -->
+    <dialog class="donemodal" id="done" aria-labelledby="done-title">
+      <button class="modal__x donemodal__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><use href="#i-x" /></svg></button>
+      <svg class="donemodal__ok" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-okcircle" /></svg>
+      <h2 id="done-title">Submitted!</h2>
+      <div class="donemodal__art"><img id="done-art" src="/assets/dashboard/submitted-art.jpg" alt="" /></div>
+      <p class="donemodal__lead">Your album <b id="done-name">Vivid Reflection</b> has been submitted !</p>
+      <ul>
+        <li>Scheduled to release on <b id="done-date">Aug 31, 2023</b></li>
+        <li>Once approved, your music will be distributed to 20+ streaming platforms</li>
+        <li>Keep 100% of streaming royalties</li>
+      </ul>
+      <button class="solid" type="button" data-close>Got it</button>
+    </dialog>
+
+    <script type="module">
+      import { submittedRelease, ALBUMS, SHELF_EXTRA } from '/src/releases.js';
+
+      // The rest of the catalogue, inserted before the Untitled draft.
+      const draft = document.querySelector('.album[data-status="draft"]');
+      for (const id of SHELF_EXTRA) {
+        const a = ALBUMS[id];
+        const kind = a.meta.find(([k]) => k === 'Format')?.[1] || 'Album';
+        const li = document.createElement('li');
+        li.className = 'album';
+        li.dataset.status = a.status;
+        li.innerHTML = `<a class="album__cover" href="/album.html?id=${id}"><img alt="" loading="lazy" /></a>
+          <div class="album__body">
+            <div class="album__row"><span class="album__kind"></span><button class="album__more" type="button"><i></i><i></i><i></i></button></div>
+            <h3></h3>
+            <p class="album__date"></p>
+            <p class="album__status is-${a.status}">${a.status === 'released' ? 'Released' : 'Pending'}</p>
+          </div>`;
+        li.querySelector('img').src = a.cover;
+        li.querySelector('a').setAttribute('aria-label', `Open ${a.title}`);
+        li.querySelector('.album__more').setAttribute('aria-label', `More options for ${a.title}`);
+        li.querySelector('.album__kind').textContent = kind;
+        li.querySelector('h3').textContent = a.title;
+        li.querySelector('.album__date').textContent = `Release Date : ${a.date}`;
+        draft.before(li);
+      }
+
+      // A release submitted through the flow joins the shelf as Pending.
+      const mine = submittedRelease();
+      if (mine) {
+        const li = document.createElement('li');
+        li.className = 'album';
+        li.dataset.status = 'pending';
+        li.innerHTML = `<a class="album__cover" href="/album.html?id=new"><img alt="" /></a>
+          <div class="album__body">
+            <div class="album__row"><span class="album__kind">Album</span><button class="album__more" type="button"><i></i><i></i><i></i></button></div>
+            <h3></h3>
+            <p class="album__date"></p>
+            <p class="album__status is-pending">Pending</p>
+          </div>`;
+        li.querySelector('img').src = mine.cover;
+        li.querySelector('a').setAttribute('aria-label', `Open ${mine.title}`);
+        li.querySelector('.album__more').setAttribute('aria-label', `More options for ${mine.title}`);
+        li.querySelector('h3').textContent = mine.title;
+        const when = mine.date ? new Date(`${mine.date}T00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+        li.querySelector('.album__date').textContent = `Release Date : ${when}`;
+        document.querySelector('.albums').prepend(li);
+      }
+
+      // Submitted dialog after the flow (?submitted=1)
+      const done = document.querySelector('#done');
+      if (new URLSearchParams(location.search).has('submitted') && mine) {
+        document.querySelector('#done-name').textContent = mine.title;
+        document.querySelector('#done-date').textContent = mine.meta.find(([k]) => k === 'Release Date')?.[1] || '';
+        if (mine.cover) document.querySelector('#done-art').src = mine.cover;
+        history.replaceState(null, '', location.pathname);
+        done.showModal();
+      }
+      done.addEventListener('click', (e) => {
+        if (e.target === done || e.target.closest('[data-close]')) done.close();
+      });
+
+      // Filter the shelf by release status.
+      const filter = document.querySelector('#filter');
+      const albums = [...document.querySelectorAll('.album')];
+      // (includes a submitted release, added above)
+      const empty = document.querySelector('.shelf__empty');
+      filter.addEventListener('change', () => {
+        let shown = 0;
+        for (const album of albums) {
+          const show = filter.value === 'all' || album.dataset.status === filter.value;
+          album.hidden = !show;
+          if (show) shown++;
+        }
+        empty.hidden = shown > 0;
+      });
+    </script>
+  </body>
+</html>

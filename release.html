@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Music — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="release">
+    <script>
+      // Release Music always starts at the upload step (Figma 582-22501).
+      try {
+        location.replace('/release-flow.html');
+      } catch {}
+    </script>
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <div class="release-page">
+          <h1>Release Your Music Here!</h1>
+          <section class="panel release-card">
+            <img src="/assets/dashboard/release-mic.png" alt="A microphone on a stand under warm stage light" />
+            <div class="release-card__body">
+              <p>First, let's set up your artist name so that the world knows who you are.</p>
+              <a class="solid" href="/settings.html#artist">Set up your artist name</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

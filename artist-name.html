@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artist Name — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="settings">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main main--plan an">
+        <a class="an__x" href="/settings.html#artist" aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" /></svg></a>
+
+        <!-- Use existing page? (Artist Name Setup 1-693) -->
+        <section class="an__step" data-step="">
+          <p class="an__kicker">Let's set up Your Artist Name.</p>
+          <h1 tabindex="-1">Would you like to add your music to your current Spotify or Apple Music artist page?</h1>
+          <p class="an__sub">Have you released music before and want it to appear under your existing artist profile? Choose 'Yes' or 'No' to start a new one.</p>
+          <div class="an__actions an__actions--start">
+            <a class="ghost" href="#existing">Yes, use existing page</a>
+            <a class="ghost" href="#new">No, create new</a>
+          </div>
+        </section>
+
+        <!-- Existing: name or link (1-1246 / 1-709) -->
+        <section class="an__step" data-step="existing" hidden>
+          <p class="an__kicker">Let's set up Your Artist Name.</p>
+          <h1 tabindex="-1">What’s your Spotify or Apple Music artist name?</h1>
+          <p class="an__sub" id="ex-sub">Enter your artist name exactly as it's listed.</p>
+          <form class="an__form" id="ex-form" novalidate>
+            <label class="an__field"><span id="ex-label">Artist Name</span><input id="ex-name" autocomplete="off" placeholder="Enter artist name here..." /></label>
+            <button class="an__link" type="button" id="ex-mode">Enter profile link</button>
+            <div class="an__actions">
+              <a class="ghost" href="#">Back</a>
+              <button class="solid" type="submit" disabled>Next</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Matches on each platform (1-970 / 1-1064) -->
+        <section class="an__step" data-step="spotify" hidden>
+          <p class="an__kicker">Let's set up Your Artist Name.</p>
+          <h1 tabindex="-1">Which ‘<em class="an__name"></em>’ are you on Spotify?</h1>
+          <form class="an__form" data-pick="spotify" data-next="apple" novalidate>
+            <ul class="an__matches"></ul>
+            <div class="an__actions">
+              <a class="ghost" href="#existing">Back</a>
+              <button class="solid" type="submit" disabled>Next</button>
+            </div>
+          </form>
+        </section>
+        <section class="an__step" data-step="apple" hidden>
+          <p class="an__kicker">Let's set up Your Artist Name.</p>
+          <h1 tabindex="-1">Which ‘<em class="an__name"></em>’ are you on Apple Music?</h1>
+          <form class="an__form" data-pick="apple" data-next="done" novalidate>
+            <ul class="an__matches"></ul>
+            <div class="an__actions">
+              <a class="ghost" href="#spotify">Back</a>
+              <button class="solid" type="submit" disabled>Next</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- New name (1-950 / 1-930) -->
+        <section class="an__step" data-step="new" hidden>
+          <p class="an__kicker">Let's set up Your Artist Name.</p>
+          <h1 tabindex="-1">What artist name do you want to use for your music release?</h1>
+          <p class="an__sub">Choose your very own artist name.<br />Crafting your own artist name boosts your visibility among fans.</p>
+          <form class="an__form" id="new-form" novalidate>
+            <label class="an__field"><span>Artist Name</span><input id="new-name" autocomplete="off" maxlength="60" placeholder="Enter artist name here..." /></label>
+            <div class="an__actions">
+              <a class="ghost" href="#">Back</a>
+              <button class="solid" type="submit" disabled>Next</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Done (1-1170 / 1-1208) -->
+        <section class="an__step" data-step="done" hidden>
+          <svg class="an__ok" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" /><path d="M10.5 16.5l4 4 8-9" /></svg>
+          <h1 tabindex="-1">Your Artist Name is Set!</h1>
+          <p class="an__sub" id="done-text"></p>
+          <div class="an__actions an__actions--one"><a class="solid" href="/settings.html#artist">Done</a></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/artist-name.js"></script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Money — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="money">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main sm">
+        <button class="roundback sm__back" type="button" id="sm-back" aria-label="Back"><span aria-hidden="true">‹</span></button>
+
+        <!-- Step 1: select recipient (Money Figma 71-2268 / 71-2284 / 71-2308) -->
+        <section class="sm__step" data-step="recipient">
+          <h1 class="sm__title">Send Money</h1>
+          <p class="sm__kicker">Step 1: Select recipient</p>
+          <p class="sm__lbl" id="to-l">Send to:</p>
+          <button class="violet sm__add" type="button" data-go="add" id="add-first">+ Add Recipient</button>
+          <div class="rpick" id="rpick" hidden>
+            <button class="rpick__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="to-l rpick-cur" id="rpick-btn">
+              <span id="rpick-cur"></span>
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+            <div class="rpick__menu" id="rpick-menu" hidden>
+              <ul role="listbox" aria-labelledby="to-l" id="rpick-list"></ul>
+              <button class="violet" type="button" data-go="add">+ Add Recipient</button>
+              <button class="violet" type="button" id="manage">Manage Recipients</button>
+            </div>
+          </div>
+          <button class="solid sm__cta" type="button" id="to-next" disabled>Next</button>
+        </section>
+
+        <!-- Add recipient (Money Figma 71-2019 / 71-2034 / 71-2048) -->
+        <section class="sm__step" data-step="add" hidden>
+          <h1 class="sm__title">Add Recipient</h1>
+          <p class="sm__intro">To verify the recipient’s bank account, they’ll see a deposit and withdrawal on their bank statement over the next three days, both $1 or less.</p>
+          <form id="add-form" novalidate>
+            <div class="f"><label for="r-name">Recipient’s Name <i>*</i></label><input class="inp" id="r-name" name="name" placeholder="Enter Recipient’s Name" autocomplete="off" /><p class="err" hidden>This field is required.</p></div>
+            <div class="f"><label for="r-routing">Routing Number <i>*</i></label><input class="inp" id="r-routing" name="routing" inputmode="numeric" placeholder="Enter Routing Number" autocomplete="off" /><p class="err" hidden>The provided routing number is invalid.</p></div>
+            <div class="f"><label for="r-acct">Account Number <i>*</i></label><input class="inp" id="r-acct" name="acct" inputmode="numeric" placeholder="Enter Account Number" autocomplete="off" /><p class="err" hidden>This field is required.</p></div>
+            <div class="f"><label for="r-acct2">Confirm Account Number <i>*</i></label><input class="inp" id="r-acct2" name="acct2" inputmode="numeric" placeholder="Confirm Account Number" autocomplete="off" /><p class="err" hidden>The account numbers do not match.</p></div>
+            <button class="solid sm__cta" type="submit" id="add-save" disabled>Save</button>
+          </form>
+        </section>
+
+        <!-- Step 2: select amount (Money Figma 71-2381 / 71-2398) -->
+        <section class="sm__step" data-step="amount" hidden>
+          <h1 class="sm__title">Send Money</h1>
+          <p class="sm__kicker">Step 2: Select amount</p>
+          <form id="amt-form" novalidate>
+            <label class="sm__lbl" for="amt">Amount to send:</label>
+            <div class="amtbox"><span aria-hidden="true">$</span><input id="amt" name="amt" inputmode="decimal" placeholder="0.00" autocomplete="off" /></div>
+            <p class="sm__bal" id="bal-note"></p>
+            <label class="sm__lbl sm__lbl--gap" for="note">Message for recipient (optional)</label>
+            <input class="inp" id="note" name="note" placeholder="Add a message here..." maxlength="120" />
+            <button class="solid sm__cta" type="submit" id="send" disabled>Send</button>
+            <p class="sm__fine">Initiated transfers will typically be available in the recipient’s bank account within 3 business days, excluding bank holidays.</p>
+          </form>
+        </section>
+
+        <p class="sm__stripe">Powered by <b>stripe</b></p>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" hidden>
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>Recipient added</span>
+      <button type="button" aria-label="Dismiss"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+    </div>
+
+    <script type="module" src="/src/transfer.js"></script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up — EXD</title>
+    <meta name="description" content="Create your EXD account." />
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="is-loading" data-view="signup">
+    <!--@include symbols-->
+    <!--@include chrome-->
+
+    <main class="auth auth--signup" data-step="">
+      <section class="auth__panel">
+        <a class="auth__logo" href="/" aria-label="EXD home">
+          <svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg>
+        </a>
+
+        <form class="auth__form" novalidate data-mode="signup">
+          <h1 class="auth__title" data-split>Let’s create your EXD account</h1>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="field__box">
+              <input id="email" name="email" type="email" placeholder="abc@gmail.com" autocomplete="email" required />
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <p class="field__error" id="email-error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="field__box">
+              <input id="password" name="password" type="password" placeholder="************" autocomplete="new-password" required minlength="8" aria-describedby="password-hint" />
+              <button class="field__eye" type="button" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path class="eye__lid" d="M2.500 9c2.200 2.600 4.700 3.900 7.500 3.900S15.300 11.600 17.500 9" />
+                  <path class="eye__lash" d="M5 12.200l-1 1.800M8.300 13.500l-.4 2M11.700 13.500l.4 2M15 12.200l1 1.800" />
+                  <circle class="eye__ball" cx="10" cy="9.500" r="2.400" />
+                </svg>
+              </button>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <p class="field__hint" id="password-hint">At least 8 characters, with a number or symbol.</p>
+            <p class="field__error" id="password-error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="confirm">Confirm password</label>
+            <div class="field__box">
+              <input id="confirm" name="confirm" type="password" placeholder="************" autocomplete="new-password" required minlength="8" />
+              <button class="field__eye" type="button" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path class="eye__lid" d="M2.500 9c2.200 2.600 4.700 3.900 7.500 3.900S15.300 11.600 17.500 9" />
+                  <path class="eye__lash" d="M5 12.200l-1 1.800M8.300 13.500l-.4 2M11.700 13.500l.4 2M15 12.200l1 1.800" />
+                  <circle class="eye__ball" cx="10" cy="9.500" r="2.400" />
+                </svg>
+              </button>
+              <i class="field__line" aria-hidden="true"></i>
+            </div>
+            <p class="field__error" id="confirm-error" role="alert"></p>
+          </div>
+
+          <p class="auth__terms">By creating an account you agree to the <a class="auth__link" href="#terms" data-page="Terms of Service">terms of service</a> and privacy policy.</p>
+
+          <button class="auth__submit" type="submit"><span>Create Account</span></button>
+
+          <p class="auth__alt">Already have an account? <a class="auth__link" href="/login.html">Login</a></p>
+        </form>
+      </section>
+
+      <section class="auth__art" aria-hidden="true">
+        <canvas class="auth__canvas"></canvas>
+        <div class="auth__grain"></div>
+        <svg class="auth__mark" viewBox="0 0 88 26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+          <path class="l" d="M2 3h20M2 13h13M2 23h20" />
+          <path class="l" d="M34 3l20 20M54 3L34 23" />
+          <path class="l" d="M66 3v8M66 3h20v13c0 4-3 7-7 7H73" />
+        </svg>
+      </section>
+    </main>
+
+
+    <!-- Sign up › choose a plan (Figma 795-7377) -->
+    <section class="su su--dark" data-step="plans" hidden aria-labelledby="su-plans-t">
+      <a class="su-logo" href="/" aria-label="EXD home"><svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg></a>
+      <div class="su__in">
+        <h1 class="su__title" id="su-plans-t" tabindex="-1">Elevate Your Journey<br />with these plans</h1>
+        <ul class="su-plans">
+          <li class="su-plan" style="--c: #f0643c">
+            <span class="su-plan__star" aria-hidden="true">✦</span>
+            <h2>Basic</h2>
+            <p class="su-plan__price">Free to Join</p>
+            <p class="su-plan__note">*You can upgrade anytime.</p>
+            <ul><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Deliver to Social Media</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Limited DSP Release</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Take 90% of royalties</li></ul>
+            <button class="su-plan__btn su-plan__btn--ghost" type="button" data-plan="basic">Join for Free</button>
+          </li>
+          <li class="su-plan" style="--c: #b36bf0">
+            <span class="su-plan__star" aria-hidden="true">★</span>
+            <span class="su-plan__pop">Most Popular</span>
+            <h2>Plus</h2>
+            <p class="su-plan__price">12 Months $19.99</p>
+            <ul><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Includes all benefits from Basic</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Brand Yourself</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Take 100% of royalties</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Unlimited DSP releases</li></ul>
+            <button class="su-plan__btn" type="button" data-plan="plus">Join</button>
+            <p class="su-plan__foot">*You can cancel your trial any time.</p>
+          </li>
+          <li class="su-plan" style="--c: #6ff0e0">
+            <span class="su-plan__star" aria-hidden="true">✷</span>
+            <h2>Premier</h2>
+            <p class="su-plan__price">12 Months $49.99</p>
+            <ul><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Includes all benefits from Plus</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Youtube Monetization</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4" /></svg>Exclusive Brand/Sync Deals</li></ul>
+            <button class="su-plan__btn" type="button" data-plan="pro">Join</button>
+            <p class="su-plan__foot">*You can cancel your trial any time.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Sign up › payment (Figma 823-4760 / 984-9879). Front end only: nothing is charged, stored or sent. -->
+    <section class="su su--pay" data-step="payment" hidden aria-labelledby="su-pay-t">
+      <div class="pay">
+        <form class="pay__form" id="pay-form" novalidate>
+          <a class="pay__logo" href="/" aria-label="EXD home"><svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg></a>
+          <h1 class="pay__title" id="su-pay-t" tabindex="-1">Payment</h1>
+          <ul class="pay__brands" aria-label="Accepted: Visa, Mastercard, American Express, Apple Pay, PayPal">
+            <li class="b-visa">VISA</li><li class="b-mc" aria-hidden="true"><i></i><i></i></li><li class="b-amex">AMEX</li><li class="b-apple"> Pay</li><li class="b-pp">PayPal</li>
+          </ul>
+          <fieldset class="pay__with">
+            <legend>Pay With:</legend>
+            <label><input type="radio" name="method" value="card" checked /> Card</label>
+            <label><input type="radio" name="method" value="paypal" /> Paypal</label>
+            <label><input type="radio" name="method" value="apple" /> Apple Pay</label>
+          </fieldset>
+          <div class="pay__card" id="pay-card">
+            <label class="pay__field pay__field--full">Card Number
+              <input id="cc-num" inputmode="numeric" autocomplete="cc-number" placeholder="1234  5678  9101  1121" maxlength="23" />
+            </label>
+            <label class="pay__field">Expiration Date
+              <input id="cc-exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" />
+            </label>
+            <label class="pay__field">CVV
+              <input id="cc-cvv" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" />
+            </label>
+            <label class="pay__save"><input type="checkbox" /> Save card details</label>
+          </div>
+          <p class="pay__alt" id="pay-alt" hidden></p>
+          <p class="pay__err" id="pay-err" role="alert"></p>
+          <button class="pay__submit" type="submit" id="pay-submit" disabled>Submit Order</button>
+          <p class="pay__legal">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+          <button class="pay__back" type="button" data-go="plans">← Back to plans</button>
+        </form>
+        <aside class="pay__sum" aria-labelledby="pay-sum-t">
+          <h2 id="pay-sum-t">Order Summary</h2>
+          <dl>
+            <div class="pay__line"><dt id="pay-item">EXD Annual Subscription</dt><dd id="pay-price">$19.99</dd></div>
+            <div class="pay__line pay__line--sm"><dt>Subtotal</dt><dd id="pay-sub">$19.99</dd></div>
+            <div class="pay__line pay__line--total"><dt>Total<small>Including taxes</small></dt><dd id="pay-total">$19.99</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Sign up › tell us about your role (Figma 2677-10278) -->
+    <section class="su su--dark" data-step="role" hidden aria-labelledby="su-role-t">
+      <a class="su-logo" href="/" aria-label="EXD home"><svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg></a>
+      <form class="su-role" id="role-form" novalidate>
+        <h1 class="su__title" id="su-role-t" tabindex="-1">Tell Us About<br />Your Role</h1>
+        <div class="su-role__grid">
+          <p class="su-role__label">Your Information</p>
+          <fieldset class="su-role__roles">
+            <legend>Select Your Role</legend>
+            <label><input type="radio" name="role" value="artist" checked /><span>Artist</span></label>
+            <label><input type="radio" name="role" value="producer" /><span>Producer</span></label>
+            <label><input type="radio" name="role" value="label" /><span>Label</span></label>
+          </fieldset>
+          <label class="su-field su-role__email">Email<input id="role-email" type="email" readonly /></label>
+          <label class="su-field">First name<input id="role-first" autocomplete="given-name" required /></label>
+          <label class="su-field su-dd">Country of residence
+            <select id="role-country" required>
+              <option value="">Select</option>
+              <option>United States</option><option>Canada</option><option>United Kingdom</option><option>South Korea</option><option>Japan</option><option>Australia</option><option>Germany</option><option>France</option><option>Brazil</option><option>Mexico</option><option>Nigeria</option><option>India</option>
+            </select>
+          </label>
+          <label class="su-field">Last name<input id="role-last" autocomplete="family-name" required /></label>
+          <label class="su-field su-dd">Preference of currency
+            <select id="role-currency">
+              <option>United States Dollar (USD)</option><option>Euro (EUR)</option><option>British Pound (GBP)</option><option>Korean Won (KRW)</option><option>Japanese Yen (JPY)</option><option>Canadian Dollar (CAD)</option>
+            </select>
+          </label>
+          <button class="su-role__go" type="submit" id="role-go" disabled>Continue</button>
+        </div>
+      </form>
+    </section>
+
+    <!--@include route-->
+
+    <script type="module" src="/src/login.js"></script>
+    <script type="module" src="/src/signup.js"></script>
+  </body>
+</html>

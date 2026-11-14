@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>One Collections — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="promote">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main main--bleed oc">
+        <section class="oc-hero">
+          <a class="roundback" href="/promote.html" aria-label="Back to Promote Yourself"><span aria-hidden="true">‹</span></a>
+          <p class="oc-hero__side" aria-hidden="true">One Collections</p>
+          <div class="oc-hero__copy">
+            <h1><mark>Get paid</mark><br />What you are<br />rightfully owed.</h1>
+            <p class="oc-hero__kicker">Secure your earnings with <mark class="oc-grad">One Collections</mark></p>
+            <p class="oc-hero__text">Your music could already be generating income. Ensure you're not missing out on royalties by taking action now.</p>
+          </div>
+          <div class="oc-card">
+            <div>
+              <p class="oc-card__ico" aria-hidden="true">$</p>
+              <h2>Tracking all your revenue streams can be complex.</h2>
+              <p class="oc-card__green">Whenever you write a song that gets used in commercial settings, you earn royalties, anywhere in the world. You might be missing out on these incomes without even realizing it.</p>
+              <p class="oc-card__end"><mark>World Collections</mark><br />stand ready to assist you in claiming the royalties you deserve.</p>
+            </div>
+            <img src="/assets/promote/oc-laptops.jpg" alt="" />
+          </div>
+          <p class="oc-down" aria-hidden="true">↓</p>
+        </section>
+
+        <section class="oc-licenses">
+          <h2>Licenses are needed and royalties are owed for musical and the spoken word compositions anytime, anywhere in the world they are played or used.</h2>
+          <div class="oc-licenses__row">
+            <div>
+              <h3>Music and the Spoken Word Compositions Royalties include :</h3>
+              <ul>
+                <li>Played on Pandora, Sirius XM, or other digital or AM/FM radio</li>
+                <li>Streamed on Spotify, Apple, Amazon, YouTube Music, or other streaming services</li>
+                <li>Streamed on video services such as YouTube, TikTok, or other video sites</li>
+                <li>Played in a restaurant, bar, gym, or elevator</li>
+                <li>Played at a live gig</li>
+                <li>Appear in a tv show, film, video game, or app</li>
+                <li>Put onto a CD, vinyl, cassette, or other physical format</li>
+                <li>Has the lyrics available to read on a website or in print</li>
+                <li>Is turned into sheet music or guitar tabs</li>
+                <li>Is covered and released by another artist</li>
+              </ul>
+              <p class="oc-more">And more...</p>
+            </div>
+            <img src="/assets/promote/oc-room.jpg" alt="Someone lying on a rug next to a record player" />
+          </div>
+        </section>
+
+        <section class="oc-claim">
+          <p><span>Wolrd Collections</span> will direct license and collect royalties for all uses, protect and collect what’s yours.</p>
+        </section>
+
+        <section class="oc-simple">
+          <h2>Simplified Royalty Collection</h2>
+          <p>Our seamless tech and expert team ensure every version of your song is found and paid for. We correct inaccuracies and reclaim lost earnings, providing a revolutionary service for creators.</p>
+          <ul>
+            <li><h3>We cut out middlemen</h3><p>We license directly and collect from digital services, ensuring your songs are accurately represented while cutting out middlemen.</p></li>
+            <li><h3>We find all the sound recordings</h3><p>Our tech and experts find every version of your songs, ensuring payment by filling missing data. A unique, unmatched service.</p></li>
+            <li><h3>We make sure you get paid</h3><p>Our advanced technology and team ensure your songs' details are correct for accurate royalty and stream count payments. We also fix discrepancies and recover missing funds.</p></li>
+          </ul>
+        </section>
+
+        <section class="oc-artists">
+          <ul aria-label="Artists we work for">
+            <li>Bryan<br />Holland<small>Offspring</small></li><li>John<br />Oates</li><li class="oc-artists__script">All Them Witches</li><li>Thomas<br />Dolby</li>
+            <li class="oc-artists__script">The 502s</li><li>Benjamin</li><li class="oc-artists__script">Jeremie</li><li>Dallas<br />Austin</li>
+            <li>The<br />Walters</li><li class="oc-artists__script">Baroness</li><li>Houndmouth</li><li>Dirtyheads</li>
+          </ul>
+          <p class="oc-artists__title">We work for <mark>Leading artists</mark></p>
+        </section>
+
+        <section class="oc-form">
+          <h2>Submit Your Project Details</h2>
+          <p>Fill out the form with your project details to help us understand your vision.</p>
+          <form id="oc-form" novalidate>
+            <label>Name<input class="oc-inp" name="name" autocomplete="name" required /></label>
+            <label>Email<input class="oc-inp" name="email" type="email" autocomplete="email" required /></label>
+            <label>Project Name<input class="oc-inp" name="project" required /></label>
+            <label>Project Notes<textarea class="oc-inp" name="notes" rows="5"></textarea></label>
+            <label>Spotify Profile Link<input class="oc-inp" name="spotify" type="url" placeholder="https://open.spotify.com/artist/…" /></label>
+            <button class="oc-submit" type="submit">Submit</button>
+            <p class="oc-form__msg" role="status" hidden></p>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script type="module">
+      // Front-end only: checks the required fields and confirms; nothing is sent.
+      const form = document.querySelector('#oc-form');
+      const msg = form.querySelector('.oc-form__msg');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const bad = [...form.querySelectorAll('[required]')].find((el) => !el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)));
+        form.querySelectorAll('.oc-inp').forEach((el) => el.removeAttribute('aria-invalid'));
+        if (bad) {
+          bad.setAttribute('aria-invalid', 'true');
+          bad.focus();
+          msg.textContent = 'Please fill in your name, a valid email and the project name.';
+          msg.hidden = false;
+          return;
+        }
+        msg.textContent = 'Thanks! Your project details are ready to send.';
+        msg.hidden = false;
+        form.querySelector('.oc-submit').disabled = true;
+      });
+    </script>
+  </body>
+</html>

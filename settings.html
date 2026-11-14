@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="settings">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-mic2" viewBox="0 0 79 98"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M53.7289 0.854202C52.442 1.31233 51.2162 1.86026 51.0046 2.07161C50.7924 2.28296 56.3865 8.22706 63.4357 15.2798L76.2521 28.1038L77.4632 25.4888C79.3098 21.5031 79.1147 14.6568 77.0406 10.657C73.4575 3.74776 67.5331 -0.0351822 60.3493 0.000246614C57.9945 0.0112418 55.0152 0.396071 53.7289 0.854202ZM46.0821 4.43495C45.3505 5.21255 44.7523 6.2461 44.7523 6.7311C44.7523 7.21611 50.8003 13.6483 58.1927 21.0254L71.6324 34.437L73.3309 33.1756C76.7898 30.6058 76.509 30.166 62.3971 16.0617C55.2213 8.88982 48.914 3.02147 48.3812 3.02147C47.8485 3.02147 46.8136 3.65796 46.0821 4.43495ZM42.5284 12.0112C41.9223 13.5957 41.4183 16.4899 41.4072 18.4422L41.3883 21.9924L49.166 29.6938L56.9437 37.3959L61.0931 37.0856C63.3752 36.9152 66.2854 36.272 67.5594 35.6563L69.8763 34.5366L57.1669 21.8335C50.1764 14.8467 44.2716 9.12988 44.0441 9.12988C43.8165 9.12988 43.1345 10.4267 42.5284 12.0112ZM31.249 33.668C8.20218 60.9726 8.571 60.5071 9.31171 61.3989C9.8628 62.0623 9.5264 62.9071 7.74773 65.3273C6.04551 67.643 5.64611 68.6087 6.14216 69.2055C6.64187 69.8072 6.27549 70.5096 4.63567 72.0929C1.34929 75.2644 0 77.8092 0 80.8371C0 87.2345 5.07972 91.2941 11.5644 90.0791C13.4935 89.7175 15.7793 87.7402 26.1338 77.4775C33.9733 69.7082 39.064 65.1245 40.2078 64.8056C45.3065 63.3848 50.3563 68.4322 48.955 73.5486C48.6357 74.7134 44.7095 79.106 37.9086 85.9059C29.5162 94.2976 27.5125 96.6109 28.1156 97.2132C29.2288 98.3249 50.0015 77.5807 50.9642 74.3958C52.96 67.7938 46.9702 61.278 40.0708 62.5479C38.0524 62.9199 35.9777 64.7097 25.4604 75.1557C17.035 83.523 12.5883 87.5057 11.2396 87.8917C7.32447 89.0132 2.89982 86.4483 2.1848 82.6428C1.62759 79.6765 2.21355 78.0969 5.07177 74.8533C7.17033 72.4729 7.88535 72.0251 9.10252 72.3306C10.2035 72.606 11.343 72.1436 13.5523 70.5237C15.3236 69.225 16.6796 68.6001 16.9114 68.9746C17.1255 69.3203 17.5335 69.6031 17.8185 69.6031C18.3849 69.6031 55.3595 38.628 55.6115 37.9426C55.6965 37.7105 52.3729 34.1389 48.2247 30.006L40.6824 22.492L31.249 33.668ZM43.4067 34.9074C44.6997 36.1987 44.2025 37.6415 41.6782 39.9193C39.6267 41.7702 39.0139 42.0334 38.0083 41.4959C36.2217 40.5412 36.5294 39.0849 39.0659 36.4907C41.4813 34.0204 42.2409 33.7431 43.4067 34.9074Z" /></symbol>
+    </svg>
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <h1 class="pagetitle">Settings</h1>
+
+        <div class="subtabs" role="tablist" aria-label="Settings">
+          <button type="button" role="tab" id="t-artist" aria-controls="p-artist" data-hash="artist">Artist</button>
+          <button type="button" role="tab" id="t-account" aria-controls="p-account" data-hash="account">Account</button>
+          <button type="button" role="tab" id="t-security" aria-controls="p-security" data-hash="security">Security</button>
+          <button type="button" role="tab" id="t-wallet" aria-controls="p-wallet" data-hash="wallet">Wallet</button>
+          <button type="button" role="tab" id="t-notif" aria-controls="p-notif" data-hash="notification">Notification</button>
+        </div>
+
+        <!-- Artist -->
+        <section id="p-artist" role="tabpanel" aria-labelledby="t-artist" class="panel setcard">
+          <form class="artistform" data-dirty>
+            <label class="avatar avatar--photo" title="Change image">
+              <img id="avatar-img" src="/assets/dashboard/artist-photo.jpg" alt="Artist profile image" />
+              <span class="avatar__change">Change</span>
+              <input class="sr" type="file" name="avatar" accept="image/jpeg,image/png,image/webp" id="avatar-input" aria-label="Change profile image" />
+            </label>
+            <div>
+              <div class="field2">
+                <label for="artist-name">Artist name</label>
+                <div class="row2">
+                  <input class="inp" id="artist-name" name="artist" value="Rion Hale" readonly />
+                  <button class="violet linkbtn" type="button" id="name-change" aria-haspopup="dialog">Change</button>
+                </div>
+              </div>
+              <div class="field2">
+                <label for="genre">Genre</label>
+                <span class="dd"><select id="genre" name="genre"><option>R&amp;B, Alternative, Hip-hop</option><option>Pop</option><option>Electronic</option><option>Rock</option></select></span>
+              </div>
+              <div class="field2">
+                <label for="city">City Based</label>
+                <span class="dd"><select id="city" name="city"><option>New York, NY, USA</option><option>Los Angeles, CA, USA</option><option>Seoul, South Korea</option><option>London, UK</option></select></span>
+              </div>
+              <button class="solid" type="submit">Save</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Account -->
+        <section id="p-account" role="tabpanel" aria-labelledby="t-account" class="panel setcard" hidden>
+          <p class="label">Membership</p>
+          <div class="plan">
+            <b><span aria-hidden="true">★</span><span id="plan-name">EXD Premier</span></b>
+            <span></span>
+            <p>Next billing date: 08/05/2024<br />Amount: <span id="plan-amount">$19.99</span></p>
+            <a class="violet" href="/plan.html" id="plan-open">Change Plan</a>
+          </div>
+
+          <div class="section2">
+            <p class="label">Account Information</p>
+            <form class="narrow" data-dirty>
+              <div class="field2" style="margin-top: 22px">
+                <label for="holder">Account Holder Name</label>
+                <input class="inp" id="holder" name="holder" value="Rion Hale" />
+              </div>
+              <button class="solid" type="submit" style="margin-top: 14px">Save</button>
+            </form>
+            <div class="field2" style="margin-top: 22px">
+              <label for="email">Email</label>
+              <div class="row2">
+                <input class="inp" id="email" value="abc@gmail.com" readonly style="max-width: 376px" />
+                <button class="violet linkbtn" type="button" id="email-change" aria-haspopup="dialog">Change</button>
+              </div>
+              <p class="enote" id="email-note" role="status" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" /><path d="M8 7.2v4M8 4.8v.01" /></svg>
+                <span id="email-note-text"></span>
+                <button class="enote__x" type="button" id="email-note-x" aria-label="Dismiss"><svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>
+              </p>
+            </div>
+            <button class="underline delbtn" type="button" id="del-open" aria-haspopup="dialog">Delete Account</button>
+          </div>
+        </section>
+
+        <!-- Security -->
+        <section id="p-security" role="tabpanel" aria-labelledby="t-security" class="panel setcard" hidden>
+          <p class="label">Reset your password</p>
+          <button class="ghost" type="button" data-sent>Send Password Reset Email</button>
+          <div class="section2">
+            <p class="label">Setup MFA</p>
+            <p class="setnote" id="mfa-note">Setup MFA (Multi-Factor Authentication) to enhance your security with multiple layers of protection.</p>
+            <button class="ghost" type="button" id="mfa-btn" aria-haspopup="dialog">Enable MFA</button>
+          </div>
+        </section>
+
+        <!-- Wallet -->
+        <section id="p-wallet" role="tabpanel" aria-labelledby="t-wallet" class="panel setcard" hidden>
+          <p class="label">Wallet</p>
+          <p class="setnote" style="margin-top: 10px">Coming soon!</p>
+        </section>
+
+        <!-- Notification -->
+        <section id="p-notif" role="tabpanel" aria-labelledby="t-notif" class="panel setcard" hidden>
+          <p class="label">Notification settings</p>
+          <form class="narrow" data-dirty>
+            <div class="field2" style="margin-top: 16px">
+              <label for="notify">Would you like to receive email notifications about your account events and updates?</label>
+              <span class="dd"><select id="notify" name="notify"><option>Yes</option><option>No</option></select></span>
+            </div>
+            <button class="solid" type="submit" data-done="Updated">Update</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+
+    <!-- MFA set up / disable (MFA Setup Figma 1-459, 1-476, 1-629) -->
+    <dialog class="mfa" id="mfa" aria-labelledby="mfa-title">
+      <button class="modal__x mfa__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+      <h2 id="mfa-title"></h2>
+
+      <div data-v="intro" hidden>
+        <p>By enabling Multi-Factor Authentication (MFA), you're adding a powerful security layer to your account.</p>
+        <img class="mfa__img" src="/assets/dashboard/mfa-lock.jpg" alt="" />
+        <button class="solid mfa__cta" type="button" data-to="code">Continue</button>
+      </div>
+
+      <div data-v="verify" hidden>
+        <p>For your security, we'll send an access code to your email: <b class="mfa__email"></b></p>
+        <p>Please click “Send Code” to receive your verification code.</p>
+        <p class="mfa__alt">Cannot access code? <a href="/support.html" target="_blank" rel="noopener">Use Recovery Key</a></p>
+        <button class="solid mfa__cta" type="button" data-to="code">Send Code</button>
+      </div>
+
+      <div data-v="code" hidden>
+        <p>We've sent a 6-digit access code to your email <span class="mfa__email"></span>. Enter the code below to verify. This code will expire in 10 minutes.</p>
+        <div class="mfa__code" role="group" aria-label="6-digit code"><input inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" /><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 2" /><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 3" /><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 4" /><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 5" /><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Digit 6" /></div>
+        <p class="mfa__resend">Didn't receive the code? <button type="button" class="mfa__link" data-resend>Resend code</button></p>
+        <p class="mfa__sent" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.4l3 3 6-6.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>A new code was sent.<small>You can resend in <span data-sec>30</span> sec...</small></p>
+        <button class="ghost mfa__cta" type="button" data-back>Go Back</button>
+      </div>
+
+      <div data-v="done" hidden>
+        <div class="mfa__art mfa__art--on" aria-hidden="true"><svg viewBox="0 0 80 96"><path d="M40 4l32 12v26c0 22-14 40-32 48C22 82 8 64 8 42V16z" fill="#cfe9df" stroke="#9bd3bd" stroke-width="3" /><path d="M40 14l24 9v20c0 16-10 30-24 37-14-7-24-21-24-37V23z" fill="#5fa77f" /><circle cx="40" cy="46" r="12" fill="#e8f6ee" /><path d="M34 46l4.5 4.5L47 42" fill="none" stroke="#3f8a63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+        <p>Your account is now secured with email MFA verification. Each time you log in, you'll receive a verification code to ensure it's really you.</p>
+        <p>You can disable multi-factor authentication at any time in your account settings.</p>
+        <button class="solid mfa__cta" type="button" data-close>Done</button>
+        <button class="ghost mfa__cta mfa__cta--2" type="button" data-back>Back</button>
+      </div>
+
+      <div data-v="confirm" hidden>
+        <p>Are you sure you wish to disable Multi-Factor Authentication (MFA)? This action will reduce your account's security.</p>
+        <div class="mfa__pair">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="solid" type="button" data-to="off">Disable MFA</button>
+        </div>
+      </div>
+
+      <div data-v="off" hidden>
+        <div class="mfa__art mfa__art--off" aria-hidden="true"><svg viewBox="0 0 80 96"><path d="M40 4l32 12v26c0 22-14 40-32 48C22 82 8 64 8 42V16z" fill="#f1d6d8" stroke="#d9a9ad" stroke-width="3" /><path d="M40 14l24 9v20c0 16-10 30-24 37-14-7-24-21-24-37V23z" fill="#c98a90" /><circle cx="40" cy="46" r="12" fill="#f7e8e9" /><path d="M34 46h12" stroke="#a5616a" stroke-width="3" stroke-linecap="round" /></svg></div>
+        <p>MFA is now disabled. Your account is protected by your password only.</p>
+        <button class="solid mfa__cta" type="button" data-close>Done</button>
+      </div>
+    </dialog>
+
+
+
+    <!-- Important Notice before changing the artist name (Artist Name Setup Figma 1-635) -->
+    <dialog class="deldlg notice" id="name-notice" aria-labelledby="notice-title" aria-describedby="notice-desc">
+      <button class="modal__x deldlg__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+      <svg class="notice__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l9.5 16.5h-19z" /><path d="M12 10v4.5M12 17.2v.01" /></svg>
+      <h2 id="notice-title">Important Notice</h2>
+      <p id="notice-desc"><b>Any adjustments made in this section won't automatically affect releases that have already been distributed.</b></p>
+      <p>Should you need to reassign previous releases to different artist profiles, please reach out to our <a href="/support.html" target="_blank" rel="noopener">support team</a> for assistance.</p>
+      <a class="solid notice__go" href="/artist-name.html">I Understand</a>
+    </dialog>
+    <!-- Change Email (Change Email Figma 2001-664, errors 2001-6xx) -->
+    <dialog class="deldlg chemail" id="chemail" aria-labelledby="chemail-title">
+      <form id="chemail-form" novalidate>
+        <button class="modal__x deldlg__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+        <h2 id="chemail-title">Change Email</h2>
+        <label for="ce-pass">Current password</label>
+        <input id="ce-pass" class="inp" type="password" autocomplete="current-password" placeholder="Enter current password" />
+        <label for="ce-email">New email address</label>
+        <input id="ce-email" class="inp" type="email" autocomplete="email" placeholder="Enter email address" aria-describedby="ce-err" />
+        <p class="chemail__err" id="ce-err" role="alert"></p>
+        <div class="deldlg__actions chemail__actions">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="solid" type="submit" id="ce-save" disabled>Save</button>
+        </div>
+      </form>
+    </dialog>
+    <!-- Confirm Account Deletion (All Flows 6984-15633) -->
+    <dialog class="deldlg" id="deldlg" aria-labelledby="del-title" aria-describedby="del-desc">
+      <form method="dialog" id="del-form" novalidate>
+        <button class="modal__x deldlg__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+        <h2 id="del-title">Confirm Account Deletion</h2>
+        <p id="del-desc">Deleting your account will lose membership perks, products, assets, and releases. This action cannot be undone.</p>
+        <label for="del-input">To confirm, type “<b>delete my account permanently</b>” below:</label>
+        <input id="del-input" class="inp" autocomplete="off" spellcheck="false" placeholder="delete my account permanently" />
+        <div class="deldlg__actions">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="deldlg__go" type="submit" id="del-go" disabled>Delete Account</button>
+        </div>
+      </form>
+    </dialog>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/mfa.js"></script>
+    <script type="module" src="/src/plans.js"></script>
+    <script type="module" src="/src/account.js"></script>
+    <script type="module">
+      // "Change" unlocks a read-only field for editing.
+      document.querySelectorAll('[data-unlock]').forEach((link) =>
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const input = document.getElementById(link.dataset.unlock);
+          input.readOnly = false;
+          input.focus();
+          input.select();
+        }),
+      );
+      // Profile image: preview the chosen file; saved with the form (kept in this browser).
+      const avatarInput = document.getElementById('avatar-input');
+      const avatarImg = document.getElementById('avatar-img');
+      try {
+        const saved = localStorage.getItem('exd-avatar');
+        if (saved) avatarImg.src = saved;
+      } catch {}
+      let pendingAvatar = null;
+      avatarInput.addEventListener('change', () => {
+        const file = avatarInput.files[0];
+        if (!file) return;
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          const c = document.createElement('canvas');
+          const size = 480;
+          const side = Math.min(img.naturalWidth, img.naturalHeight);
+          c.width = c.height = size;
+          c.getContext('2d').drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, size, size);
+          pendingAvatar = c.toDataURL('image/jpeg', 0.85);
+          avatarImg.src = pendingAvatar;
+          URL.revokeObjectURL(url);
+        };
+        img.src = url;
+      });
+      document.querySelector('.artistform').addEventListener('submit', () => {
+        if (!pendingAvatar) return;
+        try {
+          localStorage.setItem('exd-avatar', pendingAvatar);
+        } catch {}
+        pendingAvatar = null;
+      });
+      // Password reset: acknowledge without sending anything (no backend).
+      const sent = document.querySelector('[data-sent]');
+      sent.addEventListener('click', () => {
+        sent.textContent = 'Reset email sent';
+        sent.disabled = true;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exclusive — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="exclusives">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main main--deal">
+        <a class="ghost backbtn" href="/exclusives.html"><span aria-hidden="true">←</span> Back</a>
+        <div class="dealhero" id="hero"><img id="hero-img" alt="" /></div>
+        <h1 class="dealtitle" id="title"></h1>
+
+        <div class="subtabs dealtabs" role="tablist" aria-label="Deal">
+          <button type="button" role="tab" id="t-about" aria-controls="p-about" data-hash="about">About</button>
+          <button type="button" role="tab" id="t-terms" aria-controls="p-terms" data-hash="terms">Terms</button>
+          <button type="button" role="tab" id="t-subs" aria-controls="p-subs" data-hash="submissions">Submissions</button>
+        </div>
+
+        <div class="dealgrid">
+          <div>
+            <section class="panel dealcard" id="p-about" role="tabpanel" aria-labelledby="t-about">
+              <p>Submit your track for the opportunity to have your music featured in ESPN sports programming and promotional content.</p>
+              <h2>Selected artists will receive:</h2>
+              <ul>
+                <li>Placement in ESPN content for broadcast, social, and other programming</li>
+                <li>Potential features on EXD and ESPN social media</li>
+              </ul>
+              <h2>Requirements:</h2>
+              <p>Songs selected by EXD must be distributed by EXD. Songs can only be submitted for this opportunity once. You must follow the below Brand Integrity guidelines.</p>
+              <h2>Brand integrity &amp; compliance:</h2>
+              <p>Please avoid explicit reference to the following subject matter: guns, violence, hate, discrimination, drugs/alcohol, etc.</p>
+            </section>
+            <section class="panel dealcard dealcard--terms" id="p-terms" role="tabpanel" aria-labelledby="t-terms" hidden>
+              <p>The following shall form the first amendment to the Agreement entered into between you and EXD (“First Amendment”) by your acceptance of the Terms forming such Agreement, and shall modify such terms and conditions as contained in that Agreement thereof as so necessary to effect the provisions hereof. Capitalized terms used herein but not otherwise defined herein shall have the meanings given to such terms in those Terms. Except as expressly modified by this First Amendment, that Agreement remains in full force and effect pursuant to its terms. All references to the Agreement in other documentation between you and EXD shall be deemed to be a reference to the Agreement as amended by this First Amendment.</p>
+              <p>BY SUBMITTING ANY OF YOUR CONTENT FOR CONSIDERATION PURSUANT TO THE FOLLOWING, YOU AGREE TO THESE TERMS. IF YOU DO NOT AGREE, DO NOT SUBMIT ANY CONTENT FOR SUCH CONSIDERATION. All rights not expressly granted to Users in this First Amendment are hereby reserved by Company.</p>
+              <p>THIRD PARTY OPPORTUNITIES<br />From time to time, before or during the Distribution Term, Company may enter into one or more agreements with third parties (each, a “Third Party”) pursuant to which Company shall deliver certain master sound recordings for possible use in endorsement and brand integration opportunities (each, a “Third Party Opportunity”) and such Third Parties.</p>
+            </section>
+            <section class="panel dealcard dealcard--subs" id="p-subs" role="tabpanel" aria-labelledby="t-subs" hidden>
+              <table class="subs">
+                <thead><tr><th>Submitted</th><th><span class="sr">Date</span></th></tr></thead>
+                <tbody id="subs"><tr><td>Now or Never</td><td>06/01/2023</td></tr><tr><td>Twist</td><td>06/01/2023</td></tr></tbody>
+              </table>
+            </section>
+          </div>
+          <aside class="panel dealside">
+            <button class="solid" type="button" id="submit-track">Submit Your Track</button>
+            <p>Submitted tracks must be distributed by EXD. If you have not distributed any tracks yet, please do so first.</p>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="modal pickmodal" id="pick" aria-labelledby="pick-title">
+      <form method="dialog" class="modal__form" id="pick-form">
+        <header class="modal__head">
+          <h2 id="pick-title">Submit Your Track</h2>
+          <button class="modal__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+        </header>
+        <div class="modal__body pick">
+          <p>Choose a released track distributed by EXD.</p>
+          <div id="pick-list"></div>
+        </div>
+        <footer class="modal__foot">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="solid" type="submit" id="pick-ok" disabled>Submit</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module">
+      import { ALBUMS } from '/src/releases.js';
+
+      // Deal content per Exclusive card. The live-streams deal reuses the ESPN copy, as the Figma frame does.
+      const DEALS = {
+        espn: { title: 'Get your Music on ESPN', img: '/assets/dashboard/ex-espn.png', alt: 'ESPN' },
+        // Figma (984-11302) shows the ESPN banner here too; the Apple image also carries the old wordmark.
+        streams: { title: 'Submit your music to have it featured on live streams around the world', img: '/assets/dashboard/ex-espn.png', alt: 'ESPN' },
+      };
+      const id = new URLSearchParams(location.search).get('id');
+      const deal = DEALS[id] || DEALS.espn;
+      document.title = `${deal.title} — EXD`;
+      document.querySelector('#title').textContent = deal.title;
+      const img = document.querySelector('#hero-img');
+      img.src = deal.img;
+      img.alt = deal.alt;
+
+      // Submit Your Track: pick one of your released tracks; it joins Submissions.
+      const released = Object.values(ALBUMS).filter((a) => a.status === 'released').flatMap((a) => a.tracks.map(([t]) => t));
+      const dlg = document.querySelector('#pick');
+      const list = document.querySelector('#pick-list');
+      const ok = document.querySelector('#pick-ok');
+      list.innerHTML = released.map((t, i) => `<label class="pick__row"><input type="radio" name="track" value="${t.replace(/"/g, '&quot;')}" /><span>${t}</span></label>`).join('');
+      list.addEventListener('change', () => (ok.disabled = false));
+      document.querySelector('#submit-track').addEventListener('click', () => dlg.showModal());
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+      });
+      document.querySelector('#pick-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const t = new FormData(e.target).get('track');
+        if (!t) return;
+        const d = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td></td><td></td>';
+        tr.cells[0].textContent = t;
+        tr.cells[1].textContent = d;
+        document.querySelector('#subs').prepend(tr);
+        dlg.close();
+        e.target.reset();
+        ok.disabled = true;
+        document.querySelector('#t-subs').click();
+      });
+    </script>
+  </body>
+</html>

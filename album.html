@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Album — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="music">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-play" viewBox="0 0 16 16"><path d="M4.5 2.8v10.4l8.2-5.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" /></symbol>
+      <symbol id="i-pause" viewBox="0 0 16 16"><path d="M5 3v10M11 3v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></symbol>
+    </svg>
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="/music.html"><span aria-hidden="true">←</span> <u>All</u></a>
+          <span aria-hidden="true">/</span>
+          <span id="crumb-title" aria-current="page"></span>
+        </nav>
+
+        <div class="albumpage">
+          <section class="panel ainfo">
+            <img class="ainfo__cover" id="cover" alt="" />
+            <div>
+              <p class="ainfo__kind">Album</p>
+              <h1 class="ainfo__title" id="title"></h1>
+              <p class="album__status" id="status"></p>
+              <dl class="ainfo__meta" id="meta"></dl>
+            </div>
+          </section>
+
+          <section class="panel atracks">
+            <table class="tracks">
+              <thead><tr><th><span class="sr">Number</span></th><th>Name</th><th>Artist</th><th>Duration</th><th><span class="sr">Play</span></th></tr></thead>
+              <tbody id="tracks"></tbody>
+            </table>
+          </section>
+
+          <section class="panel astats">
+            <p class="astats__note">// Probly some album analytics can come here.</p>
+            <div class="rangetabs" data-toggle-group aria-label="Range">
+              <button type="button" aria-pressed="true" data-value="wk">1 WK</button>
+              <button type="button" aria-pressed="false" data-value="mo">1 MO</button>
+              <button type="button" aria-pressed="false" data-value="all">ALL</button>
+            </div>
+            <p class="label astats__label">Streams</p>
+            <p class="astats__num">0</p>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/album.js"></script>
+  </body>
+</html>

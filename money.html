@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="money">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-dl" viewBox="0 0 20 20"><path d="M10 3v10M6 9l4 4 4-4M3 14v3h14v-3" /></symbol>
+      <symbol id="i-sliders" viewBox="0 0 20 20"><path d="M3 6h9M15 6h2M3 14h3M9 14h8" /><circle cx="13.500" cy="6" r="1.800" /><circle cx="7.500" cy="14" r="1.800" /></symbol>
+    </svg>
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <h1 class="pagetitle">Money</h1>
+
+        <div class="subtabs" role="tablist" aria-label="Money">
+          <button type="button" role="tab" id="t-roy" aria-controls="p-roy" data-hash="royalties">Royalties</button>
+          <button type="button" role="tab" id="t-wal" aria-controls="p-wal" data-hash="wallet">Wallet</button>
+          <button type="button" role="tab" id="t-st" aria-controls="p-st" data-hash="statements">Statements</button>
+        </div>
+
+        <!-- Royalties -->
+        <section id="p-roy" role="tabpanel" aria-labelledby="t-roy">
+          <div class="mfilters">
+            <span class="dd"><select aria-label="DSP"><option>DSP</option></select></span>
+            <span class="dd"><select aria-label="Territory"><option>Territory</option></select></span>
+            <span class="dd"><select aria-label="Sale type"><option>Sale Type</option></select></span>
+            <button class="ghost" type="button"><svg><use href="#i-sliders" /></svg>All Filters</button>
+          </div>
+          <div class="mstats">
+            <div><p>Total Streams</p><b id="roy-streams">—</b></div>
+            <div><p>Total Downloads</p><b id="roy-dl">—</b></div>
+            <div><p>Total Revenue</p><b id="roy-rev">—</b></div>
+          </div>
+          <div class="groupby">
+            <label>Group by: <span class="dd"><select id="roy-group" aria-label="Group royalties by"><option>DSP</option><option>Territory</option><option>Product</option></select></span></label>
+            <a class="dl" href="#csv" id="roy-csv"><svg><use href="#i-dl" /></svg>Download CSV</a>
+          </div>
+          <div class="mtable">
+            <table class="dt" id="roy-table" data-sortable>
+              <thead>
+                <tr>
+                  <th><button class="sort" type="button"><span id="roy-col">DSP</span> <i>⇅</i></button></th>
+                  <th><button class="sort" type="button">Streams <i>⇅</i></button></th>
+                  <th><button class="sort" type="button">Downloads <i>⇅</i></button></th>
+                  <th aria-sort="descending"><button class="sort" type="button">Royalties <i>▼</i></button></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Wallet -->
+        <section id="p-wal" role="tabpanel" aria-labelledby="t-wal" hidden>
+          <div class="wallet">
+            <div class="wallet__left">
+              <div class="balance">
+                <p class="label">Balance</p>
+                <b>$412.38 <small>USD</small></b>
+                <p>available today</p>
+                <a class="ghost" href="/transfer.html">⇄ Transfer</a>
+              </div>
+              <div class="earn">
+                <p class="label">Earnings this month</p>
+                <b id="earn-month">$86.11 <small>USD</small></b>
+                <p id="earn-all">$849.95 USD all time</p>
+                <div class="seg2" data-toggle-group aria-label="Range">
+                  <button type="button" data-value="week" aria-pressed="false">Week</button>
+                  <button type="button" data-value="month" aria-pressed="true">Month</button>
+                  <button type="button" data-value="all" aria-pressed="false">All time</button>
+                </div>
+                <div class="earnchart" id="earn-chart"></div>
+              </div>
+            </div>
+            <div class="tx">
+              <div class="tx__head"><h2 class="tx__title">Transactions</h2><button class="ghost" type="button" id="tx-filter-btn" aria-expanded="false" aria-controls="tx-filter"><svg><use href="#i-sliders" /></svg>Filter</button>
+                <form class="txf" id="tx-filter" hidden>
+                  <fieldset><legend>Transaction Type</legend>
+                    <label><input type="radio" name="type" value="received" /><i></i>Received</label>
+                    <label><input type="radio" name="type" value="sent" /><i></i>Sent</label>
+                    <label><input type="radio" name="type" value="bank" /><i></i>Deposited to bank</label>
+                  </fieldset>
+                  <fieldset><legend>Date Range</legend>
+                    <label><input type="radio" name="range" value="7" /><i></i>Last 7 days</label>
+                    <label><input type="radio" name="range" value="15" /><i></i>Last 15 days</label>
+                    <label><input type="radio" name="range" value="30" /><i></i>Last 30 days</label>
+                    <label><input type="radio" name="range" value="91" /><i></i>Last 3 months</label>
+                    <label><input type="radio" name="range" value="182" /><i></i>Last 6 months</label>
+                    <label><input type="radio" name="range" value="365" /><i></i>Last 12 months</label>
+                    <label><input type="radio" name="range" value="custom" /><i></i>Custom date range</label>
+                    <div class="txf__custom" hidden>
+                      <input class="inp" type="date" name="from" aria-label="From date" />
+                      <input class="inp" type="date" name="to" aria-label="To date" />
+                    </div>
+                  </fieldset>
+                  <div class="txf__foot"><button class="solid" type="submit" disabled>Apply</button><button class="txf__clear" type="button">Clear all</button></div>
+                </form>
+              </div>
+              <h3>Pending</h3>
+              <ul>
+                <li><span class="tx__ico">◷</span><div><b>CHASE Checking</b><small><span class="pend">Pending to send</span> · July 11, 2024</small></div><span class="amt amt--out">−$150.00</span></li>
+              </ul>
+              <h3>Completed</h3>
+              <ul>
+                <li><span class="tx__ico">↓</span><div><b>Royalty</b><small>Received · July 1, 2024</small></div><span class="amt amt--in">+$103.05</span></li>
+                <li><span class="tx__ico">↓</span><div><b>Royalty</b><small>Received · June 3, 2024</small></div><span class="amt amt--in">+$99.59</span></li>
+                <li><span class="tx__ico">↑</span><div><b>CHASE Checking</b><small>Sent · May 28, 2024</small></div><span class="amt amt--out">−$200.00</span></li>
+                <li><span class="tx__ico">↓</span><div><b>Royalty</b><small>Received · May 2, 2024</small></div><span class="amt amt--in">+$57.64</span></li>
+                <li><span class="tx__ico">↓</span><div><b>Royalty</b><small>Received · April 2, 2024</small></div><span class="amt amt--in">+$70.68</span></li>
+                <li><span class="tx__ico">↓</span><div><b>Royalty</b><small>Received · March 1, 2024</small></div><span class="amt amt--in">+$75.33</span></li>
+                <li><span class="tx__ico">↑</span><div><b>CHASE Checking</b><small>Sent · February 20, 2024</small></div><span class="amt amt--out">−$150.00</span></li>
+              </ul>
+              <p class="tx__none" hidden>No transactions match these filters.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Statements -->
+        <section id="p-st" role="tabpanel" aria-labelledby="t-st" hidden>
+          <label class="stview">View: <span class="dd"><select><option>2024</option><option>2023</option></select></span></label>
+          <div class="mtable">
+            <table class="dt sttable">
+              <thead><tr><th style="width: 30%">Month</th><th>Name</th><th style="width: 60px"><span class="sr">Download</span></th></tr></thead>
+              <tbody>
+                <tr><td>July 2024</td><td><a href="#statement">July2024StatementRun_EXDEntGenNeoAECampaign-standard-EUR.zip</a></td><td><a class="iconbtn2" href="#statement" aria-label="Download July 2024 campaign statement"><svg><use href="#i-dl" /></svg></a></td></tr>
+                <tr><td>July 2024</td><td><a href="#statement">July2024StatementRun_EXDEntertainmentLLC-standard-EUR.zip</a></td><td><a class="iconbtn2" href="#statement" aria-label="Download July 2024 statement"><svg><use href="#i-dl" /></svg></a></td></tr>
+                <tr><td>June 2024</td><td><a href="#statement">June2024StatementRun_EXDEntGenNeoAECampaign-standard-EUR.zip</a></td><td><a class="iconbtn2" href="#statement" aria-label="Download June 2024 campaign statement"><svg><use href="#i-dl" /></svg></a></td></tr>
+                <tr><td>June 2024</td><td><a href="#statement">June2024StatementRun_EXDEntertainmentLLC-standard-EUR.zip</a></td><td><a class="iconbtn2" href="#statement" aria-label="Download June 2024 statement"><svg><use href="#i-dl" /></svg></a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+    <!-- Transaction details (Money Figma 71-1625) -->
+    <dialog class="txd txd--v2" id="txd" aria-labelledby="txd-title">
+      <header class="txd__head">
+        <span class="txd__ico" aria-hidden="true"></span>
+        <div>
+          <h2 id="txd-title"></h2>
+          <p class="txd__kind" id="txd-kind"></p>
+        </div>
+        <button class="modal__x txd__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+      </header>
+      <div class="txd__sum">
+        <p class="txd__amt"></p>
+        <span class="txd__status" id="txd-status"></span>
+      </div>
+      <dl class="txd__dl">
+        <div><dt>Date</dt><dd data-f="time"></dd></div>
+        <div><dt data-f="party-l">From</dt><dd data-f="party"></dd></div>
+        <div><dt>Destination</dt><dd data-f="dest"></dd></div>
+        <div><dt>Transaction ID</dt><dd><span data-f="id"></span><button class="txd__copy" type="button" id="txd-copy" aria-label="Copy transaction ID"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" /><path d="M10.5 3.5v-.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5" /></svg></button></dd></div>
+      </dl>
+      <footer class="txd__foot">
+        <p class="txd__help">Questions? <a href="/support.html" target="_blank" rel="noopener">Contact Support</a></p>
+        <button class="ghost" type="button" data-close>Close</button>
+      </footer>
+    </dialog>
+    <!-- Transfer initiated (Money Figma 71-2127) -->
+    <dialog class="txd txok" id="txok" aria-labelledby="txok-title">
+      <button class="modal__x txd__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+      <svg class="txok__ico" viewBox="0 0 40 40" aria-hidden="true"><path d="M35 17.5V20a15 15 0 1 1-8.9-13.7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /><path d="M35 7.5L20 22.5l-4.5-4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <h2 id="txok-title">Your transfer has been initiated.</h2>
+      <p>You can see the status of your transfers under the Wallet tab.</p>
+      <button class="ghost" type="button" data-close>Close</button>
+    </dialog>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/wallet.js"></script>
+    <script type="module" src="/src/royalties.js"></script>
+  </body>
+</html>

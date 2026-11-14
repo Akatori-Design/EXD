@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Your Plan — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="settings">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main main--plan">
+        <a class="ghost backbtn" id="pl-back" href="/settings.html#account"><span aria-hidden="true">←</span> Back</a>
+
+        <!-- Manage Your Plan (Figma 2121-2540) -->
+        <section class="pl" data-step="" aria-labelledby="pl-manage-t">
+          <h1 id="pl-manage-t">Manage Your Plan</h1>
+          <p class="pl__sub">Find a plan suitable for your career.</p>
+          <ul class="plcards" id="pl-cards"></ul>
+          <p class="pl__note" id="pl-note" role="status"></p>
+        </section>
+
+        <!-- How can we help? (Figma 2140-1661, step 1) -->
+        <section class="pl pl--center" data-step="help" aria-labelledby="pl-help-t" hidden>
+          <h1 id="pl-help-t">How can we help?</h1>
+          <p class="pl__sub">If something isn't working for you, we're here to help. You can still manage or cancel your plan anytime.</p>
+          <ul class="pl__opts">
+            <li><a href="/support.html" target="_blank" rel="noopener">Report a bug<i aria-hidden="true">›</i></a></li>
+            <li><a href="/support.html" target="_blank" rel="noopener">Get help with a feature<i aria-hidden="true">›</i></a></li>
+            <li><a href="/support.html" target="_blank" rel="noopener">Talk to a real person<i aria-hidden="true">›</i></a></li>
+            <li><a href="#lose" data-flow-opt>Cancel or pause your plan<i aria-hidden="true">›</i></a></li>
+          </ul>
+          <div class="pl__actions"><a class="ghost" href="#">Back</a></div>
+        </section>
+
+        <!-- Cancel Plan: what you lose (step 2) -->
+        <section class="pl pl--center" data-step="lose" aria-labelledby="pl-lose-t" hidden>
+          <h1 id="pl-lose-t">Cancel Plan</h1>
+          <p class="pl__sub" id="pl-lose-sub">If you cancel, you'll lose these features:</p>
+          <ul class="pl__lose" id="pl-lose"></ul>
+          <div class="pl__actions"><a class="ghost" href="#help">Back</a><a class="solid" href="#confirm">Continue</a></div>
+        </section>
+
+        <!-- Confirm Cancellation (step 3) -->
+        <section class="pl pl--center" data-step="confirm" aria-labelledby="pl-confirm-t" hidden>
+          <h1 id="pl-confirm-t">Confirm Cancellation</h1>
+          <p class="pl__sub" id="pl-confirm-sub"></p>
+          <form class="pl__why" id="pl-why">
+            <fieldset>
+              <legend>Before you cancel, could you tell us why?</legend>
+              <label class="cbox"><input type="checkbox" name="why" value="use" /><span>I don't use it enough</span></label>
+              <label class="cbox"><input type="checkbox" name="why" value="price" /><span>It's too expensive</span></label>
+              <label class="cbox"><input type="checkbox" name="why" value="once" /><span>I only needed it for a one-time project</span></label>
+              <label class="cbox"><input type="checkbox" name="why" value="issues" /><span>I had technical or billing issues</span></label>
+              <label class="cbox"><input type="checkbox" name="why" value="switch" /><span>I'm switching to another platform</span></label>
+              <label class="cbox"><input type="checkbox" name="why" value="other" id="why-other" /><span>Other reason:</span></label>
+              <textarea id="why-text" rows="3" placeholder="Tell us more (optional)" aria-label="Other reason" hidden></textarea>
+            </fieldset>
+            <div class="pl__actions">
+              <a class="ghost" href="#lose">Back</a>
+              <button class="solid pl__final" type="submit" id="pl-final" disabled>Finalize Cancellation</button>
+            </div>
+            <p class="pl__hint" id="pl-hint">Select at least one reason to continue.</p>
+          </form>
+        </section>
+
+        <!-- Done (step 4) -->
+        <section class="pl pl--center" data-step="done" aria-labelledby="pl-done-t" hidden>
+          <span class="pl__ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" /></svg></span>
+          <h1 id="pl-done-t">Your plan has been canceled.</h1>
+          <p class="pl__box" id="pl-done-box"></p>
+          <p class="pl__sub" id="pl-done-sub"></p>
+          <div class="pl__actions"><a class="solid" href="/settings.html#account">Back to Settings</a></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/plan.js"></script>
+  </body>
+</html>

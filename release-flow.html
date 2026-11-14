@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Music — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="release">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-file" viewBox="0 0 40 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2h24l10 10v34H3z" stroke-linejoin="round" /><path d="M27 2v10h10" stroke-linejoin="round" /><path d="M16 34V20l10-2v13" stroke-linecap="round" stroke-linejoin="round" /><circle cx="13.5" cy="34" r="2.5" /><circle cx="23.5" cy="31" r="2.5" /></symbol>
+      <symbol id="i-play" viewBox="0 0 16 16"><path d="M4.5 2.8v10.4l8.2-5.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" /></symbol>
+      <symbol id="i-folder" viewBox="0 0 16 16"><path d="M1.8 3.5h4.3l1.4 1.6h6.7v7.4H1.8z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" /></symbol>
+      <symbol id="i-trash" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.5h6.6L12 4M6.6 6.5v4.5M9.4 6.5v4.5" /></symbol>
+      <symbol id="i-cal" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="12" height="11" rx="1.5" /><path d="M2 6.5h12M5 1.5v3M11 1.5v3" stroke-linecap="round" /></symbol>
+      <symbol id="i-x" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></symbol>
+      <symbol id="i-minus" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.3" /><path d="M5 8h6" stroke-linecap="round" /></symbol>
+      <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor" /><path d="M8 7v4.5" stroke="#262c35" stroke-width="1.6" stroke-linecap="round" /><circle cx="8" cy="4.8" r="1" fill="#262c35" /></symbol>
+      <symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></symbol>
+    </svg>
+
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main flow" id="flow">
+        <!-- 1 · Add your Music -->
+        <section class="step" data-step="upload">
+          <h1 class="step__title">Add your Music</h1>
+          <p class="step__sub">For best streaming and download, we recommend 16-bit, 44.1kHz Stereo wav files.</p>
+          <label class="drop drop--music" data-drop="audio">
+            <svg viewBox="0 0 40 48" aria-hidden="true"><use href="#i-file" /></svg>
+            <span>Drag and Drop your files here<br />or <u class="browse">browse your files</u></span>
+            <input class="sr" type="file" accept="audio/*,.wav,.m4a,.mp3,.flac,.aiff" multiple data-input="audio" />
+          </label>
+        </section>
+
+        <!-- 2 · Uploaded -->
+        <section class="step" data-step="uploaded" hidden>
+          <h1 class="step__title">Uploaded</h1>
+          <p class="step__sub">Add more files or continue</p>
+          <div class="panel files">
+            <ol class="files__list" id="file-list"></ol>
+            <label class="violet files__more">+ Add more<input class="sr" type="file" accept="audio/*,.wav,.m4a,.mp3,.flac,.aiff" multiple data-input="audio" /></label>
+          </div>
+          <div class="step__actions step__actions--one">
+            <button class="solid" type="button" data-go="cover">Continue</button>
+          </div>
+        </section>
+
+        <!-- 3 · Add Cover Art -->
+        <section class="step" data-step="cover" hidden>
+          <h1 class="step__title">Add Cover Art</h1>
+          <p class="step__sub" data-cover-hint>Image must be 3000x3000px - 6000x6000px in size, 72 dpi, 1:1 aspect ratio, in JPEG or PNG format.</p>
+          <p class="step__sub" data-cover-done hidden>Upload your product cover art</p>
+          <label class="drop drop--cover" data-drop="image">
+            <span data-cover-empty>Drag and Drop your files here<br />or <u class="browse">browse your files</u></span>
+            <img data-cover-img alt="Cover art preview" hidden />
+            <input class="sr" type="file" accept="image/jpeg,image/png" data-input="image" />
+          </label>
+          <label class="replace" data-cover-done hidden>Replace image<input class="sr" type="file" accept="image/jpeg,image/png" data-input="image" /></label>
+          <div class="step__actions">
+            <button class="ghost" type="button" data-go="uploaded">Back</button>
+            <button class="solid" type="button" data-go="details" data-need="cover" disabled>Next</button>
+          </div>
+        </section>
+
+        <!-- 4 · Add Release Details -->
+        <section class="step step--wide" data-step="details" hidden>
+          <h1 class="step__title">Add Release Details</h1>
+          <p class="step__sub">Complete fields and continue</p>
+          <form id="details" novalidate>
+            <section class="panel fset">
+              <h2 class="fset__title">General information</h2>
+              <div class="fset__aside">
+                <img class="fset__cover" data-cover-thumb alt="Cover art" />
+                <label class="replace replace--small">Replace image<input class="sr" type="file" accept="image/jpeg,image/png" data-input="image" /></label>
+              </div>
+              <div class="fset__fields">
+                <div class="f"><label for="r-title">Release title <i>*</i></label><input class="inp" id="r-title" name="title" placeholder="Enter release title" required /></div>
+                <div class="f"><label for="r-artist">Artist name</label><input class="inp" id="r-artist" name="artist" value="Rion Hale" readonly /></div>
+                <div class="f"><label for="r-dist">Distribute as <i>*</i></label><span class="dd"><select id="r-dist" name="distribute"><option>New Release</option><option>Re-release</option></select></span></div>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Format details</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-format">Format <i>*</i></label><span class="dd"><select id="r-format" name="format"><option>Album</option><option>EP</option><option>Single</option></select></span></div>
+                <div class="adv" hidden>
+                  <div class="f f--pair">
+                    <div><label for="r-vol">Total volumes</label><input class="inp" id="r-vol" name="volumes" type="number" min="1" value="1" /></div>
+                    <div><span class="lbl" id="r-comp-l">Compilation</span><button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="r-comp-l"></button></div>
+                  </div>
+                  <div class="f"><label for="r-explicit">Explicit content</label><span class="dd"><select id="r-explicit" name="explicit"><option>Not explicit</option><option>Explicit</option><option>Clean</option></select></span></div>
+                </div>
+                <button class="violet advtoggle" type="button" aria-expanded="false">Advanced fields</button>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Default dates</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-date">Consumer release date <i>*</i></label><input class="inp inp--date" id="r-date" name="date" type="date" required /></div>
+                <div class="adv" hidden>
+                  <div class="f"><label for="r-time">Consumer release time</label><span class="dd"><select id="r-time" name="time"><option>--:-- UTC</option><option>00:00 UTC</option><option>12:00 UTC</option></select></span></div>
+                  <div class="f"><label for="r-pre">Preorder date</label><input class="inp inp--date" id="r-pre" name="preorder" type="date" /></div>
+                </div>
+                <button class="violet advtoggle" type="button" aria-expanded="false">Advanced fields</button>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Original release</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-orig">Original release date <i>*</i> <span class="tip" title="The date this music was first released anywhere.">ⓘ</span></label><input class="inp inp--date" id="r-orig" name="original" type="date" required /></div>
+                <button class="violet advtoggle" type="button" aria-expanded="false" data-noadv>Advanced fields</button>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Copyrights</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-cy">© Copyright year <i>*</i></label><input class="inp" id="r-cy" name="cyear" inputmode="numeric" required /></div>
+                <div class="f"><label for="r-ct">© Copyright text <i>*</i></label><input class="inp" id="r-ct" name="ctext" required /></div>
+                <div class="f"><label for="r-py">℗ Copyright year <i>*</i></label><input class="inp" id="r-py" name="pyear" inputmode="numeric" required /></div>
+                <div class="f"><label for="r-pt">℗ Copyright text <i>*</i></label><input class="inp" id="r-pt" name="ptext" required /></div>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Genre</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-genre">Genre <i>*</i></label><span class="dd"><select id="r-genre" name="genre"><option>R&amp;B</option><option>Pop</option><option>Electronic</option><option>Hip-hop</option><option>Alternative</option><option>Rock</option></select></span></div>
+                <button class="violet advtoggle" type="button" aria-expanded="false" data-noadv>Advanced fields</button>
+              </div>
+            </section>
+
+            <section class="panel fset">
+              <h2 class="fset__title">Metadata language</h2>
+              <div class="fset__fields">
+                <div class="f"><label for="r-lang">Default language</label><span class="dd"><select id="r-lang" name="language"><option>English</option><option>Korean</option><option>Japanese</option><option>Spanish</option><option>French</option></select></span></div>
+              </div>
+            </section>
+          </form>
+          <div class="step__actions">
+            <button class="ghost" type="button" data-go="cover">Back</button>
+            <button class="solid" type="button" data-go="tracks" data-need="details" disabled>Next</button>
+          </div>
+        </section>
+
+        <!-- 5 · Add Track Details -->
+        <section class="step step--mid" data-step="tracks" hidden>
+          <h1 class="step__title">Add Track Details</h1>
+          <p class="step__sub">Complete fields for each track</p>
+          <p class="tracks__hint">Select a track</p>
+          <ol class="tlist" id="track-list"></ol>
+          <label class="drop drop--line" data-drop="audio">
+            <span>To add tracks, drag and drop or <u class="browse">browse your files</u></span>
+            <input class="sr" type="file" accept="audio/*,.wav,.m4a,.mp3,.flac,.aiff" multiple data-input="audio" />
+          </label>
+          <div class="step__actions">
+            <button class="ghost" type="button" data-go="details">Back</button>
+            <button class="solid" type="button" data-go="royalty" data-need="tracks" disabled>Next</button>
+          </div>
+        </section>
+
+        <!-- 6 · Royalty Sharing -->
+        <section class="step step--wide" data-step="royalty" hidden>
+          <h1 class="step__title">Royalty Sharing</h1>
+          <p class="step__sub">Royalty Sharing easily divide your track’s earnings among collaborators<br />such as producers and featured artists.</p>
+          <div class="royalty">
+            <div class="panel royalty__tracks">
+              <p class="royalty__head">Tracks</p>
+              <ol id="royalty-tracks"></ol>
+            </div>
+            <div class="panel royalty__split">
+              <div class="royalty__row royalty__row--head"><span>Collaborators</span><span>Royalty Split</span></div>
+              <div id="splits"></div>
+              <button class="violet royalty__add" type="button" data-add-collab>+ Add Collaborator</button>
+              <p class="royalty__err" role="status" hidden>Splits need to add up to 100%.</p>
+            </div>
+          </div>
+          <p class="royalty__note">You can modify collaborator splits whenever you want. Any changes will apply in the subsequent pay cycle, and we’ll notify your collaborators via email.</p>
+          <div class="step__actions">
+            <button class="ghost" type="button" data-go="tracks">Back</button>
+            <button class="solid" type="button" data-go="date" data-need="royalty">Next</button>
+          </div>
+        </section>
+
+        <!-- 7 · Release Date -->
+        <section class="step step--wide" data-step="date" hidden>
+          <h1 class="step__title">Release Date</h1>
+          <p class="step__sub">What day do you want this to be released?</p>
+          <div class="panel datecard">
+            <div class="f">
+              <label for="rel-date">Select a date</label>
+              <input class="inp inp--date" id="rel-date" type="date" />
+            </div>
+            <p class="datecard__note" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-info" /></svg><span>Your release date is sooner than we can confirm for all platforms. The launch might vary across platforms, but we’ll keep you updated on delivery and go-live dates.</span></p>
+          </div>
+          <div class="step__actions">
+            <button class="ghost" type="button" data-go="royalty">Back</button>
+            <button class="solid" type="button" data-go="review" data-need="date" disabled>Continue</button>
+          </div>
+        </section>
+
+        <!-- 8 · Review and Submit -->
+        <section class="step step--wide" data-step="review" hidden>
+          <h1 class="step__title">Review and Submit</h1>
+          <p class="step__sub">Check your release details</p>
+          <div class="panel review">
+            <div class="review__sec">
+              <div class="review__head"><h2 class="label">Cover art</h2><button class="violet" type="button" data-go="cover">Edit</button></div>
+              <img class="review__cover" data-cover-thumb alt="Cover art" />
+            </div>
+            <div class="review__sec">
+              <div class="review__head"><h2 class="label">Album</h2><button class="violet" type="button" data-go="details">Edit</button></div>
+              <dl class="review__dl" id="review-album"></dl>
+            </div>
+            <div class="review__sec">
+              <div class="review__head"><h2 class="label">Tracks</h2><button class="violet" type="button" data-go="tracks">Edit</button></div>
+              <ol class="review__tracks" id="review-tracks"></ol>
+            </div>
+            <div class="review__sec">
+              <div class="review__head"><h2 class="label">Release date</h2><button class="violet" type="button" data-go="date">Edit</button></div>
+              <p class="review__date" id="review-date"></p>
+              <p class="review__fine" id="review-fine">Your release date is sooner than we can confirm for all platforms. The launch might vary across platforms but we’ll keep you updated on delivery and go-live dates.</p>
+            </div>
+            <div class="review__confirm">
+              <p>Confirm to continue</p>
+              <label class="check"><input type="checkbox" data-confirm /><i aria-hidden="true"><svg viewBox="0 0 16 16"><use href="#i-check" /></svg></i>All submitted music is original</label>
+              <label class="check"><input type="checkbox" data-confirm /><i aria-hidden="true"><svg viewBox="0 0 16 16"><use href="#i-check" /></svg></i>I agree with the <a class="terms" href="#terms">Terms &amp; Conditions</a></label>
+            </div>
+          </div>
+          <div class="step__actions step__actions--review">
+            <button class="ghost" type="button" data-go="date">Back</button>
+            <button class="solid" type="button" data-submit disabled>Submit</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Track Details dialog -->
+    <dialog class="modal" id="track-modal" aria-labelledby="tm-title">
+      <form method="dialog" class="modal__form" id="track-form" novalidate>
+        <header class="modal__head">
+          <h2 id="tm-title">Track Details</h2>
+          <button class="modal__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><use href="#i-x" /></svg></button>
+        </header>
+        <div class="modal__body">
+          <div class="tsec">
+            <h3 class="tsec__title">General information</h3>
+            <div class="tsec__fields">
+              <div class="f"><label for="t-title">Title <i>*</i></label><input class="inp" id="t-title" name="title" required /></div>
+              <div class="f">
+                <span class="lbl">Artist <i>*</i></span>
+                <div class="chips2" id="t-artists"></div>
+                <div class="adder" data-adder="artist" hidden><input class="inp" placeholder="Artist name" aria-label="Artist name" /><button class="ghost ghost--sm" type="button" data-add-ok>Add</button></div>
+                <button class="violet addlink" type="button" data-open-adder="artist">+ Add another</button>
+              </div>
+            </div>
+          </div>
+          <div class="tsec">
+            <h3 class="tsec__title">Contributors</h3>
+            <div class="tsec__fields">
+              <div class="chips2" id="t-contrib"></div>
+              <div class="adder adder--two" data-adder="contrib" hidden><input class="inp" placeholder="Name" aria-label="Contributor name" /><input class="inp" placeholder="Role, e.g. Lyricist" aria-label="Contributor role" /><button class="ghost ghost--sm" type="button" data-add-ok>Add</button></div>
+              <button class="violet addlink" type="button" data-open-adder="contrib" data-empty="+ Add contributors" data-more="+ Add another">+ Add contributors</button>
+            </div>
+          </div>
+          <div class="tsec">
+            <h3 class="tsec__title">Publishers</h3>
+            <div class="tsec__fields">
+              <div class="chips2" id="t-pub"></div>
+              <div class="adder adder--two" data-adder="pub" hidden><input class="inp" placeholder="Name" aria-label="Publisher name" /><input class="inp" placeholder="Company" aria-label="Publisher company" /><button class="ghost ghost--sm" type="button" data-add-ok>Add</button></div>
+              <button class="violet addlink" type="button" data-open-adder="pub" data-empty="+ Add publishers" data-more="+ Add another">+ Add publishers</button>
+            </div>
+          </div>
+          <div class="tsec">
+            <h3 class="tsec__title">Lyrics</h3>
+            <div class="tsec__fields">
+              <textarea class="inp inp--area" id="t-lyrics" name="lyrics" rows="5" aria-label="Lyrics" hidden></textarea>
+              <button class="violet addlink" type="button" data-lyrics>+ Add lyrics</button>
+            </div>
+          </div>
+          <div class="tsec">
+            <h3 class="tsec__title">Language</h3>
+            <div class="tsec__fields">
+              <div class="f"><label for="t-audio">Audio language <i>*</i></label><span class="dd"><select id="t-audio" name="audio"><option>English</option><option>Korean</option><option>Japanese</option><option>Instrumental</option></select></span></div>
+              <div class="f"><label for="t-meta">Metadata language</label><span class="dd"><select id="t-meta" name="meta"><option>English</option><option>Korean</option><option>Japanese</option></select></span></div>
+              <div class="f"><label for="t-explicit">Explicit content</label><span class="dd"><select id="t-explicit" name="explicit"><option>Not explicit</option><option>Explicit</option><option>Clean</option></select></span></div>
+            </div>
+          </div>
+        </div>
+        <footer class="modal__foot">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <button class="solid" type="submit" id="t-save" disabled>Save</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/release-flow.js"></script>
+  </body>
+</html>

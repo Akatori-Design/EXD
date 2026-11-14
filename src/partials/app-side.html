@@ -1,0 +1,45 @@
+<aside class="side">
+        <a class="side__logo" href="/dashboard.html" aria-label="EXD dashboard home"><svg viewBox="0 0 88 26"><use href="#exd-logo" /></svg></a>
+        <nav class="side__nav" aria-label="Dashboard">
+          <a class="side__link" data-nav="home" href="/dashboard.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 9L10 3.5 16.5 9v7.5h-4.2v-4.6H7.7v4.6H3.5z" /></svg>Home</a>
+          <a class="side__link" data-nav="release" href="/release-flow.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3.8M6.3 7.4L10 3.8l3.7 3.6M4 12.5v3.7h12v-3.7" /></svg>Release Music</a>
+          <a class="side__link" data-nav="music" href="/music.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 14.5V4.8l8-1.6v9.6" /><circle cx="5.6" cy="14.6" r="1.9" /><circle cx="13.6" cy="12.9" r="1.9" /></svg>Music</a>
+          <a class="side__link" data-nav="analytics" href="/analytics.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 16.5h13M6 13.5V9.5M10 13.5V5.5M14 13.5V8" /></svg>Analytics</a>
+          <a class="side__link" data-nav="money" href="/money.html"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="5.5" width="14" height="10" rx="1.6" /><path d="M3 8.6h14M13 12.3h1.6" /></svg>Money</a>
+          <a class="side__link" data-nav="promote" href="/promote.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.8 8.4v3.2h2.6l5.6 3.4V5L6.4 8.4zM14.6 7.6a3.4 3.4 0 010 4.8" /></svg>Promote Yourself</a>
+          <a class="side__link" data-nav="exclusives" href="/exclusives.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.4l1.9 4 4.4.5-3.3 3 .9 4.4L10 13.1l-3.9 2.2.9-4.4-3.3-3 4.4-.5z" /></svg>Exclusives <em class="pro">PREMIER</em></a>
+        </nav>
+        <nav class="side__more" aria-label="Account">
+          <a class="side__sub" data-nav="settings" href="/settings.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8.6 2.8h2.8l.4 2.1 1.5.9 2-.8 1.4 2.4-1.6 1.4v1.7l1.6 1.4-1.4 2.4-2-.8-1.5.9-.4 2.1H8.6l-.4-2.1-1.5-.9-2 .8-1.4-2.4 1.6-1.4V9.2L3.3 7.8l1.4-2.4 2 .8 1.5-.9z" /><circle cx="10" cy="10" r="2.5" /></svg>Settings</a>
+          <a class="side__sub" href="/support.html" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.6" /><path d="M8.1 8.2a1.9 1.9 0 113 1.6c-.7.4-1.1.8-1.1 1.6M10 13.6v.1" /></svg>Support</a>
+          <a class="side__sub" href="/login.html" data-logout><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4.5v12H8M12.5 6.6L16 10l-3.5 3.4M16 10H8" /></svg>Log Out</a>
+        </nav>
+      </aside>
+      <!-- Log out confirmation (Figma 876-15390) -->
+      <dialog class="logout" id="logout" aria-labelledby="logout-title" aria-describedby="logout-desc">
+        <span class="logout__ico" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M8 4H4.5v12H8M12.5 6.6L16 10l-3.5 3.4M16 10H8" /></svg></span>
+        <h2 id="logout-title">Log out of EXD?</h2>
+        <p id="logout-desc">You'll need to sign in again to manage your releases and earnings.</p>
+        <button class="modal__x logout__x" type="button" data-close aria-label="Close"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+        <div class="logout__actions">
+          <button class="ghost" type="button" data-close>Cancel</button>
+          <a class="solid" href="/login.html" data-confirm-logout>Log Out</a>
+        </div>
+      </dialog>
+      <script>
+        // Log Out asks first; confirming goes to Log in.
+        (() => {
+          const dlg = document.getElementById('logout');
+          document.querySelector('[data-logout]').addEventListener('click', (e) => {
+            e.preventDefault();
+            dlg.showModal();
+          });
+          dlg.addEventListener('click', (e) => {
+            if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+          });
+        })();
+      </script>
+      <script>
+        // mark the current section (each page sets data-view on <body>)
+        document.querySelector(`.side [data-nav="${document.body.dataset.view}"]`)?.setAttribute('aria-current', 'page');
+      </script>

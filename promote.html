@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promote Yourself — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="promote">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <h1 class="pagetitle">Promote Yourself</h1>
+
+        <section class="panel hero2">
+          <h2>Tools to Amplify Your Music Career</h2>
+          <p>EXD Premier Suite: A Full Spectrum of Creative, Marketing, and Promotion Tools Tailored for Career Growth.</p>
+        </section>
+
+        <div class="chips" data-toggle-group aria-label="Filter tools">
+          <button type="button" data-value="all" aria-pressed="true">All</button>
+          <button type="button" data-value="promotional" aria-pressed="false">Promotional</button>
+          <button type="button" data-value="creative" aria-pressed="false">Creative</button>
+          <button type="button" data-value="pro" aria-pressed="false">Hire Professional</button>
+          <button type="button" data-value="ai" aria-pressed="false">AI</button>
+        </div>
+
+        <ul class="tools">
+          <li class="panel tool" data-tags="promotional">
+            <img src="/assets/dashboard/promo-verified.png" alt="" />
+            <div>
+              <h3>Get “Verified Artist” Status</h3>
+              <p>Get verified on Spotify and other platforms, fast and hassle-free! Our service amps up your profile's credibility, ensuring fans know it's really you rocking the charts.</p>
+              <a class="ghost" href="/promote-verified.html">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="creative">
+            <img src="/assets/dashboard/promo-lyricvids.png" alt="" />
+            <div>
+              <h3>Create Music Video Powered by LyricVids</h3>
+              <p>Bring your music to life with custom lyric videos - your words, your story, visualized!</p>
+              <a class="ghost" href="/promote-lyricvids.html">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="promotional">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-youtube.png" alt="" />
+            <div>
+              <h3>Youtube Monetization</h3>
+              <p>Maximize your YouTube earnings with our specialized service, providing expert guidance and support for effective channel monetization.</p>
+              <a class="ghost" href="/promote-youtube.html">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="pro">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-collections.png" alt="" />
+            <div>
+              <h3>One Collections</h3>
+              <p>Lorem ipsum dolor sit amet consectetur. Venenatis urna commodo tempor accumsan. Erat faucibus in tellus a. In orci vulputate viverra tortor dui ultricies. Dolor diam neque eu lorem eget.</p>
+              <a class="ghost" href="/promote-collections.html">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="promotional creative">
+            <img src="/assets/dashboard/promo-presave.png" alt="" />
+            <div>
+              <h3>Generate Pre-save Link</h3>
+              <p>Elevate your brand with custom artist swag, uniquely designed to connect you with your fans and showcase your artistic identity.</p>
+              <a class="ghost" href="#presave">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="creative ai">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-aicover.png" alt="" />
+            <div>
+              <h3>AI Cover Art Builder</h3>
+              <p>Design captivating album covers effortlessly, using our AI-driven tool that blends art and technology to reflect the soul of your music.</p>
+              <a class="ghost" href="#aicover">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="promotional">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-cakewalk.png" alt="" />
+            <div>
+              <h3>Get Your Video Featured on CakeWalk</h3>
+              <p>Showcase your music to a wider audience by submitting your tracks to Cakewalk, a YouTube channel dedicated to highlighting and featuring talented musicians.</p>
+              <a class="ghost" href="#cakewalk">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="pro">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-business.png" alt="" />
+            <div>
+              <h3>Business Management</h3>
+              <p>Navigate the complexities of the music industry with confidence, backed by our professional business management services tailored for artists.</p>
+              <a class="ghost" href="#business">Get Started</a>
+            </div>
+          </li>
+          <li class="panel tool" data-tags="pro">
+            <span class="pro-badge">PREMIER</span>
+            <img src="/assets/dashboard/promo-legal.png" alt="" />
+            <div>
+              <h3>Legal Services</h3>
+              <p>Secure your artistic creations with our comprehensive legal services, offering protection and support for copyright and music rights issues. - peace of mind for artists.</p>
+              <a class="ghost" href="#legal">Get Started</a>
+            </div>
+          </li>
+        </ul>
+      </main>
+    </div>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module">
+      // Filter the tool list by chip.
+      const tools = [...document.querySelectorAll('.tool')];
+      document.querySelector('.chips').addEventListener('change', (e) => {
+        for (const t of tools) t.hidden = e.detail !== 'all' && !t.dataset.tags.split(' ').includes(e.detail);
+      });
+    </script>
+  </body>
+</html>

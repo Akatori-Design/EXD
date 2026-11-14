@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="analytics">
+    <!--@include symbols-->
+    <div class="app">
+      <!--@include app-side-->
+      <main class="main">
+        <h1 class="pagetitle">Analytics</h1>
+
+        <div class="an-top">
+          <label>View: <span class="dd"><select aria-label="View"><option>Streams</option><option>Downloads</option><option>Revenue</option></select></span></label>
+          <label>By: <span class="dd"><select aria-label="Group by"><option>DSP</option><option>Territory</option><option>Product</option></select></span></label>
+          <a class="ghost" href="#report">+ Create Custom Report</a>
+        </div>
+
+        <div class="an-filters">
+          <span class="dd" style="width: 103px"><select aria-label="Asset"><option>Asset</option></select></span>
+          <span class="dd" style="width: 101px"><select aria-label="Label"><option>Label</option></select></span>
+          <span class="dd" style="width: 117px"><select aria-label="Product"><option>Product</option></select></span>
+          <span class="dd" style="width: 90px"><select aria-label="DSP"><option>DSP</option></select></span>
+          <span class="dd" style="width: 99px"><select aria-label="Artist"><option>Artist</option></select></span>
+          <span class="dd" style="width: 122px"><select aria-label="Territory"><option>Territory</option></select></span>
+          <span class="dd" style="width: 142px"><select aria-label="Date range"><option>Last 12 months</option><option>Last 30 days</option><option>Last 7 days</option></select></span>
+          <a class="violet" href="#clear" data-clear>Clear all</a>
+          <div class="viewtoggle" data-toggle-group aria-label="Chart type">
+            <button type="button" data-value="line" aria-pressed="true" aria-label="Line chart"><svg viewBox="0 0 20 20"><path d="M3 16l4-6 3 3 4-6 3 3" /></svg></button>
+            <button type="button" data-value="bar" aria-pressed="false" aria-label="Bar chart"><svg viewBox="0 0 20 20"><path d="M5 16v-4M10 16V8M15 16V4" /></svg></button>
+          </div>
+        </div>
+
+        <div class="anstats">
+          <div class="panel statcard"><p id="st-now-l">Streams · last 12 months</p><p><b id="st-now">—</b><span id="st-now-c"></span></p></div>
+          <div class="panel statcard"><p>Monthly listeners</p><p><b id="st-listeners">—</b><span class="up">▲ +4.8%</span></p></div>
+          <div class="panel statcard"><p>Followers</p><p><b>5,214</b><span class="up">▲ +3.1%</span></p></div>
+          <div class="panel statcard"><p id="st-all-l">Streams · all time</p><p><b id="st-all">—</b></p></div>
+        </div>
+
+        <section class="panel chartcard">
+          <div class="chartcard__head">
+            <h2 id="chart-title">Streams by platform</h2>
+            <div class="legend2" id="legend"></div>
+          </div>
+          <div id="plot"></div>
+        </section>
+
+        <section class="panel tablecard">
+          <table class="dt" id="an-table"><thead></thead><tbody></tbody></table>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/analytics.js"></script>
+  </body>
+</html>

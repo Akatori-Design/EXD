@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home — EXD</title>
+    <!--@include head-->
+    <link rel="stylesheet" href="/src/app.css" />
+  </head>
+  <body data-view="home">
+    <!--@include symbols-->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-mic" viewBox="0 0 79 98"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M53.7289 0.854202C52.442 1.31233 51.2162 1.86026 51.0046 2.07161C50.7924 2.28296 56.3865 8.22706 63.4357 15.2798L76.2521 28.1038L77.4632 25.4888C79.3098 21.5031 79.1147 14.6568 77.0406 10.657C73.4575 3.74776 67.5331 -0.0351822 60.3493 0.000246614C57.9945 0.0112418 55.0152 0.396071 53.7289 0.854202ZM46.0821 4.43495C45.3505 5.21255 44.7523 6.2461 44.7523 6.7311C44.7523 7.21611 50.8003 13.6483 58.1927 21.0254L71.6324 34.437L73.3309 33.1756C76.7898 30.6058 76.509 30.166 62.3971 16.0617C55.2213 8.88982 48.914 3.02147 48.3812 3.02147C47.8485 3.02147 46.8136 3.65796 46.0821 4.43495ZM42.5284 12.0112C41.9223 13.5957 41.4183 16.4899 41.4072 18.4422L41.3883 21.9924L49.166 29.6938L56.9437 37.3959L61.0931 37.0856C63.3752 36.9152 66.2854 36.272 67.5594 35.6563L69.8763 34.5366L57.1669 21.8335C50.1764 14.8467 44.2716 9.12988 44.0441 9.12988C43.8165 9.12988 43.1345 10.4267 42.5284 12.0112ZM31.249 33.668C8.20218 60.9726 8.571 60.5071 9.31171 61.3989C9.8628 62.0623 9.5264 62.9071 7.74773 65.3273C6.04551 67.643 5.64611 68.6087 6.14216 69.2055C6.64187 69.8072 6.27549 70.5096 4.63567 72.0929C1.34929 75.2644 0 77.8092 0 80.8371C0 87.2345 5.07972 91.2941 11.5644 90.0791C13.4935 89.7175 15.7793 87.7402 26.1338 77.4775C33.9733 69.7082 39.064 65.1245 40.2078 64.8056C45.3065 63.3848 50.3563 68.4322 48.955 73.5486C48.6357 74.7134 44.7095 79.106 37.9086 85.9059C29.5162 94.2976 27.5125 96.6109 28.1156 97.2132C29.2288 98.3249 50.0015 77.5807 50.9642 74.3958C52.96 67.7938 46.9702 61.278 40.0708 62.5479C38.0524 62.9199 35.9777 64.7097 25.4604 75.1557C17.035 83.523 12.5883 87.5057 11.2396 87.8917C7.32447 89.0132 2.89982 86.4483 2.1848 82.6428C1.62759 79.6765 2.21355 78.0969 5.07177 74.8533C7.17033 72.4729 7.88535 72.0251 9.10252 72.3306C10.2035 72.606 11.343 72.1436 13.5523 70.5237C15.3236 69.225 16.6796 68.6001 16.9114 68.9746C17.1255 69.3203 17.5335 69.6031 17.8185 69.6031C18.3849 69.6031 55.3595 38.628 55.6115 37.9426C55.6965 37.7105 52.3729 34.1389 48.2247 30.006L40.6824 22.492L31.249 33.668ZM43.4067 34.9074C44.6997 36.1987 44.2025 37.6415 41.6782 39.9193C39.6267 41.7702 39.0139 42.0334 38.0083 41.4959C36.2217 40.5412 36.5294 39.0849 39.0659 36.4907C41.4813 34.0204 42.2409 33.7431 43.4067 34.9074Z" /></symbol>
+    </svg>
+
+    <div class="app">
+      <!--@include app-side-->
+
+      <main class="main">
+        <h1 class="pagetitle">Home</h1>
+
+        <div class="home">
+          <!-- Profile card: new account until an artist name is set -->
+          <section class="profile" aria-live="polite">
+            <div class="profile__bg" aria-hidden="true"><img src="/assets/dashboard/profile-bg.jpg" alt="" /></div>
+            <img class="profile__photo" src="/assets/dashboard/artist-photo.jpg" alt="Rion Hale" />
+            <div class="profile__art" aria-hidden="true"><svg viewBox="0 0 79 98"><use href="#i-mic" /></svg></div>
+
+            <div class="profile__new">
+              <p class="tier"><span aria-hidden="true">★</span> EXD Membership</p>
+              <h2 class="profile__welcome">Welcome to<br /><span>EXD</span><i aria-hidden="true"></i></h2>
+              <p class="profile__lead">First, let's pick your artist name so that the world knows who you are.</p>
+              <button class="cta" type="button" data-setup>Set up Artist Name</button>
+            </div>
+
+            <div class="profile__named" hidden>
+              <h2 class="profile__name">Rion Hale</h2>
+              <p class="tier"><span aria-hidden="true">★</span> EXD Premier Membership</p>
+              <p class="profile__role">Artist · New York</p>
+              <dl class="profile__stats">
+                <div><dt>Followers</dt><dd>5,214</dd></div>
+                <div><dt>Listeners</dt><dd>7,842</dd></div>
+                <div><dt>Streams/mo</dt><dd>24.7k</dd></div>
+              </dl>
+              <a class="cta" href="/release-flow.html">Release Music</a>
+              <p class="profile__after">After release, it takes about 48 hours for streaming data to start showing up.</p>
+            </div>
+          </section>
+
+          <div class="feed">
+            <article class="post">
+              <p class="post__date">Sep 23, 2023</p>
+              <h2 class="post__title">Welcome to the New Wave of Independence</h2>
+              <img class="post__img" src="/assets/dashboard/news-sign.jpg" alt="Sign to yourself" />
+              <p class="post__text">
+                As a new industry alternative for independent artists, EXD Premier provides premium music distribution services
+                and facilitates unique partnerships between artists and the world's biggest brands.
+              </p>
+              <a class="outline" href="/release-flow.html">Upload a Track to Get Started</a>
+            </article>
+
+            <article class="post">
+              <p class="post__date">Sep 05, 2023</p>
+              <h2 class="post__title post__title--caps">Get your music heard</h2>
+              <img class="post__img" src="/assets/dashboard/news-heard.jpg" alt="Get your music heard. You deserve to know who and where your biggest fans are." />
+              <div class="post__text">
+                <p>Make the most of your music. With EXD, you can distribute your music to major streaming platforms without giving up ownership of your masters.</p>
+                <p>Here's how to get started:</p>
+                <ul>
+                  <li>Step 1: Upload Your Music</li>
+                </ul>
+                <p>Drag &amp; Drop your tracks or select them from a folder. If you're using the website, you can also upload them from a Dropbox account.</p>
+                <ul>
+                  <li>Step 2: Add The Extras</li>
+                </ul>
+                <p>Add album artwork, featured artist details, and select your release date. We'll add the rest for you. Once everything looks good, hit submit.</p>
+                <p>Once your release is approved, you can promote your music even more through Masterlinks.</p>
+              </div>
+              <a class="outline" href="/release-flow.html">Upload a Track</a>
+            </article>
+
+            <article class="post">
+              <p class="post__date">Aug 12, 2023</p>
+              <h2 class="post__title post__title--caps post__title--tall">Get to know your fans:<br />where they are, what they love about you,<br />and how to better connect with them</h2>
+              <img class="post__img" src="/assets/dashboard/news-fans.jpg" alt="Get to know your fans" />
+              <div class="post__text">
+                <p>Connect your socials to learn who your fans are, what they like about you, and how to grow your audience - at every turn of your career.</p>
+                <p>Fueled by your data, we're here to give you the facts and turn your social numbers into real fans' love.</p>
+              </div>
+              <a class="outline" href="#connect">Connect My Account</a>
+            </article>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      // "Set up Artist Name" moves the card to its named state, as in the prototype.
+      const card = document.querySelector('.profile');
+      // The filled (named) state is the photo card from Figma 1105-5790.
+      const show = (named) => {
+        card.querySelector('.profile__new').hidden = named;
+        card.querySelector('.profile__named').hidden = !named;
+        card.classList.toggle('is-named', named);
+        card.classList.toggle('has-release', named);
+      };
+      // Home always shows the artist's photo card (Figma 1105-5794); the "Welcome to EXD." card is kept in the markup but not used.
+      show(true);
+      // Use the profile image chosen in Settings › Artist, if any.
+      try {
+        const avatar = localStorage.getItem('exd-avatar');
+        if (avatar) card.querySelector('.profile__photo').src = avatar;
+      } catch {}
+      card.querySelector('[data-setup]').addEventListener('click', () => {
+        show(true);
+        try {
+          localStorage.setItem('exd-artist-named', '1');
+        } catch {
+          /* fine: the state just won't persist */
+        }
+        card.querySelector('.profile__named .cta').focus();
+      });
+    </script>
+  </body>
+</html>
