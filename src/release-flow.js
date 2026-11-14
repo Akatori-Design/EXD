@@ -186,6 +186,74 @@ $$('.advtoggle').forEach((btn) => {
 });
 $$('.switch').forEach((sw) => sw.addEventListener('click', () => sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') !== 'true')));
 
+/* Section shortcuts: jump to a section (and its first field), and mark the one in view. */
+{
+  const links = $$('.rnav a');
+  const secs = links.map((a) => document.getElementById(a.dataset.sec));
+  const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  let lockUntil = 0;
+  let cur = -1;
+  const mark = (i) => {
+    if (i === cur) return;
+    cur = i;
+    links.forEach((a, j) => (j === i ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    // keep the active chip visible in the narrow, horizontally scrolling version
+    const a = links[i];
+    const ul = a.parentElement.parentElement;
+    if (ul.scrollWidth > ul.clientWidth) ul.scrollTo({ left: a.offsetLeft - 24, behavior: smooth });
+  };
+  links.forEach((a, i) =>
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sec = secs[i];
+      // the advanced fields stay as they are; jump to the first visible field
+      const field = [...sec.querySelectorAll('input:not([type=file]):not([readonly]), select, textarea')].find((el) => el.offsetParent);
+      sec.scrollIntoView({ behavior: smooth, block: 'start' });
+      if (field && matchMedia('(pointer: fine)').matches) field.focus({ preventScroll: true });
+      mark(i);
+      lockUntil = performance.now() + 900; // let the smooth scroll finish before the spy takes over
+    }),
+  );
+  let raf = 0;
+  const spy = () => {
+    raf = 0;
+    if (details.closest('.step').hidden || performance.now() < lockUntil) return;
+    const line = innerHeight * 0.3;
+    let i = 0;
+    secs.forEach((s, j) => s.getBoundingClientRect().top <= line && (i = j));
+    // at the very bottom the last short sections can't reach the line
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) i = secs.length - 1;
+    mark(i);
+  };
+  addEventListener('scroll', () => raf || (raf = requestAnimationFrame(spy)), { passive: true });
+  addEventListener('resize', spy);
+  mark(0);
+}
+
+/* Genre advanced fields: subgenres follow the chosen genre; the alternate genre is any other genre. */
+{
+  const SUB = {
+    'R&B': ['Contemporary R&B', 'Alternative R&B', 'Neo-Soul', 'Soul', 'Funk'],
+    Pop: ['Dance Pop', 'Electropop', 'Indie Pop', 'K-Pop', 'Synth-pop'],
+    Electronic: ['House', 'Techno', 'Drum & Bass', 'Dubstep', 'Ambient', 'Trance'],
+    'Hip-hop': ['Rap', 'Trap', 'Boom Bap', 'Drill', 'Lo-fi Hip-hop'],
+    Alternative: ['Indie Rock', 'Shoegaze', 'Post-punk', 'Grunge', 'Emo'],
+    Rock: ['Classic Rock', 'Hard Rock', 'Punk', 'Metal', 'Garage Rock'],
+  };
+  const opts = (list) => `<option value="">Select</option>${list.map((x) => `<option>${esc(x)}</option>`).join('')}`;
+  const fill = () => {
+    const g = details.genre.value;
+    const sub = details.subgenre.value;
+    const alt = details.altgenre.value;
+    details.subgenre.innerHTML = opts(SUB[g] || []);
+    details.altgenre.innerHTML = opts([...details.genre.options].map((o) => o.value).filter((x) => x !== g));
+    if ((SUB[g] || []).includes(sub)) details.subgenre.value = sub;
+    if (alt && alt !== g) details.altgenre.value = alt;
+  };
+  details.genre.addEventListener('change', fill);
+  fill();
+}
+
 function detailsValid() {
   return $$('[required]', details).every((el) => el.value.trim());
 }
@@ -204,7 +272,8 @@ const credit = (t) => {
 function renderTracks() {
   $('#track-list').innerHTML = state.tracks
     .map(
-      (t, i) => `<li class="trow${trackDone(t) ? ' is-done' : ''}">
+      (t, i) => `<li class="trow${trackDone(t) ? ' is-done' : ''}" data-id="${t.id}">
+        <button class="trow__grip" type="button" aria-label="Reorder ${esc(trackDone(t) ? t.title : t.file)}, position ${i + 1} of ${state.tracks.length}" aria-describedby="reorder-hint" data-grip="${t.id}"><svg viewBox="0 0 16 16"><use href="#i-grip" /></svg></button>
         <button class="trow__main" type="button" data-edit="${t.id}">
           <span class="trow__n">${i + 1}.</span>
           <span class="trow__txt"><b>${esc(trackDone(t) ? t.title : t.file)}</b>${trackDone(t) ? `<small>${esc(credit(t))}</small>` : ''}</span>
@@ -217,6 +286,105 @@ function renderTracks() {
       </li>`,
     )
     .join('');
+}
+/* Drag rows to reorder: grip anywhere on the row with a mouse (the grip only on touch,
+   so the list still scrolls), or arrow keys on the grip. */
+function moveTrack(from, to, focusId) {
+  if (from === to) return;
+  const [t] = state.tracks.splice(from, 1);
+  state.tracks.splice(to, 0, t);
+  renderTracks();
+  renderFiles();
+  $('#reorder-live').textContent = `${trackDone(t) ? t.title : t.file} moved to position ${to + 1} of ${state.tracks.length}.`;
+  if (focusId != null) $(`[data-grip="${focusId}"]`)?.focus();
+}
+{
+  const list = $('#track-list');
+  const GAP = 8;
+  let drag = null;
+  let swallowClick = false;
+
+  list.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 || drag) return;
+    const row = e.target.closest('.trow');
+    const onGrip = !!e.target.closest('.trow__grip');
+    if (!row || (!onGrip && (e.pointerType !== 'mouse' || e.target.closest('.trow__tools')))) return;
+    const rows = [...list.children];
+    drag = { row, rows, from: rows.indexOf(row), to: rows.indexOf(row), x: e.clientX, y: e.clientY, id: e.pointerId, live: false };
+  });
+
+  list.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dy = e.clientY - drag.y;
+    if (!drag.live) {
+      if (Math.hypot(e.clientX - drag.x, dy) < 5) return;
+      drag.live = true;
+      drag.rects = drag.rows.map((r) => r.getBoundingClientRect());
+      list.setPointerCapture(e.pointerId);
+      list.classList.add('is-sorting');
+      drag.row.classList.add('is-lifted');
+    }
+    const { rows, rects, from, row } = drag;
+    const shift = rects[from].height + GAP;
+    const center = rects[from].top + rects[from].height / 2 + dy;
+    let to = from;
+    rects.forEach((r, i) => {
+      const mid = r.top + r.height / 2;
+      if (i > from && center > mid) to = i;
+      if (i < from && center < mid && to === from) to = i;
+    });
+    drag.to = to;
+    row.style.transform = `translateY(${dy}px)`;
+    rows.forEach((r, i) => {
+      if (r === row) return;
+      const off = from < to && i > from && i <= to ? -shift : to < from && i >= to && i < from ? shift : 0;
+      r.style.transform = off ? `translateY(${off}px)` : '';
+    });
+  });
+
+  const end = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag;
+    drag = null;
+    if (!d.live) return;
+    swallowClick = true;
+    setTimeout(() => (swallowClick = false), 0);
+    const { rects, from, to, row } = d;
+    const dest = to > from ? rects[to].bottom - rects[from].bottom : to < from ? rects[to].top - rects[from].top : 0;
+    row.classList.add('is-dropping');
+    row.style.transform = `translateY(${dest}px)`;
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      list.classList.remove('is-sorting');
+      if (to === from) {
+        renderTracks();
+        return;
+      }
+      moveTrack(from, to);
+    };
+    row.addEventListener('transitionend', (ev) => ev.propertyName === 'transform' && done());
+    setTimeout(done, 260);
+  };
+  list.addEventListener('pointerup', end);
+  list.addEventListener('pointercancel', end);
+  // a drag ends in a click on the row underneath; don't open Track Details for it
+  list.addEventListener('click', (e) => {
+    if (!swallowClick) return;
+    e.stopPropagation();
+    e.preventDefault();
+  }, true);
+
+  list.addEventListener('keydown', (e) => {
+    const g = e.target.closest('.trow__grip');
+    if (!g || !['ArrowUp', 'ArrowDown'].includes(e.key)) return;
+    e.preventDefault();
+    const id = Number(g.dataset.grip);
+    const from = state.tracks.findIndex((t) => t.id === id);
+    const to = Math.max(0, Math.min(state.tracks.length - 1, from + (e.key === 'ArrowUp' ? -1 : 1)));
+    moveTrack(from, to, id);
+  });
 }
 // Play the uploaded file itself (it never leaves the browser).
 const player = new Audio();

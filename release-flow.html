@@ -12,6 +12,13 @@
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
       <symbol id="i-file" viewBox="0 0 40 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2h24l10 10v34H3z" stroke-linejoin="round" /><path d="M27 2v10h10" stroke-linejoin="round" /><path d="M16 34V20l10-2v13" stroke-linecap="round" stroke-linejoin="round" /><circle cx="13.5" cy="34" r="2.5" /><circle cx="23.5" cy="31" r="2.5" /></symbol>
       <symbol id="i-play" viewBox="0 0 16 16"><path d="M4.5 2.8v10.4l8.2-5.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" /></symbol>
+      <symbol id="i-sec-general" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M6 12.2V3.4l7-1.6v8.6" /><circle cx="4.3" cy="12.2" r="1.7" /><circle cx="11.3" cy="10.4" r="1.7" /></symbol>
+      <symbol id="i-sec-format" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6" /><circle cx="8" cy="8" r="1.6" /></symbol>
+      <symbol id="i-sec-original" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5" /><path d="M2 6.5h12M5 1.5v3M11 1.5v3M5.8 10.1l1.5 1.4 2.9-3" /></symbol>
+      <symbol id="i-sec-copy" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="8" cy="8" r="6" /><path d="M10 6.3a2.5 2.5 0 1 0 0 3.4" /></symbol>
+      <symbol id="i-sec-genre" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M8 1.8l2.7 4.5H5.3z" /><rect x="2" y="9" width="4.8" height="4.8" rx=".6" /><circle cx="11.6" cy="11.4" r="2.4" /></symbol>
+      <symbol id="i-sec-lang" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5h6.2M5 2v1.5M3.3 3.5c.6 2.3 2.1 3.9 4.2 4.8M6.9 3.5C6.3 6 4.7 7.8 2.4 8.8M8.7 14l2.5-6.2 2.6 6.2M9.6 12h3.3" /></symbol>
+      <symbol id="i-grip" viewBox="0 0 16 16" fill="currentColor"><circle cx="6" cy="3.5" r="1.1" /><circle cx="10" cy="3.5" r="1.1" /><circle cx="6" cy="8" r="1.1" /><circle cx="10" cy="8" r="1.1" /><circle cx="6" cy="12.5" r="1.1" /><circle cx="10" cy="12.5" r="1.1" /></symbol>
       <symbol id="i-folder" viewBox="0 0 16 16"><path d="M1.8 3.5h4.3l1.4 1.6h6.7v7.4H1.8z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" /></symbol>
       <symbol id="i-trash" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.5h6.6L12 4M6.6 6.5v4.5M9.4 6.5v4.5" /></symbol>
       <symbol id="i-cal" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="12" height="11" rx="1.5" /><path d="M2 6.5h12M5 1.5v3M11 1.5v3" stroke-linecap="round" /></symbol>
@@ -66,12 +73,24 @@
         </section>
 
         <!-- 4 · Add Release Details -->
-        <section class="step step--wide" data-step="details" hidden>
+        <section class="step step--wide step--details" data-step="details" hidden>
           <h1 class="step__title">Add Release Details</h1>
           <p class="step__sub">Complete fields and continue</p>
+          <div class="rdx">
+            <nav class="rnav" aria-label="Release details sections">
+              <ul>
+                <li><a href="#rs-general" data-sec="rs-general"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-general" /></svg><span>General information</span></a></li>
+                <li><a href="#rs-format" data-sec="rs-format"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-format" /></svg><span>Format details</span></a></li>
+                <li><a href="#rs-dates" data-sec="rs-dates"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-cal" /></svg><span>Default dates</span></a></li>
+                <li><a href="#rs-original" data-sec="rs-original"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-original" /></svg><span>Original release</span></a></li>
+                <li><a href="#rs-copyrights" data-sec="rs-copyrights"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-copy" /></svg><span>Copyrights</span></a></li>
+                <li><a href="#rs-genre" data-sec="rs-genre"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-genre" /></svg><span>Genre</span></a></li>
+                <li><a href="#rs-language" data-sec="rs-language"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-lang" /></svg><span>Metadata language</span></a></li>
+              </ul>
+            </nav>
           <form id="details" novalidate>
-            <section class="panel fset">
-              <h2 class="fset__title">General information</h2>
+            <section class="panel fset" id="rs-general" aria-labelledby="rs-general-h">
+              <h2 class="fset__title" id="rs-general-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-general" /></svg>General information</h2>
               <div class="fset__aside">
                 <img class="fset__cover" data-cover-thumb alt="Cover art" />
                 <label class="replace replace--small">Replace image<input class="sr" type="file" accept="image/jpeg,image/png" data-input="image" /></label>
@@ -83,8 +102,8 @@
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Format details</h2>
+            <section class="panel fset" id="rs-format" aria-labelledby="rs-format-h">
+              <h2 class="fset__title" id="rs-format-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-format" /></svg>Format details</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-format">Format <i>*</i></label><span class="dd"><select id="r-format" name="format"><option>Album</option><option>EP</option><option>Single</option></select></span></div>
                 <div class="adv" hidden>
@@ -98,8 +117,8 @@
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Default dates</h2>
+            <section class="panel fset" id="rs-dates" aria-labelledby="rs-dates-h">
+              <h2 class="fset__title" id="rs-dates-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-cal" /></svg>Default dates</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-date">Consumer release date <i>*</i></label><input class="inp inp--date" id="r-date" name="date" type="date" required /></div>
                 <div class="adv" hidden>
@@ -110,16 +129,20 @@
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Original release</h2>
+            <section class="panel fset" id="rs-original" aria-labelledby="rs-original-h">
+              <h2 class="fset__title" id="rs-original-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-original" /></svg>Original release</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-orig">Original release date <i>*</i> <span class="tip" title="The date this music was first released anywhere.">ⓘ</span></label><input class="inp inp--date" id="r-orig" name="original" type="date" required /></div>
-                <button class="violet advtoggle" type="button" aria-expanded="false" data-noadv>Advanced fields</button>
+                <div class="adv" hidden>
+                  <div class="f"><label for="r-recyear">Recording Year</label><input class="inp" id="r-recyear" name="recyear" inputmode="numeric" maxlength="4" pattern="\d{4}" autocomplete="off" /></div>
+                  <div class="f"><label for="r-recloc">Recording Location</label><input class="inp" id="r-recloc" name="recloc" autocomplete="off" /></div>
+                </div>
+                <button class="violet advtoggle" type="button" aria-expanded="false">Advanced fields</button>
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Copyrights</h2>
+            <section class="panel fset" id="rs-copyrights" aria-labelledby="rs-copyrights-h">
+              <h2 class="fset__title" id="rs-copyrights-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-copy" /></svg>Copyrights</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-cy">© Copyright year <i>*</i></label><input class="inp" id="r-cy" name="cyear" inputmode="numeric" required /></div>
                 <div class="f"><label for="r-ct">© Copyright text <i>*</i></label><input class="inp" id="r-ct" name="ctext" required /></div>
@@ -128,21 +151,26 @@
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Genre</h2>
+            <section class="panel fset" id="rs-genre" aria-labelledby="rs-genre-h">
+              <h2 class="fset__title" id="rs-genre-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-genre" /></svg>Genre</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-genre">Genre <i>*</i></label><span class="dd"><select id="r-genre" name="genre"><option>R&amp;B</option><option>Pop</option><option>Electronic</option><option>Hip-hop</option><option>Alternative</option><option>Rock</option></select></span></div>
-                <button class="violet advtoggle" type="button" aria-expanded="false" data-noadv>Advanced fields</button>
+                <div class="adv" hidden>
+                  <div class="f"><label for="r-subgenre">Subgenre</label><span class="dd"><select id="r-subgenre" name="subgenre"><option value="">Select</option></select></span></div>
+                  <div class="f"><label for="r-altgenre">Alternate Genre</label><span class="dd"><select id="r-altgenre" name="altgenre"><option value="">Select</option></select></span></div>
+                </div>
+                <button class="violet advtoggle" type="button" aria-expanded="false">Advanced fields</button>
               </div>
             </section>
 
-            <section class="panel fset">
-              <h2 class="fset__title">Metadata language</h2>
+            <section class="panel fset" id="rs-language" aria-labelledby="rs-language-h">
+              <h2 class="fset__title" id="rs-language-h"><svg class="fset__ico" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-sec-lang" /></svg>Metadata language</h2>
               <div class="fset__fields">
                 <div class="f"><label for="r-lang">Default language</label><span class="dd"><select id="r-lang" name="language"><option>English</option><option>Korean</option><option>Japanese</option><option>Spanish</option><option>French</option></select></span></div>
               </div>
             </section>
           </form>
+          </div>
           <div class="step__actions">
             <button class="ghost" type="button" data-go="cover">Back</button>
             <button class="solid" type="button" data-go="tracks" data-need="details" disabled>Next</button>
@@ -155,6 +183,8 @@
           <p class="step__sub">Complete fields for each track</p>
           <p class="tracks__hint">Select a track</p>
           <ol class="tlist" id="track-list"></ol>
+          <p class="sr" id="reorder-hint">Drag to change the track order, or use the up and down arrow keys.</p>
+          <p class="sr" id="reorder-live" aria-live="polite"></p>
           <label class="drop drop--line" data-drop="audio">
             <span>To add tracks, drag and drop or <u class="browse">browse your files</u></span>
             <input class="sr" type="file" accept="audio/*,.wav,.m4a,.mp3,.flac,.aiff" multiple data-input="audio" />
