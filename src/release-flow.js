@@ -284,7 +284,12 @@ $$('.switch').forEach((sw) => sw.addEventListener('click', () => sw.setAttribute
   mark(0);
 
   // a green check on each shortcut whose section has all its required fields filled
-  const reqs = secs.map((s) => $$('[required]', s));
+  // sections without required fields (Metadata language) count their main fields instead,
+  // so a preset default like English still earns the check
+  const reqs = secs.map((s) => {
+    const r = $$('[required]', s);
+    return r.length ? r : $$('.fset__fields > .f :is(select, input:not([readonly]))', s);
+  });
   links.forEach((a, i) => {
     if (!reqs[i].length) return;
     a.insertAdjacentHTML('beforeend', '<svg class="rnav__ok" viewBox="0 0 16 16" aria-hidden="true"><use href="#i-check" /></svg><span class="sr" data-ok-sr></span>');
